@@ -11,7 +11,7 @@ const converters = {
 
 
 export const data = new SlashCommandBuilder()
-  .setName('uni_moji')
+  .setName('uni-string')
   .setDescription('文字列を指定形式に変換します')
   .addStringOption(option =>
     option.setName('mode')
@@ -38,5 +38,5 @@ export async function execute(interaction) {
   }
 
   const result = converter(input);
-  await interaction.reply(`🔁 *${mode}* 変換結果：\n\`${result}\``);
+  await interaction.reply(`${result}`);
 }
