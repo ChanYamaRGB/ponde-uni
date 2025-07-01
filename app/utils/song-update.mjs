@@ -1,4 +1,4 @@
-import { readLastUpdateDate, writeLastUpdateDate } from './utils/song-log.mjs';
+import { readLastUpdateDate, writeLastUpdateDate } from './song-log.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import channelNamePools from './DB/songs.mjs';
