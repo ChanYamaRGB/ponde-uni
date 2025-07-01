@@ -28,12 +28,20 @@ async function readLastUpdateDate() {
 async function writeLastUpdateDate(dateStr) {
   try {
     const data = { lastUpdatedDate: dateStr };
+
+    // ディレクトリ作成（安全）
     await fs.mkdir(path.dirname(logFilePath), { recursive: true });
+
+    // 書き込み
     await fs.writeFile(logFilePath, JSON.stringify(data), 'utf-8');
+    console.log(`✅ ログファイルに更新日付を書き込みました: ${dateStr}`);
+    console.log("🔍 ログファイル保存先:", logFilePath);
+
+    // 読み込み確認
     const confirm = JSON.parse(await fs.readFile(logFilePath, 'utf-8'));
-    console.log("✅ ログファイルに更新日付を書き込みました:", confirm);
+    console.log("✅ 内容確認: ", confirm);
   } catch (e) {
-    console.error("❌ ログファイル書き込みエラー:", e);
+    console.error("❌ 書き込みエラー:", e);
   }
 }
  
