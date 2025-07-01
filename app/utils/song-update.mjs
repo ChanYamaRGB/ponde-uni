@@ -11,21 +11,21 @@ let hasScheduled = false;
 
 const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
 
-async function readLastUpdateDate() {
-  try {
-    await fs.access(logFilePath);
-    const data = await fs.readFile(logFilePath, 'utf-8');
-    const { lastUpdatedDate } = JSON.parse(data);
-    return lastUpdatedDate;
-  } catch {
-    return null;
-  }
-}
+// async function readLastUpdateDate() {
+//   try {
+//     await fs.access(logFilePath);
+//     const data = await fs.readFile(logFilePath, 'utf-8');
+//     const { lastUpdatedDate } = JSON.parse(data);
+//     return lastUpdatedDate;
+//   } catch {
+//     return null;
+//   }
+// }
 
-async function writeLastUpdateDate(dateStr) {
-  await fs.mkdir(path.dirname(logFilePath), { recursive: true });
-  await fs.writeFile(logFilePath, JSON.stringify({ lastUpdatedDate: dateStr }), 'utf-8');
-}
+// async function writeLastUpdateDate(dateStr) {
+//   await fs.mkdir(path.dirname(logFilePath), { recursive: true });
+//   await fs.writeFile(logFilePath, JSON.stringify({ lastUpdatedDate: dateStr }), 'utf-8');
+// }
 
 function shuffle(array) {
   return array
