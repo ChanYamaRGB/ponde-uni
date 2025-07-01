@@ -2,9 +2,13 @@ import { SlashCommandBuilder } from 'discord.js';
 import cursiveMap from './DB/cursive-map.mjs';
 
 // 変換処理一覧
+const cursiveConvert = (str) =>
+  str.split('').map(ch => cursiveMap[ch] ?? ch).join('');
+
 const converters = {
   cursive: cursiveConvert
 };
+
 
 export const data = new SlashCommandBuilder()
   .setName('uni_moji')
