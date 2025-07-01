@@ -10,6 +10,7 @@
     "discord.js": "^14.14.1",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
+    "sqlite": "^4.0.23",
     "sqlite3": "^5.1.7",
     "express": "^4.19.2",
     "rss-parser": "^3.13.0",
