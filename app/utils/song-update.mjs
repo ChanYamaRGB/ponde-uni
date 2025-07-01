@@ -1,45 +1,44 @@
-// utils/song-update.mjs
-
 import channelNamePools from './DB/songs.mjs';
 
 let hasScheduled = false;
 
-const targetChannelId = "1380956236454953063";        // ✅ 対象のボイスチャンネル
-const logChannelId    = "1389492960424624129";         // ✅ トピックを使う保存用のテキストチャンネル
+const targetChannelId = "1380956236454953063";      // ボイスチャンネルID
+const logChannelId = "1389492960424624129";         // ログ保存用のテキストチャンネル
 
 const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
 
-// 保存チャンネルのトピックから最終更新日を取得
-async function getLastUpdatedFromLogChannel(client) {
+// トピックから最終更新日と曲名を取得
+async function getLogInfoFromTopic(client) {
   try {
-    const logChannel = await client.channels.fetch(logChannelId);
-    if (!logChannel || logChannel.type !== 0) { // 0 = GUILD_TEXT
-      console.error('❌ ログ保存用のチャンネルが見つからないか、テキストチャンネルではありません');
-      return null;
-    }
+    const channel = await client.channels.fetch(logChannelId);
+    if (!channel || channel.type !== 0) return null;
 
-    const topic = logChannel.topic || "";
-    const match = topic.match(/lastUpdated:\s*(\d{4}-\d{2}-\d{2})/);
-    return match ? match[1] : null;
+    const topic = channel.topic || "";
+    const match = topic.match(/lastUpdated:\s*(\d{4}-\d{2}-\d{2})\s*\|\s*song:\s*(.+)/);
+    if (match) {
+      return {
+        lastUpdatedDate: match[1],
+        lastSongName: match[2]
+      };
+    }
+    return null;
   } catch (err) {
-    console.error("❌ トピックから最終更新日を取得できませんでした:", err);
+    console.error("❌ ログチャンネルのトピック読み取り失敗:", err);
     return null;
   }
 }
 
-// ログチャンネルのトピックに最終更新日を保存
-async function setLastUpdatedInLogChannel(client, dateStr) {
+// 日付と曲名をトピックに保存
+async function setLogInfoInTopic(client, dateStr, songName) {
   try {
-    const logChannel = await client.channels.fetch(logChannelId);
-    if (!logChannel || logChannel.type !== 0) {
-      console.error('❌ ログ保存用のチャンネルが見つからないか、テキストチャンネルではありません');
-      return;
-    }
+    const channel = await client.channels.fetch(logChannelId);
+    if (!channel || channel.type !== 0) return;
 
-    await logChannel.setTopic(`lastUpdated: ${dateStr}`);
-    console.log("✅ トピックに更新日を保存しました:", dateStr);
+    const topic = `lastUpdated: ${dateStr} | song: ${songName}`;
+    await channel.setTopic(topic);
+    console.log(`✅ トピックに保存しました: ${topic}`);
   } catch (err) {
-    console.error("❌ トピックの更新に失敗しました:", err);
+    console.error("❌ トピックの更新失敗:", err);
   }
 }
 
@@ -52,33 +51,41 @@ export default function song_update(client, isManual = false) {
     const todayStr = today.toLocaleDateString("ja-JP");
     const weekday = today.getDay();
 
-    const lastUpdated = await getLastUpdatedFromLogChannel(client);
-    if (lastUpdated === todayStr) {
-      const tag = isManual ? "手動" : "自動";
-      console.log(`⏭️ ${tag}更新スキップ：すでに ${todayStr} に更新済みです`);
+    const logInfo = await getLogInfoFromTopic(client);
+    if (logInfo?.lastUpdatedDate === todayStr) {
+      console.log(`⏭️ スキップ（${isManual ? "手動" : "自動"}）：${todayStr} は既に更新済み`);
+      // 曲名だけ再セット（万一チャンネル名が他で変えられていても戻す）
+      try {
+        const channel = await client.channels.fetch(targetChannelId);
+        if (channel?.type === 2) {
+          await channel.setName(logInfo.lastSongName);
+          console.log(`🎵 チャンネル名を既存の「${logInfo.lastSongName}」に再設定しました`);
+        }
+      } catch (e) {
+        console.error("💥 チャンネル再設定中にエラー:", e);
+      }
       return;
     }
 
+    const pool = channelNamePools[weekday];
+    if (!Array.isArray(pool) || pool.length === 0) {
+      console.warn(`⚠️ ${weekdays[weekday]}曜の曲リストが見つかりません`);
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    const newName = pool[randomIndex];
+
     try {
-      const pool = channelNamePools[weekday];
-      if (!Array.isArray(pool) || pool.length === 0) {
-        console.warn(`⚠️ ${weekdays[weekday]}曜の曲候補が songs.mjs に見つかりません`);
-        return;
-      }
-
-      const index = Math.floor(Math.random() * pool.length);
-      const newName = pool[index];
-
       const channel = await client.channels.fetch(targetChannelId);
       if (!channel || channel.type !== 2) {
-        console.error('❌ 対象チャンネルが見つからないか、ボイスチャンネルではありません');
+        console.error("❌ ボイスチャンネルが見つからないかタイプ不一致");
         return;
       }
 
       await channel.setName(newName);
-      await setLastUpdatedInLogChannel(client, todayStr);
-
-      console.log(`🎶（${weekdays[weekday]}曜）チャンネル名を「${newName}」に変更しました`);
+      await setLogInfoInTopic(client, todayStr, newName);
+      console.log(`🎶 チャンネル名を「${newName}」（${weekdays[weekday]}曜）に変更しました`);
     } catch (err) {
       console.error("💥 チャンネル名の変更中にエラー:", err);
     }
@@ -86,18 +93,17 @@ export default function song_update(client, isManual = false) {
 
   const scheduleDailyRename = () => {
     const now = new Date();
-    const nextTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 0, 0);
-    if (nextTime < now) nextTime.setDate(nextTime.getDate() + 1);
+    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 0, 0);
+    if (next < now) next.setDate(next.getDate() + 1);
+    const delay = next - now;
 
-    const delay = nextTime - now;
-    console.log(`⏰ 次のオススメ曲の更新は: ${nextTime.toLocaleString()} に予定されています`);
-
+    console.log(`⏰ 次の更新予定: ${next.toLocaleString()}`);
     setTimeout(() => {
       renameChannel();
-      scheduleDailyRename(); // 再スケジュール
+      scheduleDailyRename();
     }, delay);
   };
 
-  renameChannel();          // 初回実行
-  scheduleDailyRename();    // 定期スケジュール
+  renameChannel();
+  scheduleDailyRename();
 }
