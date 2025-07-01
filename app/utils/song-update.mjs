@@ -10,29 +10,28 @@ const logFilePath = path.join(__dirname, './DB/song-update-log.json');
 
 const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
 
-async function readLastUpdateDate() { 
-  try { 
-    const data = await fs.readFile(logFilePath, 'utf-8'); 
-    const { lastUpdatedDate } = JSON.parse(data); 
-    return lastUpdatedDate; 
-  } catch (e) { 
-    console.log("ログファイル読み込み失敗または未作成:", e.message);
-    return null; 
-  } 
-} 
+async function readLastUpdateDate() {
+  try {
+    // 🔧 ディレクトリがなければ作成（存在しても OK）
+    await fs.mkdir(path.dirname(logFilePath), { recursive: true });
+
+    const data = await fs.readFile(logFilePath, 'utf-8');
+    const { lastUpdatedDate } = JSON.parse(data);
+    console.log(`📘 ログファイルを読み込みました: ${lastUpdatedDate}`);
+    return lastUpdatedDate;
+  } catch (err) {
+    console.warn("📕 ログファイル読み込み失敗または未作成:", err.message);
+    return null;
+  }
+}
  
 async function writeLastUpdateDate(dateStr) {
   try {
     const data = { lastUpdatedDate: dateStr };
-
-    // 書き込み先のディレクトリが存在しない場合は作成
     await fs.mkdir(path.dirname(logFilePath), { recursive: true });
-
     await fs.writeFile(logFilePath, JSON.stringify(data), 'utf-8');
-
-    // 書き込み確認
     const confirm = JSON.parse(await fs.readFile(logFilePath, 'utf-8'));
-    console.log("✅ 確認：ログファイル内容 =", confirm);
+    console.log("✅ ログファイルに更新日付を書き込みました:", confirm);
   } catch (e) {
     console.error("❌ ログファイル書き込みエラー:", e);
   }
