@@ -38,7 +38,6 @@ export default function song_update(client, isManual = false) {
   if (!isManual) hasScheduled = true; 
  
   const renameChannel = async () => { 
-    // ISO形式で日付取得（yyyy-mm-dd）
     const todayStr = new Date().toISOString().slice(0,10); 
     const lastUpdated = await readLastUpdateDate(); 
  
