@@ -21,15 +21,19 @@ async function readLastUpdateDate() {
   } 
 } 
  
-async function writeLastUpdateDate(dateStr) { 
+async function writeLastUpdateDate(dateStr) {
   try {
-    const data = { lastUpdatedDate: dateStr }; 
-    await fs.writeFile(logFilePath, JSON.stringify(data), 'utf-8'); 
-    console.log(`ログファイルに更新日付を書き込みました: ${dateStr}`);
+    const data = { lastUpdatedDate: dateStr };
+    await fs.writeFile(logFilePath, JSON.stringify(data), 'utf-8');
+
+    // 🔍 書き込み確認のために読み直す
+    const confirm = JSON.parse(await fs.readFile(logFilePath, 'utf-8'));
+    console.log("✅ 確認：ログファイル内容 =", confirm);
   } catch(e) {
-    console.error("ログファイル書き込みエラー:", e);
+    console.error("❌ ログファイル書き込みエラー:", e);
   }
-} 
+}
+
  
 export default function song_update(client, isManual = false) { 
   const targetChannelId = "1380956236454953063"; 
