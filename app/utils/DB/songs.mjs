@@ -932,7 +932,7 @@ export default {
   "☄️ デスパレイト",
   "☄️ Swift Swing",
   "☄️ Galaxy Blaster",
-  "☄️ BOUNCE & DANCE"
+  "☄️ BOUNCE & DANCE",
   "☄️ 言ノ葉カルマ",
   "☄️ 言ノ葉遊戯",
   "☄️ 洗脳",
