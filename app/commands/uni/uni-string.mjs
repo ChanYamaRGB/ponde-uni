@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import cursiveMap from './DB/cursive-map.mjs';
+import cursiveMap from './DB/cursive.mjs';
 
 // 変換処理一覧
 const cursiveConvert = (str) =>
