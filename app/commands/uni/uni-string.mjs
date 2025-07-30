@@ -3,7 +3,7 @@ import blackboardMap from './DB/blackboard.mjs';
 import boldMap from './DB/bold.mjs';
 import cursiveMap from './DB/cursive.mjs';
 import frakturMap from './DB/fraktur.mjs';
-import mincho from './DB/mincho.mjs';
+import minchoMap from './DB/mincho.mjs';
 import typewriterMap from './DB/typewriter.mjs';
 
 // 変換処理一覧
