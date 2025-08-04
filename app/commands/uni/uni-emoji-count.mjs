@@ -8,12 +8,12 @@ export const data = new SlashCommandBuilder()
       .setDescription('対象年')
       .setRequired(true)
       .addChoices(
-        { name: '2025年', value: '2025' },
-        { name: '2026年', value: '2026' },
-        { name: '2027年', value: '2027' },
-        { name: '2028年', value: '2028' },
-        { name: '2029年', value: '2029' },
-        { name: '2030年', value: '2030' }
+        { name: '2025年', value: 2025 },
+        { name: '2026年', value: 2026 },
+        { name: '2027年', value: 2027 },
+        { name: '2028年', value: 2028 },
+        { name: '2029年', value: 2029 },
+        { name: '2030年', value: 2030 }
       )
   )
   .addIntegerOption(option =>
@@ -21,18 +21,18 @@ export const data = new SlashCommandBuilder()
       .setDescription('対象月')
       .setRequired(true)
       .addChoices(
-        { name: '1月', value: '1' },
-        { name: '2月', value: '2' },
-        { name: '3月', value: '3' },
-        { name: '4月', value: '4' },
-        { name: '5月', value: '5' },
-        { name: '6月', value: '6' },
-        { name: '7月', value: '7' },
-        { name: '8月', value: '8' },
-        { name: '9月', value: '9' },
-        { name: '10月', value: '10' },
-        { name: '11月', value: '11' },
-        { name: '12月', value: '12' }
+        { name: '1月', value: 1 },
+        { name: '2月', value: 2 },
+        { name: '3月', value: 3 },
+        { name: '4月', value: 4 },
+        { name: '5月', value: 5 },
+        { name: '6月', value: 6 },
+        { name: '7月', value: 7 },
+        { name: '8月', value: 8 },
+        { name: '9月', value: 9 },
+        { name: '10月', value: 10 },
+        { name: '11月', value: 11 },
+        { name: '12月', value: 12 }
       )
   );
 
