@@ -38,12 +38,12 @@ export const data = new SlashCommandBuilder()
       .setDescription('変換モードを選択')
       .setRequired(true)
       .addChoices(
-        { name: '黒板太字', value: 'blackboard' },
-        { name: '太字', value: 'bold' },
-        { name: '筆記体', value: 'cursive' },
-        { name: 'ドイツ文字', value: 'fraktur' },
-        { name: '明朝体', value: 'mincho' },
-        { name: 'タイプライタ体', value: 'typewriter' }
+        { name: '黒板太字 𝕊𝕒𝕞𝕡𝕝𝕖 𝕋𝕖𝕩𝕥', value: 'blackboard' },
+        { name: '太字 𝗦𝗮𝗺𝗽𝗹𝗲 𝗧𝗲𝘅𝘁', value: 'bold' },
+        { name: '筆記体 𝓢𝓪𝓶𝓹𝓵𝓮 𝓣𝓮𝔁𝓽', value: 'cursive' },
+        { name: 'ドイツ文字 𝕾𝖆𝖒𝖕𝖑𝖊 𝕿𝖊𝖝𝖙', value: 'fraktur' },
+        { name: '明朝体 𝐒𝐚𝐦𝐩𝐥𝐞 𝐓𝐞𝐱𝐭', value: 'mincho' },
+        { name: 'タイプライタ体 𝚂𝚊𝚖𝚙𝚕𝚎 𝚃𝚎𝚡𝚝', value: 'typewriter' }
       )
   )
   .addStringOption(option =>
