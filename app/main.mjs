@@ -83,19 +83,9 @@ client.on("ready", async () => {
 
   await client.user.setActivity('チュウニズム');
 
+  boostDates(client);
   schedule_update(client);
   song_update(client, true);
-});
-
-client.once("ready", () => {
-  console.log(`Logged in as ${client.user.tag}`);
-
-  // 毎日7時にチェック（日本時間）
-  cron.schedule("0 7 * * *", () => {
-    boostDates(client);
-  }, {
-    timezone: "Asia/Tokyo"
-  });
 });
 
 CommandsRegister();
