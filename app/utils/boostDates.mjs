@@ -12,7 +12,7 @@ export default async function(client) {
     try {
       const channel = await client.channels.fetch(targetChannelId);
       if (channel) {
-        await channel.send(`test`);
+        await channel.send(`**ブースト日です**`);
         console.log(`ブースト日をアナウンスしました: ${today}`);
       }
     } catch (err) {
