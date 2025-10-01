@@ -1,4 +1,4 @@
-import { boostDates } from "./dates.mjs";
+import { boostDates } from "./DB/dates.mjs";
 
 const targetChannelId = "1155482638493171782"; // 投稿するチャンネルID
 
@@ -16,7 +16,7 @@ export default async function(client) {
         console.log(`ブースト日をアナウンスしました: ${today}`);
       }
     } catch (err) {
-      console.error("メッセージ送信失敗:", err);
+      console.error("アナウンス失敗:", err);
     }
   }
 }
