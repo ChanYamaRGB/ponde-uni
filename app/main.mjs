@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
 import express from "express";
+import cron from "node-cron";
 import { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder } from "discord.js";
 import CommandsRegister from "./regist-commands.mjs";
 import schedule_update from './utils/schedule-update.mjs';
 import song_update from './utils/song-update.mjs'
+import boostDates from './utils/boostDates.mjs'
 
 import Sequelize from "sequelize";
 import Parser from 'rss-parser';
@@ -22,7 +24,7 @@ app.post('/', function(req, res) {
     postCount = 0;
   }
   
-  res.send('POST response by glitch');
+  res.send('POST response by GitHub');
 })
 app.get('/', function(req, res) {
   res.send('<a href="https://note.com/exteoi/n/n0ea64e258797</a> に解説があります。');
@@ -75,20 +77,6 @@ client.on("messageCreate", async (message) => {
   await handlers.get("messageCreate").default(message);
 });
 
-// client.on("messageUpdate", async (oldMessage, newMessage) => {
-//   try {
-//     const handler = handlers.get("messageUpdate");
-//     if (!handler) {
-//       console.warn("messageUpdate handler not found.");
-//       return;
-//     }
-//     await handler.default(oldMessage, newMessage);
-//   } catch (err) {
-//     console.error("messageUpdate イベント処理中にエラー:", err);
-//   }
-// });
-
-
 client.on("ready", async () => {
   console.log(`${client.user.tag} がログインしました！`);
   console.log(`BotがいるGuild一覧:`);
@@ -100,6 +88,16 @@ client.on("ready", async () => {
   song_update(client, true);
 });
 
+client.once("ready", () => {
+  console.log(`Logged in as ${client.user.tag}`);
+
+  // 毎日7時にチェック（日本時間）
+  cron.schedule("0 7 * * *", () => {
+    boostDates(client);
+  }, {
+    timezone: "Asia/Tokyo"
+  });
+});
 
 CommandsRegister();
 client.login(process.env.TOKEN);
