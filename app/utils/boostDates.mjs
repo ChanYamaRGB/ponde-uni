@@ -1,22 +1,62 @@
-import { boostDates } from "./DB/dates.mjs";
+export default function schedule_post(client) {
+  const postMessage = async () => {
+    const now = new Date();
+    const today = now.getDate(); // 今日の日にち（1〜31）
 
-const targetChannelId = "1155482638493171782"; // 投稿するチャンネルID
+    // 投稿する日付リスト（ここを変更すれば簡単に日付を増減できる）
+    const targetDates = [4, 11, 18, 25];
 
-export default async function(client) {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  const today = `${month}-${day}`;
+    // 投稿内容（複数行OK）
+    const messageContent = [
+      "**ブースト日です**"
+    ].join("\n");
 
-  if (boostDates.includes(today)) {
-    try {
-      const channel = await client.channels.fetch(targetChannelId);
-      if (channel) {
-        await channel.send(`**ブースト日です**`);
-        console.log(`ブースト日をアナウンスしました: ${today}`);
+    // 投稿先のチャンネルID
+    const targetChannelId = "1155482638493171782"; // ←テキストチャンネルのIDに置き換えてください
+
+    if (targetDates.includes(today)) {
+      try {
+        console.log(`チャンネルID ${targetChannelId} にメッセージを送信中...`);
+        const channel = await client.channels.fetch(targetChannelId);
+
+        if (!channel || !channel.isTextBased()) {
+          console.error("指定したチャンネルが見つからないか、テキストチャンネルではありません。");
+          return;
+        }
+
+        await channel.send(messageContent);
+        console.log(`メッセージを送信しました: ${messageContent}`);
+      } catch (error) {
+        console.error("メッセージ送信に失敗しました:", error);
       }
-    } catch (err) {
-      console.error("アナウンス失敗:", err);
+    } else {
+      console.log(`今日は対象日(${targetDates.join(", ")})ではないので投稿しません。`);
     }
-  }
+  };
+
+  const scheduleUpdate = () => {
+    const now = new Date();
+    const updateTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      7, 0, 0 // 朝7時
+    );
+
+    if (updateTime < now) {
+      updateTime.setDate(updateTime.getDate() + 1);
+    }
+
+    const delay = updateTime - now;
+    console.log(`次の投稿チェックは: ${updateTime.toLocaleString()} に予定されています`);
+
+    setTimeout(() => {
+      postMessage();
+      scheduleUpdate();
+    }, delay);
+  };
+
+  // 初回実行
+  postMessage();
+  scheduleUpdate();
 }
