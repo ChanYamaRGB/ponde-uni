@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import express from "express";
-import cron from "node-cron";
 import { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder } from "discord.js";
 import CommandsRegister from "./regist-commands.mjs";
 import schedule_update from './utils/schedule-update.mjs';
