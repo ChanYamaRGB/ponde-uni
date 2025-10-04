@@ -29,7 +29,6 @@ export default function schedule_post(client) {
         files: ["https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"] // ← 画像URL
         });
 
-        await channel.send(messageContent);
         console.log(`メッセージを送信しました: ${messageContent}`);
       } catch (error) {
         console.error("メッセージ送信に失敗しました:", error);
@@ -45,7 +44,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      10, 0, 0 // 朝7時
+      7, 0, 0 // 朝7時
     );
 
     if (updateTime < now) {
