@@ -8,8 +8,13 @@ export default function schedule_post(client) {
 
     // 投稿内容（複数行OK）
     const messageContent = [
-      "**ブースト日です**"
+      "# ブースト日です‼️"
     ].join("\n");
+
+    await channel.send({
+  content: messageContent,
+  files: ["https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"] // ← 画像URL
+});
 
     // 投稿先のチャンネルID
     const targetChannelId = "1155482638493171782"; // ←テキストチャンネルのIDに置き換えてください
@@ -40,7 +45,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      7, 0, 0 // 朝7時
+      10, 0, 0 // 朝7時
     );
 
     if (updateTime < now) {
