@@ -6,16 +6,6 @@ export default function schedule_post(client) {
     // 投稿する日付リスト（ここを変更すれば簡単に日付を増減できる）
     const targetDates = [4, 11, 18, 25];
 
-    // 投稿内容（複数行OK）
-    const messageContent = [
-      "# ブースト日です‼️"
-    ].join("\n");
-
-    await channel.send({
-  content: messageContent,
-  files: ["https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"] // ← 画像URL
-});
-
     // 投稿先のチャンネルID
     const targetChannelId = "1155482638493171782"; // ←テキストチャンネルのIDに置き換えてください
 
@@ -28,6 +18,16 @@ export default function schedule_post(client) {
           console.error("指定したチャンネルが見つからないか、テキストチャンネルではありません。");
           return;
         }
+
+        // 投稿内容（複数行OK）
+        const messageContent = [
+          "# ブースト日です‼️"
+        ].join("\n");
+
+        await channel.send({
+        content: messageContent,
+        files: ["https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"] // ← 画像URL
+        });
 
         await channel.send(messageContent);
         console.log(`メッセージを送信しました: ${messageContent}`);
