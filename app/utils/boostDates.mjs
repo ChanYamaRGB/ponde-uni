@@ -62,6 +62,5 @@ export default function schedule_post(client) {
   };
 
   // 初回実行
-  postMessage();
   scheduleUpdate();
 }
