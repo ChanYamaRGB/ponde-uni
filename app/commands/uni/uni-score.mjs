@@ -2,7 +2,7 @@ import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 
-const dataFile = path.resolve('app/commands/uni/data/points.json');
+const dataFile = path.resolve('./data/points.json');
 
 // JSONファイル読み込み
 function loadPoints() {
