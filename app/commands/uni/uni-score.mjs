@@ -18,7 +18,7 @@ function savePoints(points) {
 }
 
 export const data = new SlashCommandBuilder()
-  .setName('uni_score')
+  .setName('uni-score')
   .setDescription('ユーザーのポイント管理')
   // --- add ---
   .addSubcommand(sub =>
