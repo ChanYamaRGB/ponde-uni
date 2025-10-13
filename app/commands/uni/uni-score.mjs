@@ -1,63 +1,84 @@
-import { SlashCommandBuilder } from "discord.js";
-import fs from "fs";
-import path from "path";
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import fs from 'fs';
+import path from 'path';
 
-const POINTS_FILE = path.join(process.cwd(), "data", "points.json");
+const dataFile = path.resolve('./data/points.json');
 
-// ポイントデータの読み込み・初期化
+// JSONファイルの読み込み関数
 function loadPoints() {
-  if (!fs.existsSync(POINTS_FILE)) {
-    fs.mkdirSync(path.dirname(POINTS_FILE), { recursive: true });
-    fs.writeFileSync(POINTS_FILE, JSON.stringify({}, null, 2));
+  if (!fs.existsSync(dataFile)) {
+    fs.writeFileSync(dataFile, '{}');
   }
-  return JSON.parse(fs.readFileSync(POINTS_FILE, "utf8"));
+  return JSON.parse(fs.readFileSync(dataFile, 'utf8'));
 }
 
-// ポイントデータの保存
-function savePoints(data) {
-  fs.writeFileSync(POINTS_FILE, JSON.stringify(data, null, 2));
+// JSONファイルの保存関数
+function savePoints(points) {
+  fs.writeFileSync(dataFile, JSON.stringify(points, null, 2));
 }
 
 export const data = new SlashCommandBuilder()
-  .setName("uni-score")
-  .setDescription("ユーザーにポイントを付与します")
-  .addSubcommand(subcommand =>
-    subcommand
-      .setName("add")
-      .setDescription("指定したユーザーにポイントを付与します")
-      .addIntegerOption(option =>
-        option
-          .setName("value")
-          .setDescription("付与するポイント数")
+  .setName('uni_score')
+  .setDescription('ユーザーにポイントを付与または確認します')
+  .addSubcommand(sub =>
+    sub
+      .setName('add')
+      .setDescription('指定したユーザーにポイントを付与します')
+      .addIntegerOption(opt =>
+        opt
+          .setName('value')
+          .setDescription('付与するポイント数')
           .setRequired(true)
       )
-      .addUserOption(option =>
-        option
-          .setName("username")
-          .setDescription("ポイントを付与するユーザー")
+      .addUserOption(opt =>
+        opt
+          .setName('username')
+          .setDescription('ポイントを付与するユーザー')
           .setRequired(true)
       )
-  );
+  )
+  .addSubcommand(sub =>
+    sub
+      .setName('check')
+      .setDescription('ユーザーの現在のポイントを確認します')
+      .addUserOption(opt =>
+        opt
+          .setName('username')
+          .setDescription('確認するユーザー')
+          .setRequired(true)
+      )
+  )
+  // 管理者専用にしたい場合はこの行を追加
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export async function execute(interaction) {
-  if (!interaction.isChatInputCommand()) return;
-  if (interaction.options.getSubcommand() !== "add") return;
-
-  const value = interaction.options.getInteger("value");
-  const user = interaction.options.getUser("username");
-
+  const subcommand = interaction.options.getSubcommand();
   const points = loadPoints();
 
-  // まだポイントがないユーザーなら初期化
-  if (!points[user.id]) {
-    points[user.id] = 0;
+  if (subcommand === 'add') {
+    const value = interaction.options.getInteger('value');
+    const user = interaction.options.getUser('username');
+    const userId = user.id;
+
+    if (!points[userId]) points[userId] = 0;
+    points[userId] += value;
+
+    savePoints(points);
+
+    await interaction.reply({
+      content: `✅ ${user.username} に ${value} ポイントを付与しました！（合計: ${points[userId]} pt）`,
+      ephemeral: true,
+    });
+
+  } else if (subcommand === 'check') {
+    const user = interaction.options.getUser('username');
+    const userId = user.id;
+
+    const userPoints = points[userId] || 0;
+
+    await interaction.reply({
+      content: `⭐ ${user.username} の現在のポイント: ${userPoints} pt`,
+      ephemeral: true,
+    });
   }
-
-  points[user.id] += value;
-  savePoints(points);
-
-  await interaction.reply({
-    content: `✅ ${user.username} に **${value} ポイント** を付与しました！\n現在の合計ポイント: **${points[user.id]} pt**`,
-    ephemeral: true, // 実行者のみに表示
-  });
 }
