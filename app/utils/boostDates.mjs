@@ -4,7 +4,7 @@ export default function schedule_post(client) {
     const today = now.getDate(); // 今日の日にち（1〜31）
 
     // 投稿する日付リスト（ここを変更すれば簡単に日付を増減できる）
-    const targetDates = [8, 15, 22, 29];
+    const targetDates = [6, 13, 20, 27];
 
     // 投稿先のチャンネルID
     const targetChannelId = "1155482638493171782"; // ←テキストチャンネルのIDに置き換えてください
