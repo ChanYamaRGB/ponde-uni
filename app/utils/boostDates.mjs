@@ -1,40 +1,69 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// メッセージID保存先
+const saveFile = path.join(__dirname, "DB", "boostMessage.json");
+
+function loadData() {
+  if (!fs.existsSync(saveFile)) {
+    fs.writeFileSync(saveFile, "{}", "utf-8");
+  }
+  return JSON.parse(fs.readFileSync(saveFile, "utf-8"));
+}
+
+function saveData(data) {
+  fs.writeFileSync(saveFile, JSON.stringify(data, null, 2));
+}
+
 export default function schedule_post(client) {
-  const postMessage = async () => {
+
+  const targetDates = [6, 13, 20, 27];
+  const targetChannelId = "1155482638493171782";
+
+  const postOrDelete = async () => {
     const now = new Date();
-    const today = now.getDate(); // 今日の日にち（1〜31）
+    const today = now.getDate();
 
-    // 投稿する日付リスト（ここを変更すれば簡単に日付を増減できる）
-    const targetDates = [6, 13, 20, 27];
+    const data = loadData();
 
-    // 投稿先のチャンネルID
-    const targetChannelId = "1155482638493171782"; // ←テキストチャンネルのIDに置き換えてください
+    const channel = await client.channels.fetch(targetChannelId);
+    if (!channel || !channel.isTextBased()) return;
 
+    /* ---------- 対象日：投稿 ---------- */
     if (targetDates.includes(today)) {
+      // すでに投稿済みなら何もしない
+      if (data.messageId) return;
+
+      const msg = await channel.send({
+        content: "# ブースト日です‼️",
+        files: [
+          "https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"
+        ]
+      });
+
+      data.messageId = msg.id;
+      saveData(data);
+
+      console.log("ブースト告知を投稿しました");
+      return;
+    }
+
+    /* ---------- 対象日以外：削除 ---------- */
+    if (data.messageId) {
       try {
-        console.log(`チャンネルID ${targetChannelId} にメッセージを送信中...`);
-        const channel = await client.channels.fetch(targetChannelId);
-
-        if (!channel || !channel.isTextBased()) {
-          console.error("指定したチャンネルが見つからないか、テキストチャンネルではありません。");
-          return;
-        }
-
-        // 投稿内容（複数行OK）
-        const messageContent = [
-          "# ブースト日です‼️"
-        ].join("\n");
-
-        await channel.send({
-        content: messageContent,
-        files: ["https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"] // ← 画像URL
-        });
-
-        console.log(`メッセージを送信しました: ${messageContent}`);
-      } catch (error) {
-        console.error("メッセージ送信に失敗しました:", error);
+        const oldMsg = await channel.messages.fetch(data.messageId);
+        await oldMsg.delete();
+        console.log("期限切れのブースト告知を削除しました");
+      } catch {
+        console.log("メッセージは既に削除されています");
       }
-    } else {
-      console.log(`今日は対象日(${targetDates.join(", ")})ではないので投稿しません。`);
+
+      delete data.messageId;
+      saveData(data);
     }
   };
 
@@ -44,7 +73,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      7, 0, 0 // 朝7時
+      7, 0, 0
     );
 
     if (updateTime < now) {
@@ -52,14 +81,12 @@ export default function schedule_post(client) {
     }
 
     const delay = updateTime - now;
-    console.log(`次の投稿チェックは: ${updateTime.toLocaleString()} に予定されています`);
 
     setTimeout(() => {
-      postMessage();
+      postOrDelete();
       scheduleUpdate();
     }, delay);
   };
 
-  // 初回実行
   scheduleUpdate();
 }
