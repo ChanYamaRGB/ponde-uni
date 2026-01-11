@@ -57,8 +57,7 @@ export default async(message) => {
   }
   
   if (message.content.match(/筋肉/)) {
-    if (message.content.match(/解決/)) {
-      await message.reply(`\`\`\`
+    await message.reply(`\`\`\`
 筋肉はすべてを解決する―――。
    / )))　　　
 \`／ イ　　　((( ヽ
@@ -67,7 +66,6 @@ export default async(message) => {
 　＼ |　⌒Ｙ⌒　 //
 　 ｜ヽ　 ｜　 ﾉ／
 \`\`\``);
-    }
   }
   
   if (message.content.match(/ﾂｸﾃｰﾝ|ツクテーン/)) {
