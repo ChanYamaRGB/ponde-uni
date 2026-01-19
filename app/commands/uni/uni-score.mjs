@@ -5,11 +5,12 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dataPath = path.join(__dirname, "../../data/points.json");
+const dataPath = path.join(__dirname, "commands/uni/data/points.json");
 
 /* ---------- 共通処理 ---------- */
 function loadPoints() {
   if (!fs.existsSync(dataPath)) {
+    fs.mkdirSync(path.dirname(dataPath), { recursive: true });
     fs.writeFileSync(dataPath, "{}", "utf-8");
   }
   return JSON.parse(fs.readFileSync(dataPath, "utf-8"));
@@ -20,10 +21,42 @@ function savePoints(data) {
 }
 
 export const data = new SlashCommandBuilder()
-  .setName("uni-score")
+  .setName("uni_score")
   .setDescription("ポイント管理")
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
+  /* ===== points（既存ポイント） ===== */
+  .addSubcommandGroup(group =>
+    group
+      .setName("points")
+      .setDescription("通常ポイント管理")
+
+      .addSubcommand(cmd =>
+        cmd
+          .setName("add")
+          .setDescription("ポイントを付与")
+          .addUserOption(o =>
+            o.setName("user").setDescription("対象ユーザー").setRequired(true)
+          )
+          .addIntegerOption(o =>
+            o.setName("amount").setDescription("付与数").setRequired(true)
+          )
+      )
+
+      .addSubcommand(cmd =>
+        cmd
+          .setName("remove")
+          .setDescription("ポイントを剥奪")
+          .addUserOption(o =>
+            o.setName("user").setDescription("対象ユーザー").setRequired(true)
+          )
+          .addIntegerOption(o =>
+            o.setName("amount").setDescription("剥奪数").setRequired(true)
+          )
+      )
+  )
+
+  /* ===== usable（新ポイント） ===== */
   .addSubcommandGroup(group =>
     group
       .setName("usable")
@@ -33,11 +66,11 @@ export const data = new SlashCommandBuilder()
         cmd
           .setName("add")
           .setDescription("usableポイントを付与")
-          .addUserOption(opt =>
-            opt.setName("user").setDescription("対象ユーザー").setRequired(true)
+          .addUserOption(o =>
+            o.setName("user").setDescription("対象ユーザー").setRequired(true)
           )
-          .addIntegerOption(opt =>
-            opt.setName("amount").setDescription("付与数").setRequired(true)
+          .addIntegerOption(o =>
+            o.setName("amount").setDescription("付与数").setRequired(true)
           )
       )
 
@@ -45,11 +78,11 @@ export const data = new SlashCommandBuilder()
         cmd
           .setName("remove")
           .setDescription("usableポイントを剥奪")
-          .addUserOption(opt =>
-            opt.setName("user").setDescription("対象ユーザー").setRequired(true)
+          .addUserOption(o =>
+            o.setName("user").setDescription("対象ユーザー").setRequired(true)
           )
-          .addIntegerOption(opt =>
-            opt.setName("amount").setDescription("剥奪数").setRequired(true)
+          .addIntegerOption(o =>
+            o.setName("amount").setDescription("剥奪数").setRequired(true)
           )
       )
   );
@@ -57,9 +90,6 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction) {
   const group = interaction.options.getSubcommandGroup();
   const sub = interaction.options.getSubcommand();
-
-  if (group !== "usable") return;
-
   const user = interaction.options.getUser("user");
   const amount = interaction.options.getInteger("amount");
 
@@ -67,28 +97,30 @@ export async function execute(interaction) {
     return interaction.reply({ content: "数値は1以上にしてください", ephemeral: true });
   }
 
-  const points = loadPoints();
+  const pointsData = loadPoints();
 
-  if (!points[user.id]) {
-    points[user.id] = { points: 0, usable: 0 };
+  if (!pointsData[user.id]) {
+    pointsData[user.id] = { points: 0, usable: 0 };
   }
 
+  const targetKey = group === "points" ? "points" : "usable";
+
   if (sub === "add") {
-    points[user.id].usable += amount;
+    pointsData[user.id][targetKey] += amount;
   }
 
   if (sub === "remove") {
-    points[user.id].usable = Math.max(
+    pointsData[user.id][targetKey] = Math.max(
       0,
-      points[user.id].usable - amount
+      pointsData[user.id][targetKey] - amount
     );
   }
 
-  savePoints(points);
+  savePoints(pointsData);
 
   await interaction.reply({
     content:
       `👤 ${user.username}\n` +
-      `usableポイント: **${points[user.id].usable}**`
+      `${targetKey}：**${pointsData[user.id][targetKey]}**`
   });
 }
