@@ -1,127 +1,176 @@
-import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
+import {
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  EmbedBuilder
+} from "discord.js";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dataPath = path.join(__dirname, "commands/uni/data/points.json");
+/* ===============================
+   JSON ファイル関連
+================================ */
+const dataDir = path.resolve("data");
+const dataPath = path.join(dataDir, "points.json");
 
-/* ---------- 共通処理 ---------- */
-function loadPoints() {
+function ensureFile() {
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
   if (!fs.existsSync(dataPath)) {
-    fs.mkdirSync(path.dirname(dataPath), { recursive: true });
-    fs.writeFileSync(dataPath, "{}", "utf-8");
+    fs.writeFileSync(dataPath, JSON.stringify({}, null, 2));
   }
-  return JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+}
+
+function loadPoints() {
+  ensureFile();
+  return JSON.parse(fs.readFileSync(dataPath, "utf8"));
 }
 
 function savePoints(data) {
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
 }
 
+/* ===============================
+   コマンド定義
+================================ */
 export const data = new SlashCommandBuilder()
-  .setName("uni_score")
-  .setDescription("ポイント管理")
+  .setName("uni-score")
+  .setDescription("ポイント管理コマンド")
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
-  /* ===== points（既存ポイント） ===== */
+  // ===== 獲得ポイント =====
   .addSubcommandGroup(group =>
     group
       .setName("points")
-      .setDescription("通常ポイント管理")
-
-      .addSubcommand(cmd =>
-        cmd
+      .setDescription("獲得ポイント管理")
+      .addSubcommand(sub =>
+        sub
           .setName("add")
           .setDescription("ポイントを付与")
+          .addIntegerOption(o =>
+            o.setName("value").setDescription("付与数").setRequired(true)
+          )
           .addUserOption(o =>
             o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
-          .addIntegerOption(o =>
-            o.setName("amount").setDescription("付与数").setRequired(true)
           )
       )
-
-      .addSubcommand(cmd =>
-        cmd
+      .addSubcommand(sub =>
+        sub
           .setName("remove")
           .setDescription("ポイントを剥奪")
+          .addIntegerOption(o =>
+            o.setName("value").setDescription("剥奪数").setRequired(true)
+          )
           .addUserOption(o =>
             o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
-          .addIntegerOption(o =>
-            o.setName("amount").setDescription("剥奪数").setRequired(true)
           )
       )
   )
 
-  /* ===== usable（新ポイント） ===== */
+  // ===== 使用可能ポイント =====
   .addSubcommandGroup(group =>
     group
       .setName("usable")
-      .setDescription("usableポイント管理")
-
-      .addSubcommand(cmd =>
-        cmd
+      .setDescription("使用可能ポイント管理")
+      .addSubcommand(sub =>
+        sub
           .setName("add")
-          .setDescription("usableポイントを付与")
+          .setDescription("使用可能ポイントを付与")
+          .addIntegerOption(o =>
+            o.setName("value").setDescription("付与数").setRequired(true)
+          )
           .addUserOption(o =>
             o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
-          .addIntegerOption(o =>
-            o.setName("amount").setDescription("付与数").setRequired(true)
           )
       )
-
-      .addSubcommand(cmd =>
-        cmd
+      .addSubcommand(sub =>
+        sub
           .setName("remove")
-          .setDescription("usableポイントを剥奪")
+          .setDescription("使用可能ポイントを剥奪")
+          .addIntegerOption(o =>
+            o.setName("value").setDescription("剥奪数").setRequired(true)
+          )
           .addUserOption(o =>
             o.setName("user").setDescription("対象ユーザー").setRequired(true)
           )
-          .addIntegerOption(o =>
-            o.setName("amount").setDescription("剥奪数").setRequired(true)
-          )
+      )
+  )
+
+  // ===== ランキング =====
+  .addSubcommandGroup(group =>
+    group
+      .setName("ranking")
+      .setDescription("ポイントランキング")
+      .addSubcommand(sub =>
+        sub.setName("all").setDescription("全員分のランキングを表示")
       )
   );
 
+/* ===============================
+   実行処理
+================================ */
 export async function execute(interaction) {
   const group = interaction.options.getSubcommandGroup();
   const sub = interaction.options.getSubcommand();
-  const user = interaction.options.getUser("user");
-  const amount = interaction.options.getInteger("amount");
 
-  if (amount <= 0) {
-    return interaction.reply({ content: "数値は1以上にしてください", ephemeral: true });
-  }
+  const value = interaction.options.getInteger("value");
+  const user = interaction.options.getUser("user");
 
   const pointsData = loadPoints();
 
-  if (!pointsData[user.id]) {
-    pointsData[user.id] = { points: 0, usable: 0 };
-  }
+  const initUser = (id) => {
+    if (!pointsData[id]) {
+      pointsData[id] = { points: 0, usable: 0 };
+    }
+  };
 
-  const targetKey = group === "points" ? "points" : "usable";
+  /* ===== points / usable ===== */
+  if (group === "points" || group === "usable") {
+    initUser(user.id);
+    const key = group === "points" ? "points" : "usable";
 
-  if (sub === "add") {
-    pointsData[user.id][targetKey] += amount;
-  }
+    if (sub === "add") pointsData[user.id][key] += value;
+    if (sub === "remove") {
+      pointsData[user.id][key] = Math.max(
+        0,
+        pointsData[user.id][key] - value
+      );
+    }
 
-  if (sub === "remove") {
-    pointsData[user.id][targetKey] = Math.max(
-      0,
-      pointsData[user.id][targetKey] - amount
+    savePoints(pointsData);
+
+    await interaction.reply(
+      `${user.username} の ${key} を更新しました。\n現在値: ${pointsData[user.id][key]}pt`
     );
+    return;
   }
 
-  savePoints(pointsData);
+  /* ===== ranking（Embed） ===== */
+  if (group === "ranking" && sub === "all") {
+    if (Object.keys(pointsData).length === 0) {
+      await interaction.reply("まだポイントデータがありません。");
+      return;
+    }
 
-  await interaction.reply({
-    content:
-      `👤 ${user.username}\n` +
-      `${targetKey}：**${pointsData[user.id][targetKey]}**`
-  });
+    const ranking = Object.entries(pointsData)
+      .map(([userId, data]) => ({
+        userId,
+        points: data.points ?? 0,
+        usable: data.usable ?? 0
+      }))
+      .sort((a, b) => b.points - a.points);
+
+    const embed = new EmbedBuilder()
+      .setTitle("🏆 ポイントランキング")
+      .setColor(0xffc107)
+      .setTimestamp();
+
+    ranking.forEach((entry, index) => {
+      embed.addFields({
+        name: `${index + 1}位 <@${entry.userId}>`,
+        value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**`,
+        inline: false
+      });
+    });
+
+    await interaction.reply({ embeds: [embed] });
+  }
 }
-
