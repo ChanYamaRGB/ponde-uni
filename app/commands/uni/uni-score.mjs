@@ -144,33 +144,44 @@ export async function execute(interaction) {
   }
 
   /* ===== ranking（Embed） ===== */
-  if (group === "ranking" && sub === "all") {
-    if (Object.keys(pointsData).length === 0) {
-      await interaction.reply("まだポイントデータがありません。");
-      return;
+if (group === "ranking" && sub === "all") {
+  if (Object.keys(pointsData).length === 0) {
+    await interaction.reply("まだポイントデータがありません。");
+    return;
+  }
+
+  const ranking = Object.entries(pointsData)
+    .map(([userId, data]) => ({
+      userId,
+      points: data.points ?? 0,
+      usable: data.usable ?? 0
+    }))
+    .sort((a, b) => b.points - a.points);
+
+  const embed = new EmbedBuilder()
+    .setTitle("🏆 ポイントランキング")
+    .setColor(0xffc107)
+    .setTimestamp();
+
+  for (let i = 0; i < ranking.length; i++) {
+    const entry = ranking[i];
+
+    let username = "不明なユーザー";
+    try {
+      const member = await interaction.guild.members.fetch(entry.userId);
+      username = member.displayName;
+
+    } catch {
+      // サーバーから抜けたユーザーなど
     }
 
-    const ranking = Object.entries(pointsData)
-      .map(([userId, data]) => ({
-        userId,
-        points: data.points ?? 0,
-        usable: data.usable ?? 0
-      }))
-      .sort((a, b) => b.points - a.points);
-
-    const embed = new EmbedBuilder()
-      .setTitle("🏆 ポイントランキング")
-      .setColor(0xffc107)
-      .setTimestamp();
-
-    ranking.forEach((entry, index) => {
-      embed.addFields({
-        name: `${index + 1}位 <@${entry.userId}>`,
-        value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**`,
-        inline: false
-      });
+    embed.addFields({
+      name: `${i + 1}位 ${username}`,
+      value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**`,
+      inline: false
     });
-
-    await interaction.reply({ embeds: [embed] });
   }
+
+  await interaction.reply({ embeds: [embed] });
+}
 }
