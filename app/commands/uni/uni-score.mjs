@@ -20,7 +20,7 @@ function savePoints(data) {
 }
 
 export const data = new SlashCommandBuilder()
-  .setName("uni_score")
+  .setName("uni-score")
   .setDescription("ポイント管理")
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
