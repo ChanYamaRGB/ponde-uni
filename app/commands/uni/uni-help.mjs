@@ -9,7 +9,7 @@ export async function execute(interaction) {
     content: `
 **/uni-emoji-count**
 -# 指定年月のカスタム絵文字使用回数ランキング（昇順と降順）
--# 表示までに１～２分かかります
+-# 表示までに１～２分かかる
 
 **/uni-gacha**
 -# ソート、ジャンル、曲目、難易度から選曲
@@ -18,6 +18,10 @@ export async function execute(interaction) {
 **/uni-intro**
 -# 自己紹介テンプレート
 -# 保存用
+
+**/uni-score**
+-# ユーザーにポイントを追加
+-# 管理者のみ実行可能
 
 **/uni-string**
 -# アルファベットを好きな字体に変更
