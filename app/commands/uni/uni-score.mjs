@@ -25,7 +25,15 @@ function loadPoints() {
 }
 
 function savePoints(data) {
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(pointsPath, JSON.stringify(data, null, 2));
+    console.log("[POINTS] points.json に保存しました");
+    console.log(
+  `[POINTS] ${user.username} に ${amount}pt (${type})`
+);
+  } catch (err) {
+    console.error("[POINTS] 保存失敗:", err);
+  }
 }
 
 /* ===============================
@@ -159,7 +167,7 @@ if (group === "ranking" && sub === "all") {
     .sort((a, b) => b.points - a.points);
 
   const embed = new EmbedBuilder()
-    .setTitle("🏆 ポイントランキング")
+    .setTitle("🏆 貢献度ランキング")
     .setColor(0xffc107)
     .setTimestamp();
 
@@ -177,7 +185,7 @@ if (group === "ranking" && sub === "all") {
 
     embed.addFields({
       name: `${i + 1}位 ${username}`,
-      value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**`,
+      value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**\n---`,
       inline: false
     });
   }
