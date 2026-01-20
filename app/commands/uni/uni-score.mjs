@@ -11,7 +11,7 @@ import path from "path";
 ================================ */
 const dataDir = path.resolve("data");
 const dataPath = path.join(dataDir, "points.json");
-const pointsPath = path.join(process.cwd(), "data", "points.json");
+const pointsPath = path.join(process.cwd(), "commands", "uni", "data", "points.json");
 
 function ensureFile() {
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
