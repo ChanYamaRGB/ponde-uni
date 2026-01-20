@@ -15,6 +15,7 @@ export default async(interaction) => {
   if (interaction.deferred || interaction.replied) {
     await interaction.editReply({
       content: "コマンド実行中にエラーが発生しました。",
+	  embeds: []
     });
   } else {
     await interaction.reply({
