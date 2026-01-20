@@ -139,22 +139,27 @@ export async function execute(interaction) {
 
   // ===== usable =====
   if (sub === "usable") {
-    const type = interaction.options.getString("type");
-    const user = interaction.options.getUser("user");
-    const value = interaction.options.getInteger("value");
+  const type = interaction.options.getString("type");
+  const user = interaction.options.getUser("user");
+  const value = interaction.options.getInteger("value");
 
-    const entry = await getUserData(channel, user.id);
-    if (!entry) {
-      return interaction.reply({ content: "データが存在しません", ephemeral: true });
-    }
-
-    if (type === "add") entry.data.usable += value;
-    if (type === "remove") entry.data.usable = Math.max(0, entry.data.usable - value);
-
-    await entry.message.edit(JSON.stringify(entry.data));
-
-    return interaction.reply(`${user.username} の使用可能ポイントを更新しました`);
+  const entry = await getUserData(channel, user.id);
+  if (!entry) {
+    return interaction.reply({ content: "データが存在しません", ephemeral: true });
   }
+
+  if (type === "add") {
+    entry.data.usable += value;
+    await entry.message.edit(JSON.stringify(entry.data));
+    return interaction.reply(`${user.username} に使用可能ポイントを **${value}pt 追加**しました`);
+  }
+
+  if (type === "remove") {
+    entry.data.usable = Math.max(0, entry.data.usable - value);
+    await entry.message.edit(JSON.stringify(entry.data));
+    return interaction.reply(`${user.username} から使用可能ポイントを **${value}pt 削除**しました`);
+  }
+}
 
   // ===== ranking =====
   if (sub === "ranking") {
