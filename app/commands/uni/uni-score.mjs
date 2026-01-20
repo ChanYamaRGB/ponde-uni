@@ -192,13 +192,18 @@ export async function execute(interaction) {
 }
 
   // ===== ranking =====
-  if (sub === "ranking") {
+// ===== ranking =====
+if (sub === "ranking") {
   await interaction.deferReply();
 
-  const points = loadPoints(); // 既存の points.json 読み込み
+  const allData = await getAllUserData(channel);
 
-  const sorted = Object.entries(points)
-    .sort((a, b) => b[1].total - a[1].total)
+  if (allData.length === 0) {
+    return interaction.editReply("まだポイントデータがありません。");
+  }
+
+  const sorted = allData
+    .sort((a, b) => b.data.points - a.data.points)
     .slice(0, 17);
 
   const embed = new EmbedBuilder()
@@ -206,13 +211,20 @@ export async function execute(interaction) {
     .setColor(0xf1c40f);
 
   let rank = 1;
-  for (const [userId, data] of sorted) {
-    const name = nicknames[userId] ?? `Unknown (${userId})`;
+  for (const { data } of sorted) {
+    let displayName = `Unknown (${data.id})`;
+
+    try {
+      const member = await interaction.guild.members.fetch(data.id);
+      displayName = member.nickname ?? member.user.username;
+    } catch {
+      // サーバー外 or 取得失敗時はID表示
+    }
 
     embed.addFields({
-      name: `${rank}. ${name}`,
+      name: `${rank}. ${displayName}`,
       value:
-        `獲得ポイント: ${data.total}pt\n` +
+        `獲得ポイント: ${data.points}pt\n` +
         `使用可能: ${data.usable}pt`,
       inline: false
     });
