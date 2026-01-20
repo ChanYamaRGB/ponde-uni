@@ -163,41 +163,32 @@ export async function execute(interaction) {
 
   // ===== ranking =====
   if (sub === "ranking") {
-  await interaction.deferReply();
-    
-  const records = await getAllUserData(channel);
+await interaction.deferReply();
 
-  if (records.length === 0) {
-    return interaction.editReply("ランキングデータがありません");
-  }
+const members = await interaction.guild.members.fetch();
 
-  // 獲得ポイント順でソート
-  records.sort((a, b) => b.data.total - a.data.total);
+const embed = new EmbedBuilder()
+  .setTitle("🏆 貢献度ランキング")
+  .setColor(0xffc107);
 
-  const embed = new EmbedBuilder()
-    .setTitle("🏆 貢献度ランキング")
-    .setColor(0xF1C40F)
-    .setTimestamp();
+let rank = 1;
 
-  for (let i = 0; i < records.length; i++) {
-    const { userId, data } = records[i];
+for (const [userId, data] of ranking) {
+  const member = members.get(userId);
+  const displayName =
+    member?.nickname ??
+    member?.user.username ??
+    `Unknown (${userId})`;
 
-    // ★ ここが重要（ニックネーム取得）
-    let name = "不明なユーザー";
-    try {
-      const member = await interaction.guild.members.fetch(userId);
-      name = member.displayName;
-    } catch {}
+  embed.addFields({
+    name: `${rank}. ${displayName}`,
+    value: `獲得ポイント: ${data.total}pt（使用可能: ${data.usable}pt）`,
+    inline: false
+  });
 
-    embed.addFields({
-      name: `${i + 1}. ${name}`,
-      value:
-        `獲得ポイント: ${data.total}pt\n` +
-        `（使用可能: ${data.usable}pt）`,
-      inline: false
-    });
-  }
+  rank++;
+}
 
-  return interaction.reply({ embeds: [embed] });
+await interaction.editReply({ embeds: [embed] });
 }
 }
