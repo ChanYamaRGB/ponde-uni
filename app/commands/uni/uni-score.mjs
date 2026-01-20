@@ -3,6 +3,36 @@ import {
   EmbedBuilder
 } from "discord.js";
 
+import fs from 'fs';
+import path from 'path';
+
+const pointsPath = path.resolve(
+  process.cwd(),
+  'app/commands/uni/data/points.json'
+);
+
+function loadPoints() {
+  try {
+    if (!fs.existsSync(pointsPath)) {
+      return {};
+    }
+    return JSON.parse(fs.readFileSync(pointsPath, 'utf8'));
+  } catch (err) {
+    console.error('[POINTS] 読み込み失敗:', err);
+    return {};
+  }
+}
+
+function savePoints(points) {
+  try {
+    fs.writeFileSync(pointsPath, JSON.stringify(points, null, 2));
+    console.log('[POINTS] points.json に保存しました');
+  } catch (err) {
+    console.error('[POINTS] 保存失敗:', err);
+  }
+}
+
+
 const DB_CHANNEL_ID = "1463094897174380587";
 
 function parseData(content) {
