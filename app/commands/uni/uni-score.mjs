@@ -163,22 +163,39 @@ export async function execute(interaction) {
 
   // ===== ranking =====
   if (sub === "ranking") {
-    const all = await getAllUserData(channel);
+  const records = await getAllUserData(channel);
 
-    all.sort((a, b) => b.data.points - a.data.points);
-
-    const lines = await Promise.all(
-      all.map(async (e, i) => {
-        const user = await interaction.client.users.fetch(e.data.id);
-        return `**${i + 1}. ${user.username}**\n獲得ポイント: ${e.data.points}pt（使用可能: ${e.data.usable}pt）`;
-      })
-    );
-
-    const embed = new EmbedBuilder()
-      .setTitle("🏆 ポイントランキング")
-      .setDescription(lines.join("\n\n"))
-      .setColor(0x00bfff);
-
-    return interaction.reply({ embeds: [embed] });
+  if (records.length === 0) {
+    return interaction.reply("ランキングデータがありません");
   }
+
+  // 獲得ポイント順でソート
+  records.sort((a, b) => b.data.total - a.data.total);
+
+  const embed = new EmbedBuilder()
+    .setTitle("🏆 貢献度ランキング")
+    .setColor(0xF1C40F)
+    .setTimestamp();
+
+  for (let i = 0; i < records.length; i++) {
+    const { userId, data } = records[i];
+
+    // ★ ここが重要（ニックネーム取得）
+    let name = "不明なユーザー";
+    try {
+      const member = await interaction.guild.members.fetch(userId);
+      name = member.displayName;
+    } catch {}
+
+    embed.addFields({
+      name: `${i + 1}. ${name}`,
+      value:
+        `獲得ポイント: ${data.total}pt\n` +
+        `（使用可能: ${data.usable}pt）`,
+      inline: false
+    });
+  }
+
+  return interaction.reply({ embeds: [embed] });
+}
 }
