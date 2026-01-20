@@ -165,7 +165,7 @@ export async function execute(interaction) {
   if (sub === "ranking") {
 await interaction.deferReply();
 
-const members = await interaction.guild.members.fetch();
+const members = interaction.guild.members.cache;
 
 const embed = new EmbedBuilder()
   .setTitle("🏆 貢献度ランキング")
@@ -173,22 +173,23 @@ const embed = new EmbedBuilder()
 
 let rank = 1;
 
-for (const [userId, data] of ranking) {
+for (const [userId, data] of ranking.slice(0, 20)) {
   const member = members.get(userId);
-  const displayName =
+  const name =
     member?.nickname ??
-    member?.user.username ??
-    `Unknown (${userId})`;
+    member?.user?.username ??
+    "Unknown User";
 
   embed.addFields({
-    name: `${rank}. ${displayName}`,
-    value: `獲得ポイント: ${data.total}pt（使用可能: ${data.usable}pt）`,
-    inline: false
+    name: `${rank}. ${name}`,
+    value: `獲得ポイント: ${data.total}pt\n使用可能: ${data.usable}pt`,
+    inline: false,
   });
 
   rank++;
 }
 
 await interaction.editReply({ embeds: [embed] });
+
 }
 }
