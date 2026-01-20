@@ -36,9 +36,6 @@ function savePoints(data) {
   try {
     fs.writeFileSync(pointsPath, JSON.stringify(data, null, 2));
     console.log("[POINTS] points.json に保存しました");
-    console.log(
-      `[POINTS] ${user.username} に ${amount}pt (${type})`
-    );
   } catch (err) {
     console.error("[POINTS] 保存失敗:", err);
   }
