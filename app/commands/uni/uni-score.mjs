@@ -163,10 +163,12 @@ export async function execute(interaction) {
 
   // ===== ranking =====
   if (sub === "ranking") {
+  await interaction.deferReply();
+    
   const records = await getAllUserData(channel);
 
   if (records.length === 0) {
-    return interaction.reply("ランキングデータがありません");
+    return interaction.editReply("ランキングデータがありません");
   }
 
   // 獲得ポイント順でソート
