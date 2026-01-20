@@ -11,6 +11,7 @@ import path from "path";
 ================================ */
 const dataDir = path.resolve("data");
 const dataPath = path.join(dataDir, "points.json");
+const pointsPath = path.join(process.cwd(), "data", "points.json");
 
 function ensureFile() {
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
@@ -20,8 +21,15 @@ function ensureFile() {
 }
 
 function loadPoints() {
-  ensureFile();
-  return JSON.parse(fs.readFileSync(dataPath, "utf8"));
+  try {
+    if (!fs.existsSync(pointsPath)) {
+      fs.writeFileSync(pointsPath, JSON.stringify({}, null, 2));
+    }
+    return JSON.parse(fs.readFileSync(pointsPath, "utf8"));
+  } catch (err) {
+    console.error("[POINTS] 読み込み失敗:", err);
+    return {};
+  }
 }
 
 function savePoints(data) {
@@ -29,12 +37,13 @@ function savePoints(data) {
     fs.writeFileSync(pointsPath, JSON.stringify(data, null, 2));
     console.log("[POINTS] points.json に保存しました");
     console.log(
-  `[POINTS] ${user.username} に ${amount}pt (${type})`
-);
+      `[POINTS] ${user.username} に ${amount}pt (${type})`
+    );
   } catch (err) {
     console.error("[POINTS] 保存失敗:", err);
   }
 }
+
 
 /* ===============================
    コマンド定義
