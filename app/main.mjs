@@ -83,6 +83,8 @@ client.on("ready", async () => {
 
   await client.user.setActivity('チュウニズム');
 
+  await updateNicknames(client, "あなたのGuildID");
+
   boostDates(client);
   schedule_update(client);
   song_update(client, true);
