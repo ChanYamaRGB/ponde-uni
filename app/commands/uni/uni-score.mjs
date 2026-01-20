@@ -1,201 +1,144 @@
 import {
   SlashCommandBuilder,
-  PermissionFlagsBits,
   EmbedBuilder
 } from "discord.js";
-import fs from "fs";
-import path from "path";
 
-/* ===============================
-   JSON ファイル関連
-================================ */
-const dataDir = path.resolve("data");
-const dataPath = path.join(dataDir, "points.json");
-const pointsPath = path.join(process.cwd(), "commands", "uni", "data", "points.json");
+const DB_CHANNEL_ID = "1463094897174380587";
 
-function ensureFile() {
-  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
-  if (!fs.existsSync(dataPath)) {
-    fs.writeFileSync(dataPath, JSON.stringify({}, null, 2));
+function parseData(content) {
+  try {
+    return JSON.parse(content);
+  } catch {
+    return null;
   }
 }
 
-function loadPoints() {
-  try {
-    if (!fs.existsSync(pointsPath)) {
-      fs.writeFileSync(pointsPath, JSON.stringify({}, null, 2));
+async function getAllUserData(channel) {
+  const messages = await channel.messages.fetch({ limit: 100 });
+  const data = [];
+
+  for (const msg of messages.values()) {
+    if (!msg.author.bot) continue;
+
+    const parsed = parseData(msg.content);
+    if (parsed && parsed.id) {
+      data.push({ message: msg, data: parsed });
     }
-    return JSON.parse(fs.readFileSync(pointsPath, "utf8"));
-  } catch (err) {
-    console.error("[POINTS] 読み込み失敗:", err);
-    return {};
   }
+  return data;
 }
 
-function savePoints(data) {
-  try {
-    fs.writeFileSync(pointsPath, JSON.stringify(data, null, 2));
-    console.log("[POINTS] points.json に保存しました");
-  } catch (err) {
-    console.error("[POINTS] 保存失敗:", err);
-  }
+async function getUserData(channel, userId) {
+  const all = await getAllUserData(channel);
+  return all.find(d => d.data.id === userId);
 }
 
-
-/* ===============================
-   コマンド定義
-================================ */
 export const data = new SlashCommandBuilder()
   .setName("uni-score")
-  .setDescription("ポイント管理コマンド")
-  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-
-  // ===== 獲得ポイント =====
-  .addSubcommandGroup(group =>
-    group
-      .setName("points")
-      .setDescription("獲得ポイント管理")
-      .addSubcommand(sub =>
-        sub
-          .setName("add")
-          .setDescription("ポイントを付与")
-          .addIntegerOption(o =>
-            o.setName("value").setDescription("付与数").setRequired(true)
-          )
-          .addUserOption(o =>
-            o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
+  .setDescription("ポイント管理")
+  .addSubcommand(sub =>
+    sub
+      .setName("add")
+      .setDescription("ポイントを追加")
+      .addUserOption(o =>
+        o.setName("user").setDescription("対象ユーザー").setRequired(true)
       )
-      .addSubcommand(sub =>
-        sub
-          .setName("remove")
-          .setDescription("ポイントを剥奪")
-          .addIntegerOption(o =>
-            o.setName("value").setDescription("剥奪数").setRequired(true)
-          )
-          .addUserOption(o =>
-            o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
+      .addIntegerOption(o =>
+        o.setName("value").setDescription("加算ポイント").setRequired(true)
       )
   )
-
-  // ===== 使用可能ポイント =====
-  .addSubcommandGroup(group =>
-    group
+  .addSubcommand(sub =>
+    sub
       .setName("usable")
-      .setDescription("使用可能ポイント管理")
-      .addSubcommand(sub =>
-        sub
-          .setName("add")
-          .setDescription("使用可能ポイントを付与")
-          .addIntegerOption(o =>
-            o.setName("value").setDescription("付与数").setRequired(true)
-          )
-          .addUserOption(o =>
-            o.setName("user").setDescription("対象ユーザー").setRequired(true)
+      .setDescription("使用可能ポイント操作")
+      .addStringOption(o =>
+        o
+          .setName("type")
+          .setDescription("add / remove")
+          .setRequired(true)
+          .addChoices(
+            { name: "add", value: "add" },
+            { name: "remove", value: "remove" }
           )
       )
-      .addSubcommand(sub =>
-        sub
-          .setName("remove")
-          .setDescription("使用可能ポイントを剥奪")
-          .addIntegerOption(o =>
-            o.setName("value").setDescription("剥奪数").setRequired(true)
-          )
-          .addUserOption(o =>
-            o.setName("user").setDescription("対象ユーザー").setRequired(true)
-          )
+      .addUserOption(o =>
+        o.setName("user").setDescription("対象ユーザー").setRequired(true)
+      )
+      .addIntegerOption(o =>
+        o.setName("value").setDescription("数値").setRequired(true)
       )
   )
-
-  // ===== ランキング =====
-  .addSubcommandGroup(group =>
-    group
+  .addSubcommand(sub =>
+    sub
       .setName("ranking")
-      .setDescription("ポイントランキング")
-      .addSubcommand(sub =>
-        sub.setName("all").setDescription("全員分のランキングを表示")
-      )
+      .setDescription("ポイントランキングを表示")
   );
 
-/* ===============================
-   実行処理
-================================ */
 export async function execute(interaction) {
-  const group = interaction.options.getSubcommandGroup();
+  const channel = await interaction.client.channels.fetch(DB_CHANNEL_ID);
+  if (!channel || !channel.isTextBased()) {
+    return interaction.reply({ content: "DBチャンネルが見つかりません", ephemeral: true });
+  }
+
   const sub = interaction.options.getSubcommand();
 
-  const value = interaction.options.getInteger("value");
-  const user = interaction.options.getUser("user");
+  // ===== add =====
+  if (sub === "add") {
+    const user = interaction.options.getUser("user");
+    const value = interaction.options.getInteger("value");
 
-  const pointsData = loadPoints();
+    let entry = await getUserData(channel, user.id);
 
-  const initUser = (id) => {
-    if (!pointsData[id]) {
-      pointsData[id] = { points: 0, usable: 0 };
-    }
-  };
-
-  /* ===== points / usable ===== */
-  if (group === "points" || group === "usable") {
-    initUser(user.id);
-    const key = group === "points" ? "points" : "usable";
-
-    if (sub === "add") pointsData[user.id][key] += value;
-    if (sub === "remove") {
-      pointsData[user.id][key] = Math.max(
-        0,
-        pointsData[user.id][key] - value
+    if (!entry) {
+      const msg = await channel.send(
+        JSON.stringify({ id: user.id, points: value, usable: 0 })
       );
+      entry = { message: msg, data: { id: user.id, points: value, usable: 0 } };
+    } else {
+      entry.data.points += value;
+      await entry.message.edit(JSON.stringify(entry.data));
     }
 
-    savePoints(pointsData);
+    return interaction.reply(`${user.username} に ${value}pt 追加しました`);
+  }
 
-    await interaction.reply(
-      `${user.username} の ${key} を更新しました。\n現在値: ${pointsData[user.id][key]}pt`
+  // ===== usable =====
+  if (sub === "usable") {
+    const type = interaction.options.getString("type");
+    const user = interaction.options.getUser("user");
+    const value = interaction.options.getInteger("value");
+
+    const entry = await getUserData(channel, user.id);
+    if (!entry) {
+      return interaction.reply({ content: "データが存在しません", ephemeral: true });
+    }
+
+    if (type === "add") entry.data.usable += value;
+    if (type === "remove") entry.data.usable = Math.max(0, entry.data.usable - value);
+
+    await entry.message.edit(JSON.stringify(entry.data));
+
+    return interaction.reply(`${user.username} の usable を更新しました`);
+  }
+
+  // ===== ranking =====
+  if (sub === "ranking") {
+    const all = await getAllUserData(channel);
+
+    all.sort((a, b) => b.data.points - a.data.points);
+
+    const lines = await Promise.all(
+      all.map(async (e, i) => {
+        const user = await interaction.client.users.fetch(e.data.id);
+        return `**${i + 1}. ${user.username}**\n獲得ポイント: ${e.data.points}pt（使用可能: ${e.data.usable}pt）`;
+      })
     );
-    return;
+
+    const embed = new EmbedBuilder()
+      .setTitle("🏆 ポイントランキング")
+      .setDescription(lines.join("\n---\n"))
+      .setColor(0x00bfff);
+
+    return interaction.reply({ embeds: [embed] });
   }
-
-  /* ===== ranking（Embed） ===== */
-if (group === "ranking" && sub === "all") {
-  if (Object.keys(pointsData).length === 0) {
-    await interaction.reply("まだポイントデータがありません。");
-    return;
-  }
-
-  const ranking = Object.entries(pointsData)
-    .map(([userId, data]) => ({
-      userId,
-      points: data.points ?? 0,
-      usable: data.usable ?? 0
-    }))
-    .sort((a, b) => b.points - a.points);
-
-  const embed = new EmbedBuilder()
-    .setTitle("🏆 貢献度ランキング")
-    .setColor(0xffc107)
-    .setTimestamp();
-
-  for (let i = 0; i < ranking.length; i++) {
-    const entry = ranking[i];
-
-    let username = "不明なユーザー";
-    try {
-      const member = await interaction.guild.members.fetch(entry.userId);
-      username = member.displayName;
-
-    } catch {
-      // サーバーから抜けたユーザーなど
-    }
-
-    embed.addFields({
-      name: `${i + 1}位 ${username}`,
-      value: `獲得ポイント: **${entry.points}pt**\n使用可能: **${entry.usable}pt**\n---`,
-      inline: false
-    });
-  }
-
-  await interaction.reply({ embeds: [embed] });
-}
 }
