@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 
-const filePath = path.join(process.cwd(), "data/nicknames.json");
+const filePath = path.join(process.cwd(), "commands/uni/data/nicknames.json");
 
 export async function updateNicknames(client, guildId) {
   const guild = await client.guilds.fetch(guildId);
