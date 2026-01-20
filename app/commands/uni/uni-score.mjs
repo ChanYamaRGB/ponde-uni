@@ -36,10 +36,12 @@ async function getUserData(channel, userId) {
 export const data = new SlashCommandBuilder()
   .setName("uni-score")
   .setDescription("ポイント管理")
+
+  // ===== points add =====
   .addSubcommand(sub =>
     sub
       .setName("add")
-      .setDescription("ポイントを追加")
+      .setDescription("獲得ポイントを追加")
       .addUserOption(o =>
         o.setName("user").setDescription("対象ユーザー").setRequired(true)
       )
@@ -47,6 +49,21 @@ export const data = new SlashCommandBuilder()
         o.setName("value").setDescription("加算ポイント").setRequired(true)
       )
   )
+
+  // ===== points remove =====
+  .addSubcommand(sub =>
+    sub
+      .setName("remove")
+      .setDescription("獲得ポイントを減算")
+      .addUserOption(o =>
+        o.setName("user").setDescription("対象ユーザー").setRequired(true)
+      )
+      .addIntegerOption(o =>
+        o.setName("value").setDescription("減算ポイント").setRequired(true)
+      )
+  )
+
+  // ===== usable =====
   .addSubcommand(sub =>
     sub
       .setName("usable")
@@ -68,6 +85,8 @@ export const data = new SlashCommandBuilder()
         o.setName("value").setDescription("数値").setRequired(true)
       )
   )
+
+  // ===== ranking =====
   .addSubcommand(sub =>
     sub
       .setName("ranking")
@@ -82,7 +101,7 @@ export async function execute(interaction) {
 
   const sub = interaction.options.getSubcommand();
 
-  // ===== add =====
+  // ===== points add =====
   if (sub === "add") {
     const user = interaction.options.getUser("user");
     const value = interaction.options.getInteger("value");
@@ -102,6 +121,22 @@ export async function execute(interaction) {
     return interaction.reply(`${user.username} に ${value}pt 追加しました`);
   }
 
+  // ===== points remove =====
+  if (sub === "remove") {
+    const user = interaction.options.getUser("user");
+    const value = interaction.options.getInteger("value");
+
+    const entry = await getUserData(channel, user.id);
+    if (!entry) {
+      return interaction.reply({ content: "データが存在しません", ephemeral: true });
+    }
+
+    entry.data.points = Math.max(0, entry.data.points - value);
+    await entry.message.edit(JSON.stringify(entry.data));
+
+    return interaction.reply(`${user.username} から ${value}pt 削除しました`);
+  }
+
   // ===== usable =====
   if (sub === "usable") {
     const type = interaction.options.getString("type");
@@ -118,7 +153,7 @@ export async function execute(interaction) {
 
     await entry.message.edit(JSON.stringify(entry.data));
 
-    return interaction.reply(`${user.username} の usable を更新しました`);
+    return interaction.reply(`${user.username} の使用可能ポイントを更新しました`);
   }
 
   // ===== ranking =====
@@ -136,7 +171,7 @@ export async function execute(interaction) {
 
     const embed = new EmbedBuilder()
       .setTitle("🏆 ポイントランキング")
-      .setDescription(lines.join("\n---\n"))
+      .setDescription(lines.join("\n\n"))
       .setColor(0x00bfff);
 
     return interaction.reply({ embeds: [embed] });
