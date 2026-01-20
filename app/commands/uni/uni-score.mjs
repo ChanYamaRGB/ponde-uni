@@ -163,33 +163,33 @@ export async function execute(interaction) {
 
   // ===== ranking =====
   if (sub === "ranking") {
-await interaction.deferReply();
+  await interaction.deferReply();
 
-const members = interaction.guild.members.cache;
+  const points = loadPoints(); // 既存の points.json 読み込み
 
-const embed = new EmbedBuilder()
-  .setTitle("🏆 貢献度ランキング")
-  .setColor(0xffc107);
+  const sorted = Object.entries(points)
+    .sort((a, b) => b[1].total - a[1].total)
+    .slice(0, 17);
 
-let rank = 1;
+  const embed = new EmbedBuilder()
+    .setTitle("🏆 貢献度ランキング")
+    .setColor(0xf1c40f);
 
-for (const [userId, data] of ranking.slice(0, 20)) {
-  const member = members.get(userId);
-  const name =
-    member?.nickname ??
-    member?.user?.username ??
-    "Unknown User";
+  let rank = 1;
+  for (const [userId, data] of sorted) {
+    const name = nicknames[userId] ?? `Unknown (${userId})`;
 
-  embed.addFields({
-    name: `${rank}. ${name}`,
-    value: `獲得ポイント: ${data.total}pt\n使用可能: ${data.usable}pt`,
-    inline: false,
-  });
+    embed.addFields({
+      name: `${rank}. ${name}`,
+      value:
+        `獲得ポイント: ${data.total}pt\n` +
+        `使用可能: ${data.usable}pt`,
+      inline: false
+    });
 
-  rank++;
-}
+    rank++;
+  }
 
-await interaction.editReply({ embeds: [embed] });
-
+  await interaction.editReply({ embeds: [embed] });
 }
 }
