@@ -1,22 +1,35 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+const DB_CHANNEL_ID = "1465227812884578346";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// メッセージID保存先
-const saveFile = path.join(__dirname, "DB", "boostMessage.json");
-
-function loadData() {
-  if (!fs.existsSync(saveFile)) {
-    fs.writeFileSync(saveFile, "{}", "utf-8");
+function parseJSON(content) {
+  try {
+    return JSON.parse(content);
+  } catch {
+    return null;
   }
-  return JSON.parse(fs.readFileSync(saveFile, "utf-8"));
 }
 
-function saveData(data) {
-  fs.writeFileSync(saveFile, JSON.stringify(data, null, 2));
+async function loadData(channel) {
+  const messages = await channel.messages.fetch({ limit: 10 });
+
+  for (const msg of messages.values()) {
+    if (!msg.author.bot) continue;
+
+    const parsed = parseJSON(msg.content);
+    if (parsed && parsed.messageId) {
+      return { message: msg, data: parsed };
+    }
+  }
+
+  return null;
+}
+
+async function saveData(channel, data, oldMessage = null) {
+  if (oldMessage) {
+    await oldMessage.edit(JSON.stringify(data));
+    return oldMessage;
+  }
+
+  return await channel.send(JSON.stringify(data));
 }
 
 export default function schedule_post(client) {
@@ -28,15 +41,17 @@ export default function schedule_post(client) {
     const now = new Date();
     const today = now.getDate();
 
-    const data = loadData();
+    const dbChannel = await client.channels.fetch(DB_CHANNEL_ID);
+    if (!dbChannel || !dbChannel.isTextBased()) return;
+
+    const dataEntry = await loadData(dbChannel);
 
     const channel = await client.channels.fetch(targetChannelId);
     if (!channel || !channel.isTextBased()) return;
 
     /* ---------- 対象日：投稿 ---------- */
     if (targetDates.includes(today)) {
-      // すでに投稿済みなら何もしない
-      if (data.messageId) return;
+      if (dataEntry?.data?.messageId) return;
 
       const msg = await channel.send({
         content: "# ブースト日です‼️",
@@ -45,25 +60,27 @@ export default function schedule_post(client) {
         ]
       });
 
-      data.messageId = msg.id;
-      saveData(data);
+      await saveData(
+        dbChannel,
+        { messageId: msg.id },
+        dataEntry?.message
+      );
 
       console.log("ブースト告知を投稿しました");
       return;
     }
 
     /* ---------- 対象日以外：削除 ---------- */
-    if (data.messageId) {
+    if (dataEntry?.data?.messageId) {
       try {
-        const oldMsg = await channel.messages.fetch(data.messageId);
+        const oldMsg = await channel.messages.fetch(dataEntry.data.messageId);
         await oldMsg.delete();
         console.log("期限切れのブースト告知を削除しました");
       } catch {
         console.log("メッセージは既に削除されています");
       }
 
-      delete data.messageId;
-      saveData(data);
+      await dataEntry.message.delete().catch(() => {});
     }
   };
 
