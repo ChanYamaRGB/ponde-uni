@@ -134,15 +134,19 @@ export async function execute(interaction) {
 
     if (!entry) {
       const msg = await channel.send(
-        JSON.stringify({ id: user.id, points: value, usable: 0 })
+      JSON.stringify({ id: user.id, points: value, usable: value })
       );
-      entry = { message: msg, data: { id: user.id, points: value, usable: 0 } };
+      entry = {
+        message: msg,
+        data: { id: user.id, points: value, usable: value }
+      };
     } else {
       entry.data.points += value;
+      entry.data.usable += value;
       await entry.message.edit(JSON.stringify(entry.data));
     }
 
-    return interaction.reply(`${user.username} に ${value}pt 追加しました`);
+    return interaction.reply(`${user.username} に ${value}pt 追加しました（使用可能 +${value}pt）`);
   }
 
   // ===== points remove =====
@@ -156,9 +160,11 @@ export async function execute(interaction) {
     }
 
     entry.data.points = Math.max(0, entry.data.points - value);
+    entry.data.usable = Math.max(0, entry.data.usable - value);
+
     await entry.message.edit(JSON.stringify(entry.data));
 
-    return interaction.reply(`${user.username} から ${value}pt 削除しました`);
+    return interaction.reply(`${user.username} から ${value}pt 削除しました（使用可能 -${value}pt）`);
   }
 
   // ===== usable =====
