@@ -6,19 +6,18 @@ import {
 import fs from 'fs';
 import path from 'path';
 
-const pointsPath = path.resolve(
-  process.cwd(),
-  'app/commands/uni/data/points.json'
-);
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const nicknamesPath = path.resolve(
-  process.cwd(),
-  'app/commands/uni/data/nicknames.json'
+const nicknamesPath = path.join(
+  __dirname,
+  'data',
+  'nicknames.json'
 );
 
 function loadNicknames() {
   try {
     if (!fs.existsSync(nicknamesPath)) {
+      console.warn('[NICKNAMES] ファイルが存在しません');
       return {};
     }
     return JSON.parse(fs.readFileSync(nicknamesPath, 'utf8'));
@@ -27,28 +26,6 @@ function loadNicknames() {
     return {};
   }
 }
-
-function loadPoints() {
-  try {
-    if (!fs.existsSync(pointsPath)) {
-      return {};
-    }
-    return JSON.parse(fs.readFileSync(pointsPath, 'utf8'));
-  } catch (err) {
-    console.error('[POINTS] 読み込み失敗:', err);
-    return {};
-  }
-}
-
-function savePoints(points) {
-  try {
-    fs.writeFileSync(pointsPath, JSON.stringify(points, null, 2));
-    console.log('[POINTS] points.json に保存しました');
-  } catch (err) {
-    console.error('[POINTS] 保存失敗:', err);
-  }
-}
-
 
 const DB_CHANNEL_ID = "1463094897174380587";
 
@@ -221,36 +198,38 @@ if (sub === "ranking") {
 
   const sorted = allData
     .sort((a, b) => b.data.points - a.data.points)
-    .slice(0, 17);
+    .slice(0, 20);
 
   const embed = new EmbedBuilder()
     .setTitle("🏆 貢献度ランキング")
     .setColor(0xf1c40f);
 
   let rank = 1;
+
   for (const { data } of sorted) {
     let displayName = nicknames[data.id];
 
-if (!displayName) {
-  try {
-    const member = await interaction.guild.members.fetch(data.id);
-    displayName = member.nickname ?? member.user.username;
-  } catch {
-    displayName = `Unknown (${data.id})`;
-  }
-}
+    if (!displayName) {
+      try {
+        const member = await interaction.guild.members.fetch(data.id);
+        displayName = member.nickname ?? member.user.username;
+      } catch {
+        displayName = `Unknown (${data.id})`;
+      }
+    }
 
     embed.addFields({
       name: `${rank}. ${displayName}`,
       value:
         `獲得ポイント: ${data.points}pt\n` +
-        `使用可能: ${data.usable}pt`,
+        `使用可能: ${data.usable}pt\n` +
+        `---`,
       inline: false
     });
 
     rank++;
   }
 
-  await interaction.editReply({ embeds: [embed] });
+  return interaction.editReply({ embeds: [embed] });
 }
 }
