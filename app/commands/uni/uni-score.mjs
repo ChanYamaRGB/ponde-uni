@@ -11,6 +11,23 @@ const pointsPath = path.resolve(
   'app/commands/uni/data/points.json'
 );
 
+const nicknamesPath = path.resolve(
+  process.cwd(),
+  'app/commands/uni/data/nicknames.json'
+);
+
+function loadNicknames() {
+  try {
+    if (!fs.existsSync(nicknamesPath)) {
+      return {};
+    }
+    return JSON.parse(fs.readFileSync(nicknamesPath, 'utf8'));
+  } catch (err) {
+    console.error('[NICKNAMES] 読み込み失敗:', err);
+    return {};
+  }
+}
+
 function loadPoints() {
   try {
     if (!fs.existsSync(pointsPath)) {
@@ -191,11 +208,11 @@ export async function execute(interaction) {
   }
 }
 
-  // ===== ranking =====
 // ===== ranking =====
 if (sub === "ranking") {
   await interaction.deferReply();
 
+  const nicknames = loadNicknames();
   const allData = await getAllUserData(channel);
 
   if (allData.length === 0) {
@@ -212,14 +229,16 @@ if (sub === "ranking") {
 
   let rank = 1;
   for (const { data } of sorted) {
-    let displayName = `Unknown (${data.id})`;
+    let displayName = nicknames[data.id];
 
-    try {
-      const member = await interaction.guild.members.fetch(data.id);
-      displayName = member.nickname ?? member.user.username;
-    } catch {
-      // サーバー外 or 取得失敗時はID表示
-    }
+if (!displayName) {
+  try {
+    const member = await interaction.guild.members.fetch(data.id);
+    displayName = member.nickname ?? member.user.username;
+  } catch {
+    displayName = `Unknown (${data.id})`;
+  }
+}
 
     embed.addFields({
       name: `${rank}. ${displayName}`,
