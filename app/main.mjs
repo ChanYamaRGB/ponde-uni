@@ -76,17 +76,34 @@ client.on("messageCreate", async (message) => {
   await handlers.get("messageCreate").default(message);
 });
 
+function updatePresence() {
+  const guildCount = client.guilds.cache.size;
+
+  client.user.setPresence({
+    activities: [
+      {
+        name: `in ${guildCount} server`,
+        type: ActivityType.Watching
+      }
+    ],
+    status: "online"
+  });
+}
+
 client.on("ready", async () => {
   console.log(`${client.user.tag} がログインしました！`);
   console.log(`BotがいるGuild一覧:`);
   client.guilds.cache.forEach(g => console.log(`- ${g.name} (ID: ${g.id})`));
 
-  await client.user.setActivity('チュウニズム');
+  updatePresence();
 
   boostDates(client);
   schedule_update(client);
   song_update(client, true);
 });
+
+client.on("guildCreate", updatePresence);
+client.on("guildDelete", updatePresence);
 
 CommandsRegister();
 client.login(process.env.TOKEN);
