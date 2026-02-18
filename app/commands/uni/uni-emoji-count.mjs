@@ -107,7 +107,7 @@ const sorted = Object.entries(emojiCounts)
 // 5個ごとに改行
 let formatted = "";
 sorted.forEach((emoji, index) => {
-  formatted += emoji + "，"; // 全角スペースで少し見やすく
+  formatted += emoji + "　"; // 全角スペースで少し見やすく
   if ((index + 1) % 5 === 0) formatted += "\n";
 });
 
