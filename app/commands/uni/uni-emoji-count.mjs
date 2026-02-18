@@ -100,14 +100,19 @@ export async function execute(interaction) {
     return interaction.editReply(`${year}年${month + 1}月のカスタム絵文字は見つかりませんでした。`);
   }
 
-const sorted = Object.entries(emojiCounts)
-  .sort((a, b) => b[1] - a[1])
+// すべてのカスタム絵文字を取得（0回も含む）
+const allEmojis = guild.emojis.cache.map(e => e.id);
+
+// 使用回数付き配列を作成（未使用は0）
+const sorted = allEmojis
+  .map(id => [id, emojiCounts[id] || 0])
+  .sort((a, b) => b[1] - a[1]) // 多い順
   .map(([id, count]) => `<:_:${id}>: ${count}`);
 
 // 5個ごとに改行
 let formatted = "";
 sorted.forEach((emoji, index) => {
-  formatted += emoji + "　"; // 全角スペースで少し見やすく
+  formatted += emoji + "　";
   if ((index + 1) % 5 === 0) formatted += "\n";
 });
 
