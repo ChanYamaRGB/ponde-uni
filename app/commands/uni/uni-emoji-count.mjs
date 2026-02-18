@@ -100,21 +100,20 @@ export async function execute(interaction) {
     return interaction.editReply(`${year}年${month + 1}月のカスタム絵文字は見つかりませんでした。`);
   }
 
-  const sortedDesc = Object.entries(emojiCounts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
-    .map(([id, count]) => `<:_:${id}>: ${count} 回`);
+const sorted = Object.entries(emojiCounts)
+  .sort((a, b) => b[1] - a[1])
+  .map(([id]) => `<:_:${id}>`);
 
-  const sortedAsc = Object.entries(emojiCounts)
-    .filter(([, count]) => count > 0)
-    .sort((a, b) => a[1] - b[1])
-    .slice(0, 10)
-    .map(([id, count]) => `<:_:${id}>: ${count} 回`);
+// 10個ごとに改行
+let formatted = "";
+sorted.forEach((emoji, index) => {
+  formatted += emoji + " ";
+  if ((index + 1) % 10 === 0) formatted += "\n";
+});
 
-  const resultText =
-    `${year}年${month + 1}月のカスタム絵文字使用回数\n\n` +
-    `【使用回数 多い順トップ10】\n${sortedDesc.join('\n') || '該当なし'}\n\n` +
-    `【使用回数 少ない順トップ10】\n${sortedAsc.join('\n') || '該当なし'}`;
+const resultText =
+  `${year}年${month + 1}月のカスタム絵文字ランキング（多い順）\n\n` +
+  (formatted || "該当なし");
 
   await interaction.editReply(resultText);
 }
