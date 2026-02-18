@@ -102,18 +102,19 @@ export async function execute(interaction) {
 
 const sorted = Object.entries(emojiCounts)
   .sort((a, b) => b[1] - a[1])
-  .map(([id]) => `<:_:${id}>`);
+  .map(([id, count]) => `<:_:${id}>: ${count}`);
 
-// 10個ごとに改行
+// 5個ごとに改行
 let formatted = "";
 sorted.forEach((emoji, index) => {
-  formatted += emoji + " ";
-  if ((index + 1) % 10 === 0) formatted += "\n";
+  formatted += emoji + "，"; // 全角スペースで少し見やすく
+  if ((index + 1) % 5 === 0) formatted += "\n";
 });
 
 const resultText =
   `${year}年${month + 1}月のカスタム絵文字ランキング（多い順）\n\n` +
   (formatted || "該当なし");
 
-  await interaction.editReply(resultText);
+await interaction.editReply(resultText);
+
 }
