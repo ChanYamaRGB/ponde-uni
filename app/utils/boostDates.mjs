@@ -34,7 +34,8 @@ async function saveData(channel, data, oldMessage = null) {
 
 export default function schedule_post(client) {
 
-  const targetDates = [5, 14, 21, 28];
+  // const targetDates = [5, 14, 21, 28];
+  const targetDates = [];
   const targetChannelId = "1155482638493171782";
 
   const postOrDelete = async () => {
