@@ -225,10 +225,10 @@ if (sub === "ranking") {
     }
 
     embed.addFields({
-      name: `${rank}位　${displayName}`,
-      value:
-        `獲得ポイント: ${data.points}pt（使用可能: ${data.usable}pt）\n` +
-        `---`,
+      name: `${rank}位　__${displayName}__　${data.points}pt（${data.usable}pt）`,
+      // value:
+      //   `獲得ポイント: ${data.points}pt（使用可能: ${data.usable}pt）\n` +
+      //   `---`,
       inline: false
     });
 
