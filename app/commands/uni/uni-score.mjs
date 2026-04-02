@@ -146,7 +146,7 @@ export async function execute(interaction) {
       await entry.message.edit(JSON.stringify(entry.data));
     }
 
-    return interaction.reply(`${user.username} に ${value}pt 追加しました（使用可能 +${value}pt）`);
+    return interaction.reply(`${user.username} に **${value}pt 追加**しました（使用可能 **+${value}pt**）`);
   }
 
   // ===== points remove =====
@@ -164,7 +164,7 @@ export async function execute(interaction) {
 
     await entry.message.edit(JSON.stringify(entry.data));
 
-    return interaction.reply(`${user.username} から ${value}pt 削除しました（使用可能 -${value}pt）`);
+    return interaction.reply(`${user.username} から **${value}pt 削除**しました（使用可能 **-${value}pt**）`);
   }
 
   // ===== usable =====
@@ -192,7 +192,7 @@ export async function execute(interaction) {
 }
 
 // ===== ranking =====
-if (sub === "ranking") {
+  if (sub === "ranking") {
   await interaction.deferReply();
 
   const nicknames = loadNicknames();
@@ -204,12 +204,9 @@ if (sub === "ranking") {
 
   const sorted = allData
     .sort((a, b) => b.data.points - a.data.points)
-    .slice(0, 20);
+    .slice(0, 17);
 
-  const embed = new EmbedBuilder()
-    .setTitle("🏆 貢献度ランキング")
-    .setColor(0xf1c40f);
-
+  let description = "";
   let rank = 1;
 
   for (const { data } of sorted) {
@@ -224,17 +221,63 @@ if (sub === "ranking") {
       }
     }
 
-    embed.addFields({
-      name: `${rank}位　__${displayName}__　${data.points}pt（${data.usable}pt）`,
-      // value:
-      //   `獲得ポイント: ${data.points}pt（使用可能: ${data.usable}pt）\n` +
-      //   `---`,
-      inline: false
-    });
-
+    description +=
+      `**${rank}位　__${displayName}__**　${data.points}pt（${data.usable}pt）`;
+      `獲得ポイント: ${data.points}pt\n` +
+      `使用可能: ${data.usable}pt\n\n`;
     rank++;
   }
 
+  const embed = new EmbedBuilder()
+    .setTitle("🏆 貢献度ランキング")
+    .setDescription(description)
+    .setColor(0xf1c40f);
+
   return interaction.editReply({ embeds: [embed] });
 }
+// if (sub === "ranking") {
+//   await interaction.deferReply();
+
+//   const nicknames = loadNicknames();
+//   const allData = await getAllUserData(channel);
+
+//   if (allData.length === 0) {
+//     return interaction.editReply("まだポイントデータがありません。");
+//   }
+
+//   const sorted = allData
+//     .sort((a, b) => b.data.points - a.data.points)
+//     .slice(0, 20);
+
+//   const embed = new EmbedBuilder()
+//     .setTitle("🏆 貢献度ランキング")
+//     .setColor(0xf1c40f);
+
+//   let rank = 1;
+
+//   for (const { data } of sorted) {
+//     let displayName = nicknames[data.id];
+
+//     if (!displayName) {
+//       try {
+//         const member = await interaction.guild.members.fetch(data.id);
+//         displayName = member.nickname ?? member.user.username;
+//       } catch {
+//         displayName = `Unknown (${data.id})`;
+//       }
+//     }
+
+//     embed.addFields({
+//       name: `${rank}位　__${displayName}__　${data.points}pt（${data.usable}pt）`,
+//       // value:
+//       //   `獲得ポイント: ${data.points}pt（使用可能: ${data.usable}pt）\n` +
+//       //   `---`,
+//       inline: false
+//     });
+
+//     rank++;
+//   }
+
+//   return interaction.editReply({ embeds: [embed] });
+// }
 }
