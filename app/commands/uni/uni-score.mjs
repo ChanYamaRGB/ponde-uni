@@ -222,9 +222,7 @@ export async function execute(interaction) {
     }
 
     description +=
-      `**${rank}位　__${displayName}__**　${data.points}pt（${data.usable}pt）`;
-      `獲得ポイント: ${data.points}pt\n` +
-      `使用可能: ${data.usable}pt\n\n`;
+      `**${rank}位　__${displayName}__**　${data.points}pt（${data.usable}pt）\n`;
     rank++;
   }
 
@@ -235,49 +233,5 @@ export async function execute(interaction) {
 
   return interaction.editReply({ embeds: [embed] });
 }
-// if (sub === "ranking") {
-//   await interaction.deferReply();
 
-//   const nicknames = loadNicknames();
-//   const allData = await getAllUserData(channel);
-
-//   if (allData.length === 0) {
-//     return interaction.editReply("まだポイントデータがありません。");
-//   }
-
-//   const sorted = allData
-//     .sort((a, b) => b.data.points - a.data.points)
-//     .slice(0, 20);
-
-//   const embed = new EmbedBuilder()
-//     .setTitle("🏆 貢献度ランキング")
-//     .setColor(0xf1c40f);
-
-//   let rank = 1;
-
-//   for (const { data } of sorted) {
-//     let displayName = nicknames[data.id];
-
-//     if (!displayName) {
-//       try {
-//         const member = await interaction.guild.members.fetch(data.id);
-//         displayName = member.nickname ?? member.user.username;
-//       } catch {
-//         displayName = `Unknown (${data.id})`;
-//       }
-//     }
-
-//     embed.addFields({
-//       name: `${rank}位　__${displayName}__　${data.points}pt（${data.usable}pt）`,
-//       // value:
-//       //   `獲得ポイント: ${data.points}pt（使用可能: ${data.usable}pt）\n` +
-//       //   `---`,
-//       inline: false
-//     });
-
-//     rank++;
-//   }
-
-//   return interaction.editReply({ embeds: [embed] });
-// }
 }
