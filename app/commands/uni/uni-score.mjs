@@ -204,7 +204,7 @@ export async function execute(interaction) {
 
   const sorted = allData
     .sort((a, b) => b.data.points - a.data.points)
-    .slice(0, 17);
+    .slice(0, 20);
 
   let description = "";
   let rank = 1;
