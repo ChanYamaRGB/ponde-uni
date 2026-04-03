@@ -227,7 +227,7 @@ export async function execute(interaction) {
   }
 
   const embed = new EmbedBuilder()
-    .setTitle("🏆 貢献度ランキング")
+    .setTitle("🏆 貢献度ランキング\n順位　ユーザー名　累計（使用可能）")
     .setDescription(description)
     .setColor(0xf1c40f);
 
