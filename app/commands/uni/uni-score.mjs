@@ -207,6 +207,9 @@ export async function execute(interaction) {
     .slice(0, 20);
 
   let description = "";
+    
+    description += "順位　ユーザー名　累計（使用可能）\n\n";
+  
   let rank = 1;
 
   for (const { data } of sorted) {
@@ -227,7 +230,7 @@ export async function execute(interaction) {
   }
 
   const embed = new EmbedBuilder()
-    .setTitle("🏆 貢献度ランキング\n順位　ユーザー名　累計（使用可能）")
+    .setTitle("🏆 貢献度ランキング")
     .setDescription(description)
     .setColor(0xf1c40f);
 
