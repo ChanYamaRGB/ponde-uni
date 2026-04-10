@@ -253,8 +253,8 @@ function truncateFullWidth(str, maxWidth) {
   let description = "";
     
     description += "```";
-    description += "順位 | ユーザー名        | 累計   | 使用可能\n";
-    description += "------------------------------------------\n";
+    description += "順位｜　　ユーザー名　　｜　累計　｜使用可能\n";
+    description += "――――――――――――――――――――――\n";
   
   let rank = 1;
 
@@ -273,8 +273,8 @@ function truncateFullWidth(str, maxWidth) {
 let name = toFullWidth(displayName);
 name = name.slice(0, 10);
 
-const rankStr = padStartZenkaku(toFullWidth(`${rank}`), 2) + "位";
-const nameStr = padEndZenkaku(name, 10);
+const rankStr = padStartZenkaku(toFullWidth(`${rank}`), 2);
+const nameStr = padEndZenkaku(name, 8);
 const pointStr = padStartZenkaku(toFullWidth(`${data.points}`), 4);
 const usableStr = padStartZenkaku(toFullWidth(`${data.usable}`), 4);
 
