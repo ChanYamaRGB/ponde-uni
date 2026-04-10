@@ -264,7 +264,7 @@ function truncateFullWidth(str, maxWidth) {
 
     displayName = truncateFullWidth(displayName, 16);
 
-    const rankStr = padStartFullWidth(`${rank}.`, 4);
+    const rankStr = padStartFullWidth(`${rank}位`, 4);
     const nameStr = padEndFullWidth(displayName, 16);
     const pointStr = padStartFullWidth(`${data.points}`, 6);
     const usableStr = padStartFullWidth(`${data.usable}`, 6);
