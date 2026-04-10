@@ -204,14 +204,22 @@ function getDisplayWidth(str) {
   return width;
 }
 
-function padEndFullWidth(str, targetWidth) {
-  const w = getDisplayWidth(str);
-  return w >= targetWidth ? str : str + " ".repeat(targetWidth - w);
+function toFullWidth(str) {
+  return str.replace(/[A-Za-z0-9]/g, s =>
+    String.fromCharCode(s.charCodeAt(0) + 0xFEE0)
+  );
 }
 
-function padStartFullWidth(str, targetWidth) {
-  const w = getDisplayWidth(str);
-  return w >= targetWidth ? str : " ".repeat(targetWidth - w) + str;
+function fullWidthSpace(n) {
+  return "　".repeat(n);
+}
+  
+function padEndZenkaku(str, length) {
+  return str + "　".repeat(length - str.length);
+}
+
+function padStartZenkaku(str, length) {
+  return "　".repeat(length - str.length) + str;
 }
 
 function truncateFullWidth(str, maxWidth) {
@@ -262,14 +270,15 @@ function truncateFullWidth(str, maxWidth) {
       }
     }
 
-    displayName = truncateFullWidth(displayName, 16);
+let name = toFullWidth(displayName);
+name = name.slice(0, 10);
 
-    const rankStr = padStartFullWidth(`${rank}位`, 4);
-    const nameStr = padEndFullWidth(displayName, 16);
-    const pointStr = padStartFullWidth(`${data.points}`, 6);
-    const usableStr = padStartFullWidth(`${data.usable}`, 6);
+const rankStr = padStartZenkaku(toFullWidth(`${rank}`), 2) + "位";
+const nameStr = padEndZenkaku(name, 10);
+const pointStr = padStartZenkaku(toFullWidth(`${data.points}`), 4);
+const usableStr = padStartZenkaku(toFullWidth(`${data.usable}`), 4);
 
-    description += `${rankStr} | ${nameStr} | ${pointStr} | ${usableStr}\n`;
+description += `${rankStr}｜${nameStr}｜${pointStr}｜${usableStr}\n`;
     rank++;
   }
     description += "```";
