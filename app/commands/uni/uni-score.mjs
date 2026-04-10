@@ -254,7 +254,7 @@ function truncateFullWidth(str, maxWidth) {
     
     description += "```";
     description += "順位｜　　ユーザー名　　｜　累計　｜使用可能\n";
-    description += "――――――――――――――――――――――\n";
+    description += "ーー＋ーーーーーーーーー＋ーーーー＋ーーーー\n";
   
   let rank = 1;
 
