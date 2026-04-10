@@ -274,7 +274,7 @@ let name = toFullWidth(displayName);
 name = name.slice(0, 10);
 
 const rankStr = padStartZenkaku(toFullWidth(`${rank}`), 2);
-const nameStr = padEndZenkaku(name, 8);
+const nameStr = padEndZenkaku(name, 9);
 const pointStr = padStartZenkaku(toFullWidth(`${data.points}`), 4);
 const usableStr = padStartZenkaku(toFullWidth(`${data.usable}`), 4);
 
