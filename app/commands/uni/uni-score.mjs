@@ -225,7 +225,7 @@ export async function execute(interaction) {
     }
 
     description +=
-      `**${rank}位　__${displayName}__**　${data.points}pt（${data.usable}pt）\n`;
+      `**${rank}.　__${displayName}__**　${data.points}pt（${data.usable}pt）\n`;
     rank++;
   }
 
