@@ -192,6 +192,42 @@ export async function execute(interaction) {
 }
 
 // ===== ranking =====
+function getDisplayWidth(str) {
+  let width = 0;
+  for (const char of str) {
+    if (char.match(/[ -~]/)) {
+      width += 1;
+    } else {
+      width += 2;
+    }
+  }
+  return width;
+}
+
+function padEndFullWidth(str, targetWidth) {
+  const w = getDisplayWidth(str);
+  return w >= targetWidth ? str : str + " ".repeat(targetWidth - w);
+}
+
+function padStartFullWidth(str, targetWidth) {
+  const w = getDisplayWidth(str);
+  return w >= targetWidth ? str : " ".repeat(targetWidth - w) + str;
+}
+
+function truncateFullWidth(str, maxWidth) {
+  let result = "";
+  let width = 0;
+
+  for (const char of str) {
+    const charWidth = char.match(/[ -~]/) ? 1 : 2;
+    if (width + charWidth > maxWidth) break;
+    result += char;
+    width += charWidth;
+  }
+
+  return result;
+}
+
   if (sub === "ranking") {
   await interaction.deferReply();
 
@@ -208,7 +244,9 @@ export async function execute(interaction) {
 
   let description = "";
     
-    description += "順位　ユーザー名　累計（使用可能）\n\n";
+    description += "```";
+    description += "順位 | ユーザー名        | 累計   | 使用可能\n";
+    description += "------------------------------------------\n";
   
   let rank = 1;
 
@@ -224,10 +262,17 @@ export async function execute(interaction) {
       }
     }
 
-    description +=
-      `**${rank}.　__${displayName}__**　${data.points}pt（${data.usable}pt）\n`;
+    displayName = truncateFullWidth(displayName, 16);
+
+    const rankStr = padStartFullWidth(`${rank}.`, 4);
+    const nameStr = padEndFullWidth(displayName, 8);
+    const pointStr = padStartFullWidth(`${data.points}`, 6);
+    const usableStr = padStartFullWidth(`${data.usable}`, 6);
+
+    description += `${rankStr} | ${nameStr} | ${pointStr} | ${usableStr}\n`;
     rank++;
   }
+    description += "```";
 
   const embed = new EmbedBuilder()
     .setTitle("🏆 貢献度ランキング")
