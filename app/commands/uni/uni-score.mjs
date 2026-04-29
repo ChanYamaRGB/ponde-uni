@@ -185,7 +185,7 @@ export async function execute(interaction) {
   }
 
   if (type === "remove") {
-    entry.data.usable = Math.max(0, entry.data.usable - value);
+    entry.data.usable -= value;
     await entry.message.edit(JSON.stringify(entry.data));
     return interaction.reply(`${user.username} から使用可能ポイントを **${value}pt 削除**しました`);
   }
