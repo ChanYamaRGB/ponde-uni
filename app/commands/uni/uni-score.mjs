@@ -208,7 +208,7 @@ export async function execute(interaction) {
 
   let description = "";
     
-    description += "順位　ユーザー名　累計（使用可能）\n\n";
+    description += "順位　ユーザー名　　　累計（使用可能）\n\n";
   
   let rank = 1;
 
