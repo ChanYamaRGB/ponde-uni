@@ -637,6 +637,19 @@ export default {
   "⛩️ Unlimited Spark!"
 ],
 3: [ // VARIETY ======================================================================
+  "🚀 †渚の小悪魔ラヴリィ～レイディオ†",
+  "🚀 聖者の息吹",
+  "🚀 超MANJIラッシュ",
+  "🚀 Lips XTC -Sorist Remix-",
+  "🚀 ALTER EGO",
+  "🚀 Marigold",
+  "🚀 glory MAX -to the MAXimum-",
+  "🚀 DESTRUCTION 3,2,1",
+  "🚀 Ré：Ré",
+  "🚀 バンバード～Piano Version～",
+  "🚀 無双の咆哮 Warcry Overload",
+  "🚀 God only knows",
+  "🚀 New Starlight",
   "🚀 愛と煩悩と輪廻と常識の極彩世界",
   "🚀 ゼイタクするまで抱きしめて",
   "🚀 LAST PROPOZE",
@@ -997,6 +1010,8 @@ export default {
   "🎸 We Are Us(IOSYS TRAX Remix)"
 ],
 5: [ // ゲキマイ ======================================================================
+  "☄️ PANDORA PARADOXXX",
+  "☄️ μ3",
   "☄️ THE TRiANGLE",
   "☄️ WakeUP MakeUP FEVER!",
   "☄️ BIRTH",
@@ -1181,6 +1196,13 @@ export default {
   "☄️ 淵底のグレイ・ユークロニア"
 ],
 6: [ // ORIGINAL ======================================================================
+  "🎹 EFX",
+  "🎹 Beenden",
+  "🎹 薄明のクオリア",
+  "🎹 月葬",
+  "🎹 YOUNITHM",
+  "🎹 Melodiniq",
+  "🎹 Linked Tune",
   "🎹 パステル・シタイ！",
   "🎹 彩祭ワンダーワン！",
   "🎹 Fly Better!",
