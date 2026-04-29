@@ -208,7 +208,7 @@ export async function execute(interaction) {
 
   let description = "";
     
-    description += "__順位　ユーザー名　　　累計（使用可能）__\n\n";
+    description += "順位　ユーザー名　　　累計（使用可能）\n\n";
   
   let rank = 1;
 
@@ -225,7 +225,7 @@ export async function execute(interaction) {
     }
 
     description +=
-      `__**${rank}位　${displayName}**　${data.points}pt（${data.usable}pt）__\n`;
+      `**${rank}位　${displayName}**　${data.points}pt（${data.usable}pt）\n`;
     rank++;
   }
 
