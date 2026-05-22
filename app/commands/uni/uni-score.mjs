@@ -18,22 +18,29 @@ const DB_CHANNEL_ID = "1463094897174380587";
 
 // ===== タグ定義 =====
 const TAGS = {
-  AAA: {
-    points: 10,
-    color: 0x00ff00,
-    label: "高評価"
+  ANGEL: {
+    points: -50,
+    label: "エンゼル券"
   },
 
-  BBB: {
-    points: -5,
-    color: 0xff0000,
-    label: "減点"
+  BOOST: {
+    points: -30,
+    label: "ブースト日設定券"
   },
 
-  CCC: {
-    points: 30,
-    color: 0x3498db,
-    label: "特別報酬"
+  COURSE: {
+    points: -20,
+    label: "チームコース作成券"
+  },
+
+  ROLE_NAME: {
+    points: -15,
+    label: "ロールの名前作成券"
+  },
+
+  ROLE_COLOR: {
+    points: -10,
+    label: "ロールの色変更券"
   }
 };
 
@@ -180,9 +187,11 @@ export const data = new SlashCommandBuilder()
           .setDescription("タグ")
           .setRequired(true)
           .addChoices(
-            { name: "AAA (+10pt)", value: "AAA" },
-            { name: "BBB (-5pt)", value: "BBB" },
-            { name: "CCC (+30pt)", value: "CCC" }
+            { name: "ANGEL (-50pt)", value: "エンジェル券" },
+            { name: "BOOST (-30pt)", value: "ブースト日設定券" },
+            { name: "COURSE (-20pt)", value: "チームコース作成券" },
+            { name: "ROLE_NAME (-15pt)", value: "ロールの名前作成券" },
+            { name: "ROLE_COLOR (-10pt)", value: "ロールの色変更券" }
           )
       )
   )
