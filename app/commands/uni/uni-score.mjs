@@ -1,4 +1,4 @@
-```js
+js
 import {
   SlashCommandBuilder,
   EmbedBuilder
@@ -458,4 +458,3 @@ export async function execute(interaction) {
     });
   }
 }
-```
