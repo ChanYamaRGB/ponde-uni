@@ -242,7 +242,7 @@ export async function execute(interaction) {
       const msg = await channel.send(
         JSON.stringify({
           id: user.id,
-          points: point,
+          points: 0,
           usable: point
         })
       );
@@ -251,14 +251,13 @@ export async function execute(interaction) {
         message: msg,
         data: {
           id: user.id,
-          points: point,
+          points: 0,
           usable: point
         }
       };
 
     } else {
 
-      entry.data.points += point;
       entry.data.usable += point;
 
       await entry.message.edit(
