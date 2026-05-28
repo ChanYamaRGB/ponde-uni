@@ -4,8 +4,9 @@ import express from "express";
 import { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder } from "discord.js";
 import CommandsRegister from "./regist-commands.mjs";
 import schedule_update from './utils/schedule-update.mjs';
-import song_update from './utils/song-update.mjs'
-import boostDates from './utils/boostDates.mjs'
+import song_update from './utils/song-update.mjs';
+import boostDates from './utils/boostDates.mjs';
+import updateEvents from './utils/eventMessages.mjs';
 
 import Sequelize from "sequelize";
 import Parser from 'rss-parser';
@@ -97,9 +98,13 @@ client.on("ready", async () => {
 
   updatePresence();
 
-  boostDates(client);
-  schedule_update(client);
-  song_update(client, true);
+  await boostDates(client);
+  await schedule_update(client);
+  await song_update(client, true);
+  await updateEvents(client);
+  setInterval(async () => {
+    await updateEvents(client);
+  }, 10 * 60 * 1000);
 });
 
 client.on("guildCreate", updatePresence);
