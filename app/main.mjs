@@ -6,7 +6,7 @@ import CommandsRegister from "./regist-commands.mjs";
 import schedule_update from './utils/schedule-update.mjs';
 import song_update from './utils/song-update.mjs';
 import boostDates from './utils/boostDates.mjs';
-import updateEvents from './utils/eventMessages.mjs';
+import { updateEvents } from './utils/eventMessages.mjs';
 
 import Sequelize from "sequelize";
 import Parser from 'rss-parser';
