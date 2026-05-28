@@ -72,7 +72,7 @@ async function getEventData(channel, eventId) {
   );
 }
 
-async function updateEvents(client) {
+export async function updateEvents(client) {
 
   const postChannel =
     await client.channels.fetch(EVENT_CHANNEL_ID);
