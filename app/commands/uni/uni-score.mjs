@@ -187,11 +187,12 @@ export const data = new SlashCommandBuilder()
           .setDescription("タグ")
           .setRequired(true)
           .addChoices(
-            { name: "ANGEL (-50pt)", value: "エンジェル券" },
-            { name: "BOOST (-30pt)", value: "ブースト日設定券" },
-            { name: "COURSE (-20pt)", value: "チームコース作成券" },
-            { name: "ROLE_NAME (-15pt)", value: "ロールの名前作成券" },
-            { name: "ROLE_COLOR (-10pt)", value: "ロールの色変更券" }
+            { name: "ANGEL (-50pt)", value: "ANGEL" },
+            { name: "BOOST (-30pt)", value: "BOOST" },
+            { name: "COURSE (-20pt)", value: "COURSE" },
+            { name: "ROLE_NAME (-15pt)", value: "ROLE_NAME" },
+            { name: "ROLE_COLOR (-10pt)", value: "ROLE_COLOR" }
+          )
           )
       )
   )
