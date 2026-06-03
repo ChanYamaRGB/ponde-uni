@@ -193,7 +193,6 @@ export const data = new SlashCommandBuilder()
             { name: "ROLE_NAME (-15pt)", value: "ROLE_NAME" },
             { name: "ROLE_COLOR (-10pt)", value: "ROLE_COLOR" }
           )
-          )
       )
   )
 
