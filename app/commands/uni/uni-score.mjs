@@ -24,7 +24,11 @@ const nicknamesPath = path.join(
 const DB_CHANNEL_ID = "1463094897174380587";
 
 GlobalFonts.registerFromPath(
-  "./fonts/NotoSansJP-Regular.ttf",
+  path.join(
+    process.cwd(),
+    "fonts",
+    "NotoSansJP-Regular.ttf"
+  ),
   "Noto Sans JP"
 );
 
