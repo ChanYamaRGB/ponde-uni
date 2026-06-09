@@ -3,61 +3,46 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "20260514",
+    id: "himehina", // HIMEHINA
     start: "2026-05-14",
     end: "2026-07-01",
     content:
-`⬇️ **2026.05.14 ～ 07.01**
-\`\`\`
-▽ イベント
-  ◆ HIMEHINA
-  ◆ 未確認で進行形〈復刻〉
-▽ ミッション
-  ◆ レア・エ・フラータ
-▽ 全国対戦報酬
-  ◆『PANDORA PARADOXXX』
-  ◆『μ3』
-  ◆『†渚の小悪魔ラヴリィ～レイディオ†』
-  ◆『聖者の息吹』
-  ◆『超MANJIラッシュ』
-  ◆『Lips XTC -Sorist Remix-』
-  ◆『ALTER EGO』
-  ◆『Marigold』
-  ◆『glory MAX -to the MAXimum-』
-  ◆『DESTRUCTION 3,2,1』
-  ◆『Ré：Ré』
-\`\`\``
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/594b6d77e373686c4e7b0de0bfc55248.png`
   },
-  
   {
-    id: "20260520",
-    start: "2026-05-20",
-    end: "2026-06-30",
+    id: "mikakunin", // 未確認で生命体
+    start: "2026-05-14",
+    end: "2026-07-01",
     content:
-`⬇️ **2026.05.20 ～ 06.30**
-\`\`\`
-▽ 楽曲公募関連イベント
-  ◆ 第７回 オリジナル楽曲コンテスト
-    ▽ 対象キャラ
-      ◆〔メグ・カールステット〕
-      ◆〔Dr.メト・バサナテル〕
-      ◆〔ストゥム＆レヴル〕
-      ◆〔ヨナ・ライゼ〕
-      ◆〔再生者ディアン〕
-\`\`\``
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/9089d377919b32da577b5d640aa9c961-1024x576.png`
   },
-
   {
-    id: "20260528",
+    id: "rare", // レア・エ・フラータ
+    start: "2026-05-14",
+    end: "2026-07-01",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/b28a15466b167f9d52ab061bc0ed2a16.png`
+  },
+  {
+    id: "diverse2", // Diverse System 第二弾
     start: "2026-05-28",
     end: "2026-07-01",
     content:
-`⬇️ **2026.05.28 ～ 07.01**
-\`\`\`
-▽ イベント
-  ◆ Diverse System 第二弾
-  ◆ Diverse System〈復刻〉
-\`\`\``
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/928dbe40bbe9c6e4542638b5bf8e9158.png`
+  },
+  {
+    id: "diverse", // Diverse System
+    start: "2026-05-28",
+    end: "2026-07-01",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/04/2c9f5ccfaf5cf80c846860906af8a186-1024x576.png`
+  },
+  {
+    id: "wich", // サノバウィッチ
+    start: "2026-06-11",
+    end: "2026-07-01",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fc9905b5323efb956d1465079f567db1.png`
   }
 ];
 
