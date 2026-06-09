@@ -7,6 +7,7 @@ import {
   createCanvas,
   GlobalFonts
 } from "@napi-rs/canvas";
+console.log(GlobalFonts.families);
 import { AttachmentBuilder } from "discord.js";
 
 import fs from "fs";
