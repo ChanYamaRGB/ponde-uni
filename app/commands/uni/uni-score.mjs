@@ -95,6 +95,87 @@ async function getUserData(channel, userId) {
   return all.find(d => d.data.id === userId);
 }
 
+async function createRankingImage(
+  sorted,
+  nicknames,
+  guild
+) {
+  const width = 900;
+  const height = 150 + (sorted.length * 40);
+
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext("2d");
+
+  // 背景
+  ctx.fillStyle = "#2b2d31";
+  ctx.fillRect(0, 0, width, height);
+
+  // タイトル
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 32px sans-serif";
+  ctx.fillText("貢献度ランキング", 20, 50);
+
+  // ヘッダー
+  ctx.font = "22px sans-serif";
+  ctx.fillText("順位", 30, 100);
+  ctx.fillText("ユーザー", 150, 100);
+  ctx.fillText("累計", 650, 100);
+  ctx.fillText("使用可能", 760, 100);
+
+  let rank = 1;
+
+  for (const { data } of sorted) {
+
+    let displayName = nicknames[data.id];
+
+    if (!displayName) {
+      try {
+        const member =
+          await guild.members.fetch(data.id);
+
+        displayName =
+          member.nickname ??
+          member.user.username;
+
+      } catch {
+        displayName = "Unknown";
+      }
+    }
+
+    const y = 140 + ((rank - 1) * 40);
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.fillText(
+      `${rank}`,
+      30,
+      y
+    );
+
+    ctx.fillText(
+      displayName,
+      150,
+      y
+    );
+
+    ctx.fillText(
+      String(data.points),
+      650,
+      y
+    );
+
+    ctx.fillText(
+      String(data.usable),
+      780,
+      y
+    );
+
+    rank++;
+  }
+
+  return canvas.toBuffer("image/png");
+}
+
 // ===== Slash Command =====
 
 export const data = new SlashCommandBuilder()
