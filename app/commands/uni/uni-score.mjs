@@ -7,7 +7,6 @@ import {
   createCanvas,
   GlobalFonts
 } from "@napi-rs/canvas";
-console.log(GlobalFonts.families);
 import { AttachmentBuilder } from "discord.js";
 
 import fs from "fs";
@@ -27,7 +26,7 @@ GlobalFonts.registerFromPath(
   path.join(
     process.cwd(),
     "fonts",
-    "NotoSansJP-VariableFont_wght.ttf"
+    "NotoSansJP-Regular.ttf"
   ),
   "Noto Sans JP"
 );
