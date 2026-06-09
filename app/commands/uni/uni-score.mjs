@@ -3,6 +3,9 @@ import {
   EmbedBuilder
 } from "discord.js";
 
+import { createCanvas } from "@napi-rs/canvas";
+import { AttachmentBuilder } from "discord.js";
+
 import fs from "fs";
 import path from "path";
 
