@@ -31,6 +31,8 @@ GlobalFonts.registerFromPath(
   ),
   "Noto Sans JP"
 );
+console.log("register:", success);
+console.log("Fonts:", GlobalFonts.families);
 
 // ===== タグ定義 =====
 const TAGS = {
@@ -125,11 +127,11 @@ async function createRankingImage(
 
   // タイトル
   ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 32px sans-serif";
+  ctx.font = "22px 'Noto Sans JP'";
   ctx.fillText("貢献度ランキング", 20, 50);
 
   // ヘッダー
-  ctx.font = "22px Noto Sans CJK JP";
+  ctx.font = "22px 'Noto Sans JP'";
   ctx.fillText("順位", 30, 100);
   ctx.fillText("ユーザー", 150, 100);
   ctx.fillText("累計", 650, 100);
