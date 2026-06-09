@@ -27,7 +27,7 @@ GlobalFonts.registerFromPath(
   path.join(
     process.cwd(),
     "fonts",
-    "NotoSansJP-Regular.ttf"
+    "NotoSansJP-VariableFont_wght.ttf"
   ),
   "Noto Sans JP"
 );
