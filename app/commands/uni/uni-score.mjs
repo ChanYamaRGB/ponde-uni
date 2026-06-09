@@ -3,7 +3,10 @@ import {
   EmbedBuilder
 } from "discord.js";
 
-import { createCanvas } from "@napi-rs/canvas";
+import {
+  createCanvas,
+  GlobalFonts
+} from "@napi-rs/canvas";
 import { AttachmentBuilder } from "discord.js";
 
 import fs from "fs";
@@ -18,6 +21,11 @@ const nicknamesPath = path.join(
 );
 
 const DB_CHANNEL_ID = "1463094897174380587";
+
+GlobalFonts.registerFromPath(
+  "./fonts/NotoSansJP-Regular.ttf",
+  "Noto Sans JP"
+);
 
 // ===== タグ定義 =====
 const TAGS = {
