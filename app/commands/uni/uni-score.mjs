@@ -458,13 +458,29 @@ export async function execute(interaction) {
       rank++;
     }
 
-    const embed = new EmbedBuilder()
-      .setTitle("🏆 貢献度ランキング")
-      .setDescription(description)
-      .setColor(0xf1c40f);
+    const imageBuffer =
+  await createRankingImage(
+    sorted,
+    nicknames,
+    interaction.guild
+  );
 
-    return interaction.editReply({
-      embeds: [embed]
-    });
+const attachment =
+  new AttachmentBuilder(
+    imageBuffer,
+    { name: "ranking.png" }
+  );
+
+const embed =
+  new EmbedBuilder()
+    .setColor(0xf1c40f)
+    .setImage(
+      "attachment://ranking.png"
+    );
+
+return interaction.editReply({
+  embeds: [embed],
+  files: [attachment]
+});
   }
 }
