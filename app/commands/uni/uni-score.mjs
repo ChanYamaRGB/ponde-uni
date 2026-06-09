@@ -31,8 +31,6 @@ GlobalFonts.registerFromPath(
   ),
   "Noto Sans JP"
 );
-console.log("register:", success);
-console.log("Fonts:", GlobalFonts.families);
 
 // ===== タグ定義 =====
 const TAGS = {
