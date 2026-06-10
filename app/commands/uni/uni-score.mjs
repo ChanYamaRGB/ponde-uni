@@ -22,37 +22,22 @@ const nicknamesPath = path.join(
 
 const DB_CHANNEL_ID = "1463094897174380587";
 
-GlobalFonts.registerFromPath(
-  path.join(
-    process.cwd(),
-    "fonts",
-    "NotoSansJP-Regular.ttf"
-  ),
-  "Noto Sans JP"
+const fontPath = path.join(
+  process.cwd(),
+  "fonts",
+  "NotoSansJP-Regular.ttf"
 );
 
 console.log("fontPath:", fontPath);
+console.log("exists:", fs.existsSync(fontPath));
 
-console.log(
-  "exists:",
-  fs.existsSync(fontPath)
+const registered = GlobalFonts.registerFromPath(
+  fontPath,
+  "Noto Sans JP"
 );
 
-const registered =
-  GlobalFonts.registerFromPath(
-    fontPath,
-    "Noto Sans JP"
-  );
-
-console.log(
-  "registered:",
-  registered
-);
-
-console.log(
-  "families:",
-  GlobalFonts.families
-);
+console.log("registered:", registered);
+console.log("families:", GlobalFonts.families);
 
 // ===== タグ定義 =====
 const TAGS = {
