@@ -170,7 +170,7 @@ async function createRankingImage(
 
     const y = 140 + ((rank - 1) * 40);
 
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#000000";
 
     ctx.fillText(
       `${rank}`,
