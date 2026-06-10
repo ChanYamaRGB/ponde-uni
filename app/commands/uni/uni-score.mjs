@@ -30,7 +30,6 @@ GlobalFonts.registerFromPath(
   ),
   "Noto Sans JP"
 );
-console.log(GlobalFonts.families);
 
 // ===== タグ定義 =====
 const TAGS = {
@@ -578,3 +577,17 @@ return interaction.editReply({
 });
   }
 }
+
+console.log(
+  fs.existsSync(
+    path.join(
+      process.cwd(),
+      "fonts",
+      "NotoSansJP-VariableFont_wght.ttf"
+    )
+  )
+);
+
+console.log(
+  GlobalFonts.registerFromPath(...)
+);
