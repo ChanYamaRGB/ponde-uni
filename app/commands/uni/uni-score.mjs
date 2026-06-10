@@ -139,13 +139,13 @@ async function createRankingImage(
   ctx.fillStyle = "#000000";
   ctx.font = "22px 'Noto Sans JP'";
   ctx.fillText("順位", 30, 100);
-  ctx.fillText("ユーザー", 150, 100);
-  ctx.fillText("累計", 650, 100);
-  ctx.fillText("使用可能", 760, 100);
+  ctx.fillText("ユーザー", 100, 100);
+  ctx.fillText("累計", 350, 100);
+  ctx.fillText("使用可能", 460, 100);
   ctx.strokeStyle = "#555";
   ctx.beginPath();
   ctx.moveTo(20, 110);
-  ctx.lineTo(880, 110);
+  ctx.lineTo(580, 110);
   ctx.stroke();
 
   let rank = 1;
@@ -180,19 +180,19 @@ async function createRankingImage(
 
     ctx.fillText(
       displayName,
-      150,
+      100,
       y
     );
 
     ctx.fillText(
       String(data.points),
-      650,
+      350,
       y
     );
 
     ctx.fillText(
       String(data.usable),
-      780,
+      460,
       y
     );
 
