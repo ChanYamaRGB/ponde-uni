@@ -131,7 +131,7 @@ async function createRankingImage(
   ctx.fillRect(0, 0, width, height);
 
   // タイトル
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#ffffff";
   ctx.font = "bold 28px 'Noto Sans JP'";
   ctx.fillText("貢献度ランキング", 20, 50);
 
@@ -143,8 +143,8 @@ async function createRankingImage(
   ctx.fillText("使用可能", 760, 100);
   ctx.strokeStyle = "#555";
   ctx.beginPath();
-  ctx.moveTo(20, y);
-  ctx.lineTo(880, y);
+  ctx.moveTo(20, 110);
+  ctx.lineTo(880, 110);
   ctx.stroke();
 
   let rank = 1;
