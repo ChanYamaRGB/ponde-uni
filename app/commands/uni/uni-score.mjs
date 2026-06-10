@@ -120,7 +120,7 @@ async function createRankingImage(
   nicknames,
   guild
 ) {
-  const width = 900;
+  const width = 600;
   const height = 150 + (sorted.length * 40);
 
   const canvas = createCanvas(width, height);
