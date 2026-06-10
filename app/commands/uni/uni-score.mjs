@@ -31,6 +31,29 @@ GlobalFonts.registerFromPath(
   "Noto Sans JP"
 );
 
+console.log("fontPath:", fontPath);
+
+console.log(
+  "exists:",
+  fs.existsSync(fontPath)
+);
+
+const registered =
+  GlobalFonts.registerFromPath(
+    fontPath,
+    "Noto Sans JP"
+  );
+
+console.log(
+  "registered:",
+  registered
+);
+
+console.log(
+  "families:",
+  GlobalFonts.families
+);
+
 // ===== タグ定義 =====
 const TAGS = {
   ANGEL: {
@@ -577,17 +600,3 @@ return interaction.editReply({
 });
   }
 }
-
-console.log(
-  fs.existsSync(
-    path.join(
-      process.cwd(),
-      "fonts",
-      "NotoSansJP-VariableFont_wght.ttf"
-    )
-  )
-);
-
-console.log(
-  GlobalFonts.registerFromPath(...)
-);
