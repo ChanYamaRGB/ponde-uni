@@ -131,11 +131,12 @@ async function createRankingImage(
   ctx.fillRect(0, 0, width, height);
 
   // タイトル
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#000000";
   ctx.font = "bold 28px 'Noto Sans JP'";
   ctx.fillText("貢献度ランキング", 20, 50);
 
   // ヘッダー
+  ctx.fillStyle = "#000000";
   ctx.font = "22px 'Noto Sans JP'";
   ctx.fillText("順位", 30, 100);
   ctx.fillText("ユーザー", 150, 100);
