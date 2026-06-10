@@ -28,16 +28,16 @@ const fontPath = path.join(
   "NotoSansJP-Regular.ttf"
 );
 
-console.log("fontPath:", fontPath);
-console.log("exists:", fs.existsSync(fontPath));
+// console.log("fontPath:", fontPath);
+// console.log("exists:", fs.existsSync(fontPath));
 
 const registered = GlobalFonts.registerFromPath(
   fontPath,
   "Noto Sans JP"
 );
 
-console.log("registered:", registered);
-console.log("families:", GlobalFonts.families);
+// console.log("registered:", registered);
+// console.log("families:", GlobalFonts.families);
 
 // ===== タグ定義 =====
 const TAGS = {
@@ -127,12 +127,12 @@ async function createRankingImage(
   const ctx = canvas.getContext("2d");
 
   // 背景
-  ctx.fillStyle = "#2b2d31";
+  ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
   // タイトル
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "22px 'Noto Sans JP'";
+  ctx.fillStyle = "#000000";
+  ctx.font = "bold 28px 'Noto Sans JP'";
   ctx.fillText("貢献度ランキング", 20, 50);
 
   // ヘッダー
@@ -141,6 +141,11 @@ async function createRankingImage(
   ctx.fillText("ユーザー", 150, 100);
   ctx.fillText("累計", 650, 100);
   ctx.fillText("使用可能", 760, 100);
+  ctx.strokeStyle = "#555";
+  ctx.beginPath();
+  ctx.moveTo(20, y);
+  ctx.lineTo(880, y);
+  ctx.stroke();
 
   let rank = 1;
 
