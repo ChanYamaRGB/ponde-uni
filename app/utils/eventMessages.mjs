@@ -7,7 +7,7 @@ const EVENTS = [
     start: "2026-04-16",
     end: "2026-07-01",
     content:
-`https://cdn.wikiwiki.jp/to/w/chunithmwiki/%E8%8B%B1%E5%82%91%E5%A4%A7%E6%88%A6%E3%82%B3%E3%83%A9%E3%83%9C%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/::attach/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E5%91%8A%E7%9F%A5%28%E6%96%B0%29.jpg`
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/04/ee26c1e4ec94bd778e200e4b3ce3373d.png`
   },
   {
     id: "himehina", // HIMEHINA
@@ -50,21 +50,21 @@ const EVENTS = [
     end: "2026-07-01",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fc9905b5323efb956d1465079f567db1.png`
-  },
-  {
-    id: "takopi", // タコピーの原罪
-    start: "2026-07-02",
-    end: "2026-07-29",
-    content:
-`https://cdn.wikiwiki.jp/to/w/chunithmwiki/%E3%82%BF%E3%82%B3%E3%83%94%E3%83%BC%E3%81%AE%E5%8E%9F%E7%BD%AA%E3%82%B3%E3%83%A9%E3%83%9C%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/::attach/HLKrUA2bMAAWRpR.webp`
-  },
-  {
-    id: "monsterhunter", // モンスターハンターワイルズ
-    start: "2026-07-02",
-    end: "2026-08-19",
-    content:
-`https://cdn.wikiwiki.jp/to/w/chunithmwiki/%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%8F%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%AF%E3%82%A4%E3%83%AB%E3%82%BA%E3%82%B3%E3%83%A9%E3%83%9C%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/::attach/HLDPWi2aEAAyHu_.webp`
   }
+//   {
+//     id: "takopi", // タコピーの原罪
+//     start: "2026-07-02",
+//     end: "2026-07-29",
+//     content:
+// ``
+//   },
+//   {
+//     id: "monsterhunter", // モンスターハンターワイルズ
+//     start: "2026-07-02",
+//     end: "2026-08-19",
+//     content:
+// ``
+//   }
 ];
 
 async function getEventDB(channel) {
