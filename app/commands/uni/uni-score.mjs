@@ -42,7 +42,7 @@ const registered = GlobalFonts.registerFromPath(
 // ===== タグ定義 =====
 const TAGS = {
   ANGEL: {
-    points: -50,
+    points: -5,
     label: "エンゼル券"
   },
 
@@ -297,11 +297,11 @@ export const data = new SlashCommandBuilder()
           .setDescription("タグ")
           .setRequired(true)
           .addChoices(
-            { name: "ANGEL (-50pt)", value: "ANGEL" },
             { name: "BOOST (-30pt)", value: "BOOST" },
             { name: "COURSE (-20pt)", value: "COURSE" },
             { name: "ROLE_NAME (-15pt)", value: "ROLE_NAME" },
-            { name: "ROLE_COLOR (-10pt)", value: "ROLE_COLOR" }
+            { name: "ROLE_COLOR (-10pt)", value: "ROLE_COLOR" },
+            { name: "ANGEL (-5pt)", value: "ANGEL" }
           )
       )
   )
