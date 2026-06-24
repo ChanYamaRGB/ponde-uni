@@ -156,6 +156,9 @@ export async function updateEvents(client) {
           );
         }
 
+        // 編集
+          await targetMsg.edit(event.content);
+
       } else {
 
         // 新規投稿
