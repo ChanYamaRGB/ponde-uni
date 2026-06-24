@@ -143,6 +143,9 @@ export async function updateEvents(client) {
               dbEntry.data.messageId
             );
 
+          // 編集
+          await targetMsg.edit(event.content);
+
         } catch {
 
           // 投稿消えてた
@@ -155,9 +158,6 @@ export async function updateEvents(client) {
             JSON.stringify(dbEntry.data)
           );
         }
-
-        // 編集
-          await targetMsg.edit(event.content);
 
       } else {
 
