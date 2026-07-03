@@ -9,7 +9,7 @@ export default function schedule_update(client) {
       3: "🤩 キャラクター EXP x1.5倍", // 水
       4: "🎀 超アバターチャンス", // 木
       5: "🎲 マップマス数 +2", // 金
-      6: "💰 マップのメモリー x2倍" // 土
+      6: "💰 マップのファボ x2倍" // 土
     };
 
     const bonus_channelId = "1349297616839770122";
