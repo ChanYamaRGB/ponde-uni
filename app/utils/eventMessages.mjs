@@ -7,49 +7,63 @@ const EVENTS = [
     start: "2026-07-02",
     end: "2026-07-29",
     content:
-`https://raw.githubusercontent.com/ChanYamaRGB/ponde-uni/main/app/utils/DB/takopi.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/takopi.jpg?raw=true`
   },
   {
     id: "monsterhunter", // モンスターハンターワイルズ
     start: "2026-07-02",
     end: "2026-08-19",
     content:
-`./DB/monsterhunter.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/monsterhunter.jpg?raw=true`
   },
   {
     id: "groovecoaster", // グルーヴコースター
     start: "2026-07-02",
     end: "2026-08-05",
     content:
-`./DB/groovecoaster.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/groovecoaster.jpg?raw=true`
   },
   {
     id: "nikke", // NIKKE
     start: "2026-07-02",
     end: "2026-08-05",
     content:
-`./DB/nikke.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/nikke.jpg?raw=true`
   },
   {
     id: "unlockchallenge6", // UNLOCK CHALLENGE 6
     start: "2026-07-02",
     end: "2026-08-19",
     content:
-`./DB/unlockchallenge6.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/unlockchallenge6.jpg?raw=true`
   },
   {
     id: "unlockchallenge7", // UNLOCK CHALLENGE 7
     start: "2026-07-02",
     end: "2026-08-19",
     content:
-`./DB/unlockchallenge7.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/unlockchallenge7.jpg?raw=true`
   },
   {
     id: "gekimai", // ゲキマイ楽曲連動
     start: "2026-07-02",
     end: "2027-07-02",
     content:
-`./DB/gekimai.jpg`
+`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/gekimai.jpg?raw=true`
+  },
+  {
+    id: "ayakaki", // いずれ菖蒲か杜若
+    start: "2026-07-16",
+    end: "2026-09-02",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/2f7904f104d5d02e308276dea7b0152a.png`
+  },
+  {
+    id: "patora", // 周防パトラ
+    start: "2026-07-16",
+    end: "2026-09-02",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/d78c3263f6f8e7cfb89706e133c497cf.png`
   }
 ];
 
