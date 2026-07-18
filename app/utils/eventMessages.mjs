@@ -7,7 +7,7 @@ const EVENTS = [
     start: "2026-07-02",
     end: "2026-07-29",
     content:
-`./DB/takopi.jpg`
+`https://raw.githubusercontent.com/ChanYamaRGB/ponde-uni/main/app/utils/DB/takopi.jpg`
   },
   {
     id: "monsterhunter", // モンスターハンターワイルズ
