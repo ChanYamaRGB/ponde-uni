@@ -3,68 +3,54 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "eiketsu", // 英傑対戦
-    start: "2026-04-16",
-    end: "2026-07-01",
+    id: "takopi", // タコピーの原罪
+    start: "2026-07-02",
+    end: "2026-07-29",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/04/ee26c1e4ec94bd778e200e4b3ce3373d.png`
+`./DB/takopi.jpg`
   },
   {
-    id: "himehina", // HIMEHINA
-    start: "2026-05-14",
-    end: "2026-07-01",
+    id: "monsterhunter", // モンスターハンターワイルズ
+    start: "2026-07-02",
+    end: "2026-08-19",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/594b6d77e373686c4e7b0de0bfc55248.png`
+`./DB/monsterhunter.jpg`
   },
   {
-    id: "mikakunin", // 未確認で生命体
-    start: "2026-05-14",
-    end: "2026-07-01",
+    id: "groovecoaster", // グルーヴコースター
+    start: "2026-07-02",
+    end: "2026-08-05",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/9089d377919b32da577b5d640aa9c961-1024x576.png`
+`./DB/groovecoaster.jpg`
   },
   {
-    id: "rare", // レア・エ・フラータ
-    start: "2026-05-14",
-    end: "2026-07-01",
+    id: "nikke", // NIKKE
+    start: "2026-07-02",
+    end: "2026-08-05",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/b28a15466b167f9d52ab061bc0ed2a16.png`
+`./DB/nikke.jpg`
   },
   {
-    id: "diverse2", // Diverse System 第二弾
-    start: "2026-05-28",
-    end: "2026-07-01",
+    id: "unlockchallenge6", // UNLOCK CHALLENGE 6
+    start: "2026-07-02",
+    end: "2026-08-19",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/05/928dbe40bbe9c6e4542638b5bf8e9158.png`
+`./DB/unlockchallenge6.jpg`
   },
   {
-    id: "diverse", // Diverse System
-    start: "2026-05-28",
-    end: "2026-07-01",
+    id: "unlockchallenge7", // UNLOCK CHALLENGE 7
+    start: "2026-07-02",
+    end: "2026-08-19",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/04/2c9f5ccfaf5cf80c846860906af8a186-1024x576.png`
+`./DB/unlockchallenge7.jpg`
   },
   {
-    id: "wich", // サノバウィッチ
-    start: "2026-06-11",
-    end: "2026-07-01",
+    id: "gekimai", // ゲキマイ楽曲連動
+    start: "2026-07-02",
+    end: "2027-07-02",
     content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fc9905b5323efb956d1465079f567db1.png`
+`./DB/gekimai.jpg`
   }
-//   {
-//     id: "takopi", // タコピーの原罪
-//     start: "2026-07-02",
-//     end: "2026-07-29",
-//     content:
-// ``
-//   },
-//   {
-//     id: "monsterhunter", // モンスターハンターワイルズ
-//     start: "2026-07-02",
-//     end: "2026-08-19",
-//     content:
-// ``
-//   }
 ];
 
 async function getEventDB(channel) {
