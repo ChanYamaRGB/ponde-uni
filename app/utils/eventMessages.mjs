@@ -3,55 +3,6 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "takopi", // タコピーの原罪
-    start: "2026-07-02",
-    end: "2026-07-29",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/takopi.jpg?raw=true`
-  },
-  {
-    id: "monsterhunter", // モンスターハンターワイルズ
-    start: "2026-07-02",
-    end: "2026-08-19",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/monsterhunter.jpg?raw=true`
-  },
-  {
-    id: "groovecoaster", // グルーヴコースター
-    start: "2026-07-02",
-    end: "2026-08-05",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/groovecoaster.jpg?raw=true`
-  },
-  {
-    id: "nikke", // NIKKE
-    start: "2026-07-02",
-    end: "2026-08-05",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/nikke.jpg?raw=true`
-  },
-  {
-    id: "unlockchallenge6", // UNLOCK CHALLENGE 6
-    start: "2026-07-02",
-    end: "2026-08-19",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/unlockchallenge6.jpg?raw=true`
-  },
-  {
-    id: "unlockchallenge7", // UNLOCK CHALLENGE 7
-    start: "2026-07-02",
-    end: "2026-08-19",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/unlockchallenge7.jpg?raw=true`
-  },
-  {
-    id: "gekimai", // ゲキマイ楽曲連動
-    start: "2026-07-02",
-    end: "2027-07-02",
-    content:
-`https://github.com/ChanYamaRGB/ponde-uni/blob/main/app/utils/DB/gekimai.jpg?raw=true`
-  },
-  {
     id: "ayakaki", // いずれ菖蒲か杜若
     start: "2026-07-16",
     end: "2026-09-02",
