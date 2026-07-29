@@ -15,6 +15,20 @@ const EVENTS = [
     end: "2026-09-02",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/d78c3263f6f8e7cfb89706e133c497cf.png`
+  },
+  {
+    id: "subway", // 銀河特急 ミルキー☆サブウェイ
+    start: "2026-07-30",
+    end: "2026-09-16",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/8c6be547361c872ccb96a5174354c2ba.png`
+  },
+  {
+    id: "voice3", // デジタルアイテムキャンペーン第3弾
+    start: "2026-07-30",
+    end: "2026-09-02",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/07/b112d8f1fd5465f4269c761bc46ee554.png`
   }
 ];
 
