@@ -54,7 +54,7 @@ export async function execute(interaction) {
       );
       const row2 = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('btn_rule').setLabel('⚙️ ルール設定').setStyle(ButtonStyle.Primary),
-        new ButtonBuilder().setCustomId('btn_finish').setLabel('✅ 完成して出力').setStyle(ButtonStyle.Success)
+        new ButtonBuilder().setCustomId('btn_finish').setLabel('✅ 完成').setStyle(ButtonStyle.Success)
       );
       return [row1, row2];
     } 
