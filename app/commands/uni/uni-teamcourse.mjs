@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import songsData from '.../utils/DB/songs.mjs'; // songs.mjsを読み込む
+import songsData from '../../utils/DB/songs.mjs'; // songs.mjsを読み込む
 
 // 全楽曲を1つの配列に平坦化（オートコンプリート検索用）
 const allSongs = Object.values(songsData).flat();
