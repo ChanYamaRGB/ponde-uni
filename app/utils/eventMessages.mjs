@@ -29,6 +29,27 @@ const EVENTS = [
     end: "2026-09-02",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/07/b112d8f1fd5465f4269c761bc46ee554.png`
+  },
+  {
+    id: "BlueArchive2", // ブルーアーカイブ -Blue Archive- 第二弾
+    start: "2026-08-06",
+    end: "2026-09-24",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/8981883b74c0092b5fc84ec352c18f80.png`
+  },
+  {
+    id: "BlueArchive", // ブルーアーカイブ -Blue Archive-〈復刻〉
+    start: "2026-08-06",
+    end: "2026-09-24",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/9bf8122b5f2e3e8d0720024d4000040c-1024x576.png`
+  },
+  {
+    id: "StreamRoom", // ロシェの配信部屋
+    start: "2026-08-06",
+    end: "2026-09-02",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/a38e5d69fe64f4a834f2f05c27b1cbeb.png`
   }
 ];
 
