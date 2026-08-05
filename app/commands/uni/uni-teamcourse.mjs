@@ -8,7 +8,7 @@ const allSongs = Object.values(songsData).flat();
 
 export const data = new SlashCommandBuilder()
   .setName('uni-teamcourse')
-  .setDescription('専用パネルを使ってチームコースを作成します（対話型UI）');
+  .setDescription('専用パネルを使ってチームコースを作成します');
 
 export async function execute(interaction) {
   // --- 1. コース情報の保存用データ（初期状態） ---
@@ -30,6 +30,7 @@ export async function execute(interaction) {
     return new EmbedBuilder()
       .setColor(0xFF0055)
       .setTitle(`『コース名：${courseName}』`)
+      .setAuthor({ name: `作成者: ${interaction.user.displayName}`, iconURL: interaction.user.displayAvatarURL() })
       .setDescription('以下のボタンを押して設定を変更してください。')
       .addFields(
         { name: '【楽曲名（ULTIMAもOK）】', value: 
@@ -53,7 +54,7 @@ export async function execute(interaction) {
       );
       const row2 = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('btn_rule').setLabel('⚙️ ルール設定').setStyle(ButtonStyle.Primary),
-        new ButtonBuilder().setCustomId('btn_finish').setLabel('✨ 完成して出力').setStyle(ButtonStyle.Success)
+        new ButtonBuilder().setCustomId('btn_finish').setLabel('✅ 完成して出力').setStyle(ButtonStyle.Success)
       );
       return [row1, row2];
     } 
@@ -71,9 +72,9 @@ export async function execute(interaction) {
         .setCustomId('select_diff')
         .setPlaceholder('▼ 難易度を選択してください')
         .addOptions(
-          { label: '赤 (EXPERT)', value: '赤' },
-          { label: '紫 (MASTER)', value: '紫' },
-          { label: '黒 (ULTIMA)', value: '黒' }
+          { label: 'EXPERT(赤)', value: 'EXPERT' },
+          { label: 'MASTER(紫)', value: 'MASTER' },
+          { label: 'ULTIMA(黒)', value: 'ULTIMA' }
         );
       
       const okBtn = new ButtonBuilder().setCustomId('btn_back').setLabel('メイン画面に戻る').setStyle(ButtonStyle.Success);
@@ -92,11 +93,11 @@ export async function execute(interaction) {
       
       const typeSelect = new StringSelectMenuBuilder()
         .setCustomId('select_type')
-        .setPlaceholder('▼ 減少条件を選択してください')
+        .setPlaceholder('▼ LIFE減少条件を選択してください')
         .addOptions(
-          { label: 'MISS で減少', value: 'MISS' },
-          { label: 'ATTACK で減少', value: 'ATTACK' },
-          { label: 'JUSTICE で減少', value: 'JUSTICE' }
+          { label: 'MISS で -1', value: 'MISS' },
+          { label: 'ATTACK で -1', value: 'ATTACK' },
+          { label: 'JUSTICE で -1', value: 'JUSTICE' }
         );
 
       const okBtn = new ButtonBuilder().setCustomId('btn_back').setLabel('メイン画面に戻る').setStyle(ButtonStyle.Success);
@@ -144,7 +145,7 @@ export async function execute(interaction) {
       editingSongIndex = parseInt(i.customId.split('_').pop()); // 0, 1, 2のどれかを取得
       
       const modal = new ModalBuilder().setCustomId('modal_search').setTitle(`${editingSongIndex + 1}曲目の検索`);
-      const input = new TextInputBuilder().setCustomId('input_keyword').setLabel('楽曲名の一部（ひらがな等）を入力').setStyle(TextInputStyle.Short).setRequired(true);
+      const input = new TextInputBuilder().setCustomId('input_keyword').setLabel('楽曲名の一部を入力して検索').setStyle(TextInputStyle.Short).setRequired(true);
       modal.addComponents(new ActionRowBuilder().addComponents(input));
       
       await i.showModal(modal);
@@ -152,7 +153,7 @@ export async function execute(interaction) {
       
       if (submitted) {
         const keyword = submitted.fields.getTextInputValue('input_keyword');
-        searchResults = allSongs.filter(song => song.includes(keyword)).slice(0, 25); // 上限25件
+        searchResults = allSongs.filter(song => song.toLowerCase().includes(keyword.toLowerCase())).slice(0, 25); // 上限25件
         
         if (searchResults.length === 0) {
           await submitted.reply({ content: `「${keyword}」を含む楽曲が見つかりませんでした。`, ephemeral: true });
@@ -196,6 +197,7 @@ export async function execute(interaction) {
     // --- ✨ 完成して出力 ---
     if (i.customId === 'btn_finish') {
       const finalResultText = `『コース名：${courseName}』\n\n` +
+        `作成者：${interaction.user.displayName}\n\n` +
         `【楽曲名（ULTIMAもOK）】\n` +
         `１．${songs[0].name}［${songs[0].diff}］\n` +
         `２．${songs[1].name}［${songs[1].diff}］\n` +
@@ -208,7 +210,7 @@ export async function execute(interaction) {
       await i.update({ embeds: [generateEmbed()], components: [] });
       
       // テンプレートをテキストとして送信（コピペしやすいように）
-      await i.followUp({ content: `**✅ コース設定が完了しました！以下のテキストをコピーして使用してください。**\n\`\`\`\n${finalResultText}\n\`\`\`` });
+      await i.followUp({ content: `\`\`\`\n${finalResultText}\n\`\`\`` });
       
       collector.stop(); // 待機終了
     }
