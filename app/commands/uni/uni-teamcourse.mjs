@@ -7,7 +7,7 @@ import songsData from '../../utils/DB/songs.mjs'; // 正しいパス
 const allSongs = Object.values(songsData).flat();
 
 export const data = new SlashCommandBuilder()
-  .setName('create_course')
+  .setName('uni-teamcourse')
   .setDescription('専用パネルを使ってチームコースを作成します（対話型UI）');
 
 export async function execute(interaction) {
