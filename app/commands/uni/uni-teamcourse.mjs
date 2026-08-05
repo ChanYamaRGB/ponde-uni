@@ -206,11 +206,12 @@ export async function execute(interaction) {
         `LIFE:［${rule.life}］\n` +
         `RULE:［${rule.type}］で LIFE -1`;
 
-      // パネルを確定状態（ボタン全消し）にする
-      await i.update({ embeds: [generateEmbed()], components: [] });
-      
-      // テンプレートをテキストとして送信（コピペしやすいように）
-      await i.followUp({ content: `\`\`\`\n${finalResultText}\n\`\`\`` });
+      // パネルのEmbedとボタンを両方とも消去し、代わりに完成テキストで上書きする
+      await i.update({ 
+        content: `\`\`\`\n${finalResultText}\n\`\`\``,
+        embeds: [],      // ◀ 空の配列にすることでEmbedが消えます
+        components: []   // ◀ ボタンも消えます
+      });
       
       collector.stop(); // 待機終了
     }
