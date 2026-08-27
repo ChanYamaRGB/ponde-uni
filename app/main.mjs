@@ -61,12 +61,19 @@ const handlers = new Map();
 const handlersPath = path.join(process.cwd(), "handlers");
 const handlerFiles = fs.readdirSync(handlersPath).filter((file) => file.endsWith(".mjs"));
 
-for (const file of handlerFiles) {
-  const filePath = path.join(handlersPath, file);
-  import(filePath).then((module) => {
-    handlers.set(file.slice(0, -4), module);
-  });
-}
+for (const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    import(filePath).then((module) => {
+      // data や data.name が存在しない場合は警告を出してスキップする
+      if (!module.data || !module.data.name) {
+        console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
+        return;
+      }
+      client.commands.set(module.data.name, module);
+    }).catch(err => {
+      console.error(`[エラー] ${file} のインポート中にエラーが発生しました:`, err);
+    });
+  }
 
 client.on("interactionCreate", async (interaction) => {
   await handlers.get("interactionCreate").default(interaction);
