@@ -42,27 +42,27 @@ const registered = GlobalFonts.registerFromPath(
 // ===== タグ定義 =====
 const TAGS = {
   ANGEL: {
-    points: -5,
+    points: -50,
     label: "エンゼル券"
   },
 
   BOOST: {
-    points: -30,
+    points: -300,
     label: "ブースト日設定券"
   },
 
   COURSE: {
-    points: -20,
+    points: -200,
     label: "チームコース作成券"
   },
 
   ROLE_NAME: {
-    points: -15,
+    points: -150,
     label: "ロールの名前作成券"
   },
 
   ROLE_COLOR: {
-    points: -10,
+    points: -100,
     label: "ロールの色変更券"
   }
 };
@@ -172,29 +172,15 @@ async function createRankingImage(
 
     ctx.fillStyle = "#000000";
 
-    ctx.fillText(
-      `${rank}`,
-      30,
-      y
-    );
+    // --- 順位とユーザー名は左揃え ---
+    ctx.textAlign = "left";
+    ctx.fillText(`${rank}`, 30, y);
+    ctx.fillText(displayName, 100, y);
 
-    ctx.fillText(
-      displayName,
-      100,
-      y
-    );
-
-    ctx.fillText(
-      String(data.points),
-      350,
-      y
-    );
-
-    ctx.fillText(
-      String(data.usable),
-      460,
-      y
-    );
+    // --- 数値はカンマ区切りにして右揃え ---
+    ctx.textAlign = "right";
+    ctx.fillText(data.points.toLocaleString(), 400, y);
+    ctx.fillText(data.usable.toLocaleString(), 550, y);
 
     rank++;
   }
@@ -297,11 +283,11 @@ export const data = new SlashCommandBuilder()
           .setDescription("タグ")
           .setRequired(true)
           .addChoices(
-            { name: "BOOST (-30pt)", value: "BOOST" },
-            { name: "COURSE (-20pt)", value: "COURSE" },
-            { name: "ROLE_NAME (-15pt)", value: "ROLE_NAME" },
-            { name: "ROLE_COLOR (-10pt)", value: "ROLE_COLOR" },
-            { name: "ANGEL (-5pt)", value: "ANGEL" }
+            { name: "BOOST (-300pt)", value: "BOOST" },
+            { name: "COURSE (-200pt)", value: "COURSE" },
+            { name: "ROLE_NAME (-150pt)", value: "ROLE_NAME" },
+            { name: "ROLE_COLOR (-100pt)", value: "ROLE_COLOR" },
+            { name: "ANGEL (-50pt)", value: "ANGEL" }
           )
       )
   )
