@@ -110,17 +110,29 @@ client.on("ready", async () => {
 client.on("guildCreate", updatePresence);
 client.on("guildDelete", updatePresence);
 
+// ==========================================
+// main.mjs 末尾: UptimeRobot監視用HTTPサーバー
+// ==========================================
 import http from 'http';
 
+// ポート番号はKoyebの環境変数を優先し、フォールバックとして8080を指定（3000番の固定を回避）
+const PORT = process.env.PORT || 8080;
+
 const server = http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end('Bot is running!');
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Bot is running and awake!');
 });
 
-const PORT = process.env.PORT || 8080;
+// EADDRINUSEエラーを捕捉し、Botプロセス全体がクラッシュするのを防ぐ
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.warn(`Koyeb Log: Port ${PORT} is already in use. The HTTP server is likely already running in this container.`);
+    } else {
+        console.error('Koyeb Log: HTTP Server Error:', err);
+    }
+});
+
+// サーバー起動
 server.listen(PORT, () => {
     console.log(`Koyeb Log: HTTP Server listening on port ${PORT} for UptimeRobot.`);
 });
-
-CommandsRegister();
-client.login(process.env.TOKEN);
