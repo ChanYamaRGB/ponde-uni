@@ -47,11 +47,18 @@ const commandFolders = fs.readdirSync(categoryFoldersPath);
 for (const folder of commandFolders) {
   const commandsPath = path.join(categoryFoldersPath, folder);
   const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".mjs"));
-
+  
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     import(filePath).then((module) => {
+      // data や data.name が存在しない場合は警告を出してスキップする
+      if (!module.data || !module.data.name) {
+        console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
+        return;
+      }
       client.commands.set(module.data.name, module);
+    }).catch(err => {
+      console.error(`[エラー] ${file} のインポート中にエラーが発生しました:`, err);
     });
   }
 }
