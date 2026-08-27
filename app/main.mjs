@@ -1,8 +1,14 @@
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
+import {  Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import { pathToFileURL, fileURLToPath } from 'url';
 import http from 'http';
+import express from "express";
+import CommandsRegister from "./regist-commands.mjs";
+import schedule_update from './utils/schedule-update.mjs';
+import song_update from './utils/song-update.mjs';
+import boostDates from './utils/boostDates.mjs';
+import { updateEvents } from './utils/eventMessages.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,7 +24,6 @@ const client = new Client({
 
 client.commands = new Collection();
 
-// 1. コマンドファイルの動的読み込み
 const commandsPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(commandsPath);
 
@@ -29,7 +34,6 @@ for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.mjs') || file.endsWith('.js'));
     for (const file of commandFiles) {
         const filePath = path.join(folderPath, file);
-        // 【修正箇所】import用のURL文字列を生成（以前のコードで欠落していた部分）
         const fileUrl = pathToFileURL(filePath).href;
 
         const module = await import(fileUrl);
@@ -43,16 +47,13 @@ for (const folder of commandFolders) {
     }
 }
 
-// 2. イベントハンドラーの動的読み込み
 const handlersPath = path.join(__dirname, 'handlers');
-// ディレクトリを除外し、ファイルのみをフィルタリング
+
 const handlerFiles = fs.readdirSync(handlersPath).filter(file => !fs.statSync(path.join(handlersPath, file)).isDirectory() && (file.endsWith('.mjs') || file.endsWith('.js')));
 
 for (const file of handlerFiles) {
     const filePath = path.join(handlersPath, file);
-    // 【修正箇所】イベント側でも同様に fileUrl を定義
     const fileUrl = pathToFileURL(filePath).href;
-    
     const module = await import(fileUrl);
     const event = module.default;
 
@@ -65,12 +66,33 @@ for (const file of handlerFiles) {
     }
 }
 
-// 3. Botのログイン
+client.on("interactionCreate", async (interaction) => {
+  await handlers.get("interactionCreate").default(interaction);
+});
+
+client.on("messageCreate", async (message) => {
+  if (message.author.id == client.user.id || message.author.bot) return;
+  await handlers.get("messageCreate").default(message);
+});
+
+function updatePresence() {
+  const guildCount = client.guilds.cache.size;
+
+  client.user.setPresence({
+    activities: [
+      {
+        name: `in ${guildCount} server`,
+        type: ActivityType.Watching
+      }
+    ],
+    status: "online"
+  });
+}
+
 client.login(process.env.DISCORD_TOKEN).catch(err => {
     console.error('Koyeb Log: Discord Login Error', err);
 });
 
-// 4. Koyeb / UptimeRobot 監視維持用HTTPサーバー
 const PORT = process.env.PORT || 8080;
 const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -88,6 +110,26 @@ server.on('error', (err) => {
 server.listen(PORT, () => {
     console.log(`Koyeb Log: HTTP Server listening on port ${PORT} for UptimeRobot.`);
 });
+
+client.on("ready", async () => {
+  console.log(`${client.user.tag} がログインしました！`);
+  console.log(`BotがいるGuild一覧:`);
+  client.guilds.cache.forEach(g => console.log(`- ${g.name} (ID: ${g.id})`));
+
+  updatePresence();
+
+  await boostDates(client);
+  await schedule_update(client);
+  await song_update(client, true);
+  await updateEvents(client);
+  setInterval(async () => {
+    await updateEvents(client);
+  }, 10 * 60 * 1000);
+});
+
+client.on("guildCreate", updatePresence);
+client.on("guildDelete", updatePresence);
+
 
 // import fs from "fs";
 // import path from "path";
@@ -204,26 +246,3 @@ server.listen(PORT, () => {
 
 // client.on("guildCreate", updatePresence);
 // client.on("guildDelete", updatePresence);
-
-// import http from 'http';
-
-// // ポート番号は環境変数を優先し、フォールバックとして8080を指定
-// const PORT = process.env.PORT || 8080;
-
-// const server = http.createServer((req, res) => {
-//     res.writeHead(200, { 'Content-Type': 'text/plain' });
-//     res.end('Bot is running and awake!');
-// });
-
-// // EADDRINUSEエラーを捕捉し、Botプロセス全体のクラッシュを回避
-// server.on('error', (err) => {
-//     if (err.code === 'EADDRINUSE') {
-//         console.warn(`Koyeb Log: Port ${PORT} is already in use. The HTTP server is likely already running in this container.`);
-//     } else {
-//         console.error('Koyeb Log: HTTP Server Error:', err);
-//     }
-// });
-
-// server.listen(PORT, () => {
-//     console.log(`Koyeb Log: HTTP Server listening on port ${PORT} for UptimeRobot.`);
-// });
