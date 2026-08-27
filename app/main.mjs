@@ -17,13 +17,13 @@ const app = express();
 app.listen(3000);
 app.post('/', function(req, res) {
   console.log(`Received POST request.`);
-  
+
   postCount++;
   if (postCount == 10) {
     trigger();
     postCount = 0;
   }
-  
+
   res.send('POST response by GitHub');
 })
 app.get('/', function(req, res) {
@@ -47,16 +47,12 @@ const commandFolders = fs.readdirSync(categoryFoldersPath);
 for (const folder of commandFolders) {
   const commandsPath = path.join(categoryFoldersPath, folder);
   const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".mjs"));
-  
-  for (const file of commandFiles) {
-const module = await import(fileUrl);
-const command = module.default; // .mjsのデフォルトエクスポートを取得
 
-if (command && 'data' in command && 'execute' in command) {
-    client.commands.set(command.data.name, command);
-} else {
-    console.warn(`[WARNING] Koyeb Log: ${file} に必要な "data" または "execute" がありません。`);
-}
+  for (const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    import(filePath).then((module) => {
+      client.commands.set(module.data.name, module);
+    });
   }
 }
 
@@ -113,3 +109,6 @@ client.on("ready", async () => {
 
 client.on("guildCreate", updatePresence);
 client.on("guildDelete", updatePresence);
+
+CommandsRegister();
+client.login(process.env.TOKEN);
