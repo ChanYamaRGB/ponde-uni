@@ -17,17 +17,14 @@ const app = express();
 app.listen(3000);
 app.post('/', function(req, res) {
   console.log(`Received POST request.`);
-
+  
   postCount++;
   if (postCount == 10) {
     trigger();
     postCount = 0;
   }
-
+  
   res.send('POST response by GitHub');
-})
-app.get('/', function(req, res) {
-  res.send('<a href="https://note.com/exteoi/n/n0ea64e258797</a> に解説があります。');
 })
 
 const client = new Client({
@@ -51,7 +48,7 @@ for (const folder of commandFolders) {
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     import(filePath).then((module) => {
-      // data や data.name が存在しない場合は警告を出してスキップする
+      // エラー回避用の安全対策
       if (!module.data || !module.data.name) {
         console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
         return;
@@ -68,19 +65,12 @@ const handlers = new Map();
 const handlersPath = path.join(process.cwd(), "handlers");
 const handlerFiles = fs.readdirSync(handlersPath).filter((file) => file.endsWith(".mjs"));
 
-for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    import(filePath).then((module) => {
-      // data や data.name が存在しない場合は警告を出してスキップする
-      if (!module.data || !module.data.name) {
-        console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
-        return;
-      }
-      client.commands.set(module.data.name, module);
-    }).catch(err => {
-      console.error(`[エラー] ${file} のインポート中にエラーが発生しました:`, err);
-    });
-  }
+for (const file of handlerFiles) {
+  const filePath = path.join(handlersPath, file);
+  import(filePath).then((module) => {
+    handlers.set(file.slice(0, -4), module);
+  });
+}
 
 client.on("interactionCreate", async (interaction) => {
   await handlers.get("interactionCreate").default(interaction);
