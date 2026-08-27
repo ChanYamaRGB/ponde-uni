@@ -110,5 +110,17 @@ client.on("ready", async () => {
 client.on("guildCreate", updatePresence);
 client.on("guildDelete", updatePresence);
 
+import http from 'http';
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running!');
+});
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`Koyeb Log: HTTP Server listening on port ${PORT} for UptimeRobot.`);
+});
+
 CommandsRegister();
 client.login(process.env.TOKEN);
