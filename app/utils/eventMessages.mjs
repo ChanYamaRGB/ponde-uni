@@ -50,6 +50,13 @@ const EVENTS = [
     end: "2026-09-02",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/a38e5d69fe64f4a834f2f05c27b1cbeb.png`
+  },
+  {
+    id: "GuiltyGear", // GUILTY GEAR -STRIVE-
+    start: "2026-09-03",
+    end: "2026-10-07",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/74c85ae49b959e3cc5c0eed4181d7efd.png`
   }
 ];
 
