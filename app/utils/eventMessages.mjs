@@ -3,60 +3,46 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "ayakaki", // いずれ菖蒲か杜若
-    start: "2026-07-16",
-    end: "2026-09-02",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/2f7904f104d5d02e308276dea7b0152a.png`
-  },
-  {
-    id: "patora", // 周防パトラ
-    start: "2026-07-16",
-    end: "2026-09-02",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/d78c3263f6f8e7cfb89706e133c497cf.png`
-  },
-  {
-    id: "subway", // 銀河特急 ミルキー☆サブウェイ
-    start: "2026-07-30",
-    end: "2026-09-16",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/8c6be547361c872ccb96a5174354c2ba.png`
-  },
-  {
-    id: "voice3", // デジタルアイテムキャンペーン第3弾
-    start: "2026-07-30",
-    end: "2026-09-02",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/07/b112d8f1fd5465f4269c761bc46ee554.png`
-  },
-  {
-    id: "BlueArchive2", // ブルーアーカイブ -Blue Archive- 第二弾
+    id: "BlueArchive2",
     start: "2026-08-06",
     end: "2026-09-24",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/8981883b74c0092b5fc84ec352c18f80.png`
   },
   {
-    id: "BlueArchive", // ブルーアーカイブ -Blue Archive-〈復刻〉
+    id: "BlueArchive",
     start: "2026-08-06",
     end: "2026-09-24",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/9bf8122b5f2e3e8d0720024d4000040c-1024x576.png`
   },
   {
-    id: "StreamRoom", // ロシェの配信部屋
-    start: "2026-08-06",
-    end: "2026-09-02",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/a38e5d69fe64f4a834f2f05c27b1cbeb.png`
-  },
-  {
-    id: "GuiltyGear", // GUILTY GEAR -STRIVE-
+    id: "GuiltyGear",
     start: "2026-09-03",
     end: "2026-10-07",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/74c85ae49b959e3cc5c0eed4181d7efd.png`
+  },
+  {
+    id: "ClashFever2",
+    start: "2026-09-17",
+    end: "2026-10-21",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/0a4635fedc4f3fc221b1042917b40752.png`
+  },
+  {
+    id: "ClashFever1",
+    start: "2026-09-17",
+    end: "2026-10-21",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/28beca3e5f15349eb7b68176731b5416-1024x576.png`
+  },
+  {
+    id: "StreetFighter6",
+    start: "2026-09-03",
+    end: "2026-10-27",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fdfffc7fc266f338694099526b23301f.png`
   }
 ];
 
