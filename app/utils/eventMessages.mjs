@@ -43,6 +43,20 @@ const EVENTS = [
     end: "2026-10-27",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fdfffc7fc266f338694099526b23301f.png`
+  },
+  {
+    id: "iyowa",
+    start: "2026-09-25",
+    end: "2026-11-11",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/6a3fe119bc0fc7165b0cb42ff60eae6f.png`
+  },
+  {
+    id: "dokidoki",
+    start: "2026-09-25",
+    end: "2026-11-11",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/642e4a0e5ce1fa6bb3d19f007f7afeaa.png`
   }
 ];
 
