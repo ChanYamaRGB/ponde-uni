@@ -107,4 +107,18 @@ export default async(message) => {
   }
 }
 
+  if (message.content.match(/面白い/)) {
+    await message.reply(`\`\`\`
+今から上の人が
+面白い事言いまーすwwwww
+　　　　　　　　　　 /)
+　　　　　　　 　　 (|)))
+　　　　　／￣￣＼  /　/
+　　 　  | ＾o＾| ﾉ　/
+　　　　　＼　 ／　,/
+　　　　 ／ ＿　　 /´
+　　　　(＿＿＿）/”
+\`\`\``);
+  }
+
 };
