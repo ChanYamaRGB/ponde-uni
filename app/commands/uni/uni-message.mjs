@@ -49,6 +49,9 @@ export async function execute(interaction) {
       avatarURL: avatarURL,
     });
 
+    // 送信完了後、「考え中...」のメッセージを削除して何も残さないようにする
+    await interaction.deleteReply();
+
   } catch (error) {
     console.error('Webhook送信エラー:', error);
     await interaction.editReply({ 
