@@ -130,10 +130,17 @@ async function createRankingImage(
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
+  // --- 1ヶ月前の年月を計算 ---
+  const date = new Date();
+  date.setMonth(date.getMonth() - 1); // 1ヶ月前に戻す
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;  // 月は0から始まるので+1する
+  const titleText = `貢献度ランキング（${year}年${month}月現在）`;
+
   // タイトル
   ctx.fillStyle = "#000000";
   ctx.font = "bold 28px 'Noto Sans JP'";
-  ctx.fillText("貢献度ランキング", 20, 50);
+  ctx.fillText(titleText, 20, 50);
 
   // ヘッダー
   ctx.fillStyle = "#000000";
