@@ -529,7 +529,7 @@ export default {
 "ナイト・オブ・ナイツ (かめりあ’s“ワンス・アポン・ア・ナイト”Remix)",
 "Bad Apple!! feat.nomico (REDALiCE Remix)",
 "No Life Queen [DJ Command Remix]",
-"Little "Sister" Bitch",
+"Little \"Sister\" Bitch",
 "キャプテン・ムラサのケツアンカー",
 "ホイホイ☆幻想ホロイズム",
 "ロストワードクロニカル",
