@@ -1,5 +1,5 @@
 import aa from './messageCreate/aa.mjs';
-import songsData from '../utils/DB/songs.mjs';
+import songsData from '../utils/DB/highDifficulty.mjs';
 
 const allSongs = Object.values(songsData).flat();
 const activeSessions = new Map();
@@ -47,7 +47,7 @@ export default async function(message) {
         const intervalId = setInterval(() => {
           const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
           message.reply(`${randomSong}`);
-        }, 5 * 60 * 1000);
+        }, 20 * 60 * 1000);
 
         const timeoutId = setTimeout(() => {
           clearInterval(intervalId);
