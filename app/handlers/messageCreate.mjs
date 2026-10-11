@@ -7,10 +7,10 @@ const activeSessions = new Map();
 // ▼ 新しく作る「スタンプID取得用チャンネル」のIDをここに入力 ▼
 const STICKER_LOG_CHANNEL_ID = '1558826186145275926';
 
-// ▼ 前回設定した機能用のID ▼
+// ▼ 機能用のID ▼
 const TARGET_CHANNEL_ID = '1451463871922573343';
-const START_STICKER_ID = 'ここに開始用スタンプのIDを入力';
-const STOP_STICKER_ID = 'ここに停止用スタンプのIDを入力';
+const START_STICKER_ID = '1229639647861411922';
+const STOP_STICKER_ID = '1231291282324721684';
 
 export default async function(message) {
   await aa(message);
