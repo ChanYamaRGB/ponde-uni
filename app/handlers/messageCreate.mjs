@@ -25,6 +25,7 @@ export default async function(message) {
       const stickerName = message.stickers.first().name;
       
       await message.reply(`スタンプ「${stickerName}」のID:\n\`${stickerId}\``);
+      console.log(message.stickers.first().id);
     }
     return; // 取得用チャンネルでの処理はここで終了
   }
