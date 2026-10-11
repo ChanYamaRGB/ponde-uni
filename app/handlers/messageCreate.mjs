@@ -25,7 +25,6 @@ export default async function(message) {
       const stickerName = message.stickers.first().name;
       
       await message.reply(`スタンプ「${stickerName}」のID:\n\`${stickerId}\``);
-      console.log(message.stickers.first().id);
     }
     return; // 取得用チャンネルでの処理はここで終了
   }
@@ -47,21 +46,15 @@ export default async function(message) {
 
         const intervalId = setInterval(() => {
           const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
-          message.channel.send({
-            content: `<@${message.author.id}> 🎵 ランダム楽曲: **${randomSong}**`
-          });
-        }, 10 * 60 * 1000);
+          message.reply(`${randomSong}`);
+        }, 5 * 60 * 1000);
 
         const timeoutId = setTimeout(() => {
           clearInterval(intervalId);
           activeSessions.delete(message.author.id);
-          message.channel.send({
-            content: `<@${message.author.id}> ⏱️ 3時間が経過したため、楽曲の自動送信を停止しました。`
-          });
         }, 3 * 60 * 60 * 1000);
 
         activeSessions.set(message.author.id, { interval: intervalId, timeout: timeoutId });
-        await message.reply('▶️ 10分おきのランダム楽曲送信を開始しました！（3時間経過、または停止スタンプで終了します）');
       }
 
       // --- 停止スタンプ ---
@@ -71,8 +64,6 @@ export default async function(message) {
           clearInterval(session.interval);
           clearTimeout(session.timeout);
           activeSessions.delete(message.author.id);
-
-          await message.reply('⏹️ 楽曲の自動送信を停止しました。');
         }
       }
     }
