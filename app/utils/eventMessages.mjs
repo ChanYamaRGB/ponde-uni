@@ -3,27 +3,6 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "BlueArchive2",
-    start: "2026-08-06",
-    end: "2026-09-24",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/8981883b74c0092b5fc84ec352c18f80.png`
-  },
-  {
-    id: "BlueArchive",
-    start: "2026-08-06",
-    end: "2026-09-24",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/9bf8122b5f2e3e8d0720024d4000040c-1024x576.png`
-  },
-  {
-    id: "GuiltyGear",
-    start: "2026-09-03",
-    end: "2026-10-07",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/74c85ae49b959e3cc5c0eed4181d7efd.png`
-  },
-  {
     id: "ClashFever2",
     start: "2026-09-17",
     end: "2026-10-21",
@@ -57,6 +36,13 @@ const EVENTS = [
     end: "2026-11-11",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/642e4a0e5ce1fa6bb3d19f007f7afeaa.png`
+  },
+  {
+    id: "pmarusama",
+    start: "2026-10-22",
+    end: "2026-12-09",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/10/7ae78d3096ae3b3a7d2167885fe1a2a5.png`
   }
 ];
 
