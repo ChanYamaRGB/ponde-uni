@@ -43,6 +43,13 @@ const EVENTS = [
     end: "2026-12-09",
     content:
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/10/7ae78d3096ae3b3a7d2167885fe1a2a5.png`
+  },
+  {
+    id: "stream",
+    start: "2026-10-22",
+    end: "2026-12-09",
+    content:
+`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/e3ebaed37634abf790458738f43a1d28.png`
   }
 ];
 
