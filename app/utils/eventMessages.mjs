@@ -17,13 +17,6 @@ const EVENTS = [
 `https://info-chunithm.sega.jp/wp-content/uploads/2026/06/28beca3e5f15349eb7b68176731b5416-1024x576.png`
   },
   {
-    id: "StreetFighter6",
-    start: "2026-09-03",
-    end: "2026-10-27",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/fdfffc7fc266f338694099526b23301f.png`
-  },
-  {
     id: "iyowa",
     start: "2026-09-25",
     end: "2026-11-11",
