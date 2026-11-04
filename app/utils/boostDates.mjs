@@ -35,7 +35,7 @@ async function saveData(channel, data, oldMessage = null) {
 export default function schedule_post(client) {
 
   // const targetDates = [23, 25, 30, 31];
-  const targetDates = [];
+  const targetDates = [4];
   const targetChannelId = "1155482638493171782";
 
   const postOrDelete = async () => {
@@ -57,7 +57,7 @@ export default function schedule_post(client) {
       const msg = await channel.send({
         content: "# ブースト日です‼️",
         files: [
-          "https://new.chunithm-net.com/chuni-mobile/html/mobile/images/team_boost_day_info.png"
+          "app/utils/DB/boost.png"
         ]
       });
 
