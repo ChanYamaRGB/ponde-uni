@@ -57,7 +57,7 @@ export default function schedule_post(client) {
       const msg = await channel.send({
         content: "# ブースト日です‼️",
         files: [
-          "app/utils/DB/boost.png"
+          "utils/DB/boost.png"
         ]
       });
 
@@ -91,7 +91,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      12, 45, 0
+      12, 46, 0
     );
 
     if (updateTime < now) {
