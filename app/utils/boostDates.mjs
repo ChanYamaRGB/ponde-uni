@@ -35,7 +35,7 @@ async function saveData(channel, data, oldMessage = null) {
 export default function schedule_post(client) {
 
   // const targetDates = [23, 25, 30, 31];
-  const targetDates = [4];
+  const targetDates = [];
   const targetChannelId = "1155482638493171782";
 
   const postOrDelete = async () => {
@@ -91,7 +91,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      12, 48, 0
+      7, 0, 0 // X時 X分 X秒
     );
 
     if (updateTime < now) {
