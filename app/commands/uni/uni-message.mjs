@@ -12,7 +12,7 @@ export const data = new SlashCommandBuilder()
     option.setName('content')
       .setDescription('送信するメッセージ内容')
       .setRequired(true)
-  );
+  )
   .addAttachmentOption(option =>
     option.setName('image')
       .setDescription('一緒に送信する画像（任意）')
