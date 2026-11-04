@@ -13,6 +13,11 @@ export const data = new SlashCommandBuilder()
       .setDescription('送信するメッセージ内容')
       .setRequired(true)
   );
+  .addAttachmentOption(option =>
+    option.setName('image')
+      .setDescription('一緒に送信する画像（任意）')
+      .setRequired(false)
+  );
 
 export async function execute(interaction) {
   // コマンドの実行履歴を他の人に見せないようにするため、ephemeral（自分のみ表示）で待機
@@ -20,6 +25,7 @@ export async function execute(interaction) {
 
   const targetUser = interaction.options.getUser('user');
   const content = interaction.options.getString('content');
+  const imageAttachment = interaction.options.getAttachment('image');
   const channel = interaction.channel;
 
   try {
@@ -49,13 +55,17 @@ export async function execute(interaction) {
       avatarURL: avatarURL,
     });
 
-    // 送信完了後、「考え中...」のメッセージを削除して何も残さないようにする
+    if (imageAttachment) {
+      sendOptions.files = [imageAttachment.url];
+    }
+
+    await webhook.send(sendOptions);
     await interaction.deleteReply();
 
   } catch (error) {
     console.error('Webhook送信エラー:', error);
     await interaction.editReply({ 
-      content: '❌ エラーが発生しました。\nBotのロールに**「Webhookの管理」**権限が付与されているか確認してください。' 
+      content: 'エラーが発生しました。' 
     });
   }
 }
