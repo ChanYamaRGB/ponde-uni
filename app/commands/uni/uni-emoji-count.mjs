@@ -3,6 +3,7 @@ import { SlashCommandBuilder, ChannelType } from 'discord.js';
 export const data = new SlashCommandBuilder()
   .setName('uni-emoji-count')
   .setDescription('指定した月のカスタム絵文字使用回数（リアクション含む）を集計します')
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .addIntegerOption(option =>
     option.setName('year')
       .setDescription('対象年')
