@@ -200,6 +200,7 @@ async function createRankingImage(
 export const data = new SlashCommandBuilder()
   .setName("uni-score")
   .setDescription("ポイント管理")
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   // ===== add =====
   .addSubcommand(sub =>
