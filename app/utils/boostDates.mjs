@@ -91,7 +91,7 @@ export default function schedule_post(client) {
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
-      7, 0, 0
+      12, 45, 0
     );
 
     if (updateTime < now) {
