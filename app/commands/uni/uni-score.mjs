@@ -1,6 +1,7 @@
 import {
   SlashCommandBuilder,
-  EmbedBuilder
+  EmbedBuilder, 
+  PermissionFlagsBits
 } from "discord.js";
 
 import {
