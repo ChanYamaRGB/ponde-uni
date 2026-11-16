@@ -8,17 +8,17 @@ import typewriterMap from './DB/typewriter.mjs';
 
 // 変換処理一覧
 const blackboardConvert = (str) =>
-  str.split('').map(ch => blackboardMap[ch] ?? ch).join('');
+  [...str].map(ch => blackboardMap[ch] ?? ch).join('');
 const boldConvert = (str) =>
-  str.split('').map(ch => boldMap[ch] ?? ch).join('');
+  [...str].map(ch => boldMap[ch] ?? ch).join('');
 const cursiveConvert = (str) =>
-  str.split('').map(ch => cursiveMap[ch] ?? ch).join('');
+  [...str].map(ch => cursiveMap[ch] ?? ch).join('');
 const frakturConvert = (str) =>
-  str.split('').map(ch => frakturMap[ch] ?? ch).join('');
+  [...str].map(ch => frakturMap[ch] ?? ch).join('');
 const minchoConvert = (str) =>
-  str.split('').map(ch => minchoMap[ch] ?? ch).join('');
+  [...str].map(ch => minchoMap[ch] ?? ch).join('');
 const typewriterConvert = (str) =>
-  str.split('').map(ch => typewriterMap[ch] ?? ch).join('');
+  [...str].map(ch => typewriterMap[ch] ?? ch).join('');
 
 const converters = {
   blackboard: blackboardConvert,

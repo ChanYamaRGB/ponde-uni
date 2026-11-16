@@ -15,6 +15,7 @@ export default async(message) => {
   ▀██▄▄           ▄▄██▀
      ▀▀▀█████████▀▀▀
 \`\`\``);
+    return; // 1メッセージにつき返信は1件まで（複数キーワード一致での連続返信を防ぐ）
   }
   
   if (message.content.match(/今行くぜ/)) {
@@ -29,6 +30,7 @@ export default async(message) => {
 ;⌒) -=≡／／Lﾉ
 ;;⌒)=≡(＿)
 \`\`\``);
+    return;
   }
   
   if (message.content.match(/ひら！|ひら‼️|ひら❗/)) {
@@ -45,6 +47,7 @@ export default async(message) => {
 █                        █
 █                        █
 \`\`\``);
+    return;
   }
   
   if (message.content.match(/ぽん・で・らいおん/)) {
@@ -54,6 +57,7 @@ export default async(message) => {
 　　　〇〇〇
 ★～(,_uuﾉ 
 \`\`\``);
+    return;
   }
   
   if (message.content.match(/筋肉/)) {
@@ -66,6 +70,7 @@ export default async(message) => {
 　＼ |　⌒Ｙ⌒　 //
 　 ｜ヽ　 ｜　 ﾉ／
 \`\`\``);
+    return;
   }
   
   if (message.content.match(/ﾂｸﾃｰﾝ|ツクテーン/)) {
@@ -86,6 +91,7 @@ export default async(message) => {
  ▄▄█▀▀▀▀▀█   █▀▀▀▀▀█▄▄
 ▀▄▄▄▄▄▄▄▀▀   ▀▀▄▄▄▄▄▄▄▀
 \`\`\``);
+    return;
   }
 
   if (message.content.match(/チュウニズム/)) {
@@ -103,6 +109,7 @@ export default async(message) => {
  ＿/_ﾐつ/￣￣￣/
 　   ＼/＿＿＿/￣
 \`\`\``);
+    return;
     }
   }
 }
@@ -123,6 +130,7 @@ export default async(message) => {
   █ ▀▀▀ █ ▄ █ ▄ ▄▀▄▀▄▄▄▀▀ █
   ▀▀▀▀▀▀▀ ▀ ▀▀▀   ▀▀▀  ▀  ▀
 \`\`\``);
+    return;
   }
 
 };

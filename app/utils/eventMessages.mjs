@@ -46,6 +46,18 @@ const EVENTS = [
   }
 ];
 
+// 日本時間（JST）の今日を "YYYY-MM-DD" で返す。
+// 期間判定はこの文字列の比較で行うため、終了日は「その日の終わりまで」有効になる
+// （以前は new Date("2026-11-11") = UTC 0時と比較していたため、
+//   終了日の朝9時（JST）に消えてしまっていた）。
+function todayJstStr(nowMs = Date.now()) {
+  const jst = new Date(nowMs + 9 * 60 * 60 * 1000);
+  const y = jst.getUTCFullYear();
+  const m = String(jst.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(jst.getUTCDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
 async function getEventDB(channel) {
 
   const messages =
@@ -75,15 +87,6 @@ async function getEventDB(channel) {
   return data;
 }
 
-async function getEventData(channel, eventId) {
-
-  const all = await getEventDB(channel);
-
-  return all.find(
-    d => d.data.eventId === eventId
-  );
-}
-
 export async function updateEvents(client) {
 
   const postChannel =
@@ -99,18 +102,21 @@ export async function updateEvents(client) {
     return;
   }
 
-  const now = new Date();
+  const today = todayJstStr();
+
+  // DBは最初に1回だけ取得して全イベントで使い回す
+  // （以前はイベントごと（6回）に100件取得を繰り返していた）
+  const dbEntries = await getEventDB(dbChannel);
+  const dbByEventId = new Map(
+    dbEntries.map(entry => [entry.data.eventId, entry])
+  );
 
   for (const event of EVENTS) {
 
-    const start = new Date(event.start);
-    const end = new Date(event.end);
+    const dbEntry = dbByEventId.get(event.id);
 
-    const dbEntry =
-      await getEventData(dbChannel, event.id);
-
-    // ===== 期間内 =====
-    if (now >= start && now <= end) {
+    // ===== 期間内（開始日〜終了日の当日末まで、JST） =====
+    if (today >= event.start && today <= event.end) {
 
       // DBあり
       if (dbEntry) {
@@ -122,8 +128,11 @@ export async function updateEvents(client) {
               dbEntry.data.messageId
             );
 
-          // 編集
-          await targetMsg.edit(event.content);
+          // 内容が変わった時だけ編集する
+          // （以前は10分ごとに同じ内容で編集していた）
+          if (targetMsg.content !== event.content) {
+            await targetMsg.edit(event.content);
+          }
 
         } catch {
 

@@ -1,31 +1,24 @@
 import fs from "fs";
 import path from "path";
 import express from "express";
-import { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder } from "discord.js";
+import { Client, Collection, GatewayIntentBits, ActivityType } from "discord.js";
 import CommandsRegister from "./regist-commands.mjs";
 import schedule_update from './utils/schedule-update.mjs';
 import song_update from './utils/song-update.mjs';
 import boostDates from './utils/boostDates.mjs';
 import { updateEvents } from './utils/eventMessages.mjs';
 
-import Sequelize from "sequelize";
-import Parser from 'rss-parser';
-const parser = new Parser();
-
-let postCount = 0;
+// Koyeb等のヘルスチェック／常駐確認用にポートを開けるだけのサーバー。
+// 以前あった「POSTが10回届いたら trigger() を呼ぶ」処理は、trigger が
+// 未定義でエラーになるため削除しました。
 const app = express();
-app.listen(3000);
+app.get('/', function(req, res) {
+  res.send('ponde-uni bot is running.');
+});
 app.post('/', function(req, res) {
-  console.log(`Received POST request.`);
-  
-  postCount++;
-  if (postCount == 10) {
-    trigger();
-    postCount = 0;
-  }
-  
   res.send('POST response by GitHub');
-})
+});
+app.listen(3000);
 
 const client = new Client({
   intents: [
@@ -37,51 +30,81 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-
-const categoryFoldersPath = path.join(process.cwd(), "commands");
-const commandFolders = fs.readdirSync(categoryFoldersPath);
-
-for (const folder of commandFolders) {
-  const commandsPath = path.join(categoryFoldersPath, folder);
-  const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".mjs"));
-  
-  for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    import(filePath).then((module) => {
-      // エラー回避用の安全対策
-      if (!module.data || !module.data.name) {
-        console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
-        return;
-      }
-      client.commands.set(module.data.name, module);
-    }).catch(err => {
-      console.error(`[エラー] ${file} のインポート中にエラーが発生しました:`, err);
-    });
-  }
-}
-
 const handlers = new Map();
 
-const handlersPath = path.join(process.cwd(), "handlers");
-const handlerFiles = fs.readdirSync(handlersPath).filter((file) => file.endsWith(".mjs"));
+// コマンドをすべて読み込み終えてから次へ進む（起動直後の競合を防ぐ）
+async function loadCommands() {
+  const categoryFoldersPath = path.join(process.cwd(), "commands");
+  const commandFolders = fs.readdirSync(categoryFoldersPath);
 
-for (const file of handlerFiles) {
-  const filePath = path.join(handlersPath, file);
-  import(filePath).then((module) => {
+  const jobs = [];
+  for (const folder of commandFolders) {
+    const commandsPath = path.join(categoryFoldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".mjs"));
+
+    for (const file of commandFiles) {
+      const filePath = path.join(commandsPath, file);
+      jobs.push(
+        import(filePath).then((module) => {
+          // エラー回避用の安全対策
+          if (!module.data || !module.data.name) {
+            console.error(`[警告] ${file} の読み込みをスキップしました (export const data がありません)`);
+            return;
+          }
+          client.commands.set(module.data.name, module);
+        }).catch(err => {
+          console.error(`[エラー] ${file} のインポート中にエラーが発生しました:`, err);
+        })
+      );
+    }
+  }
+
+  await Promise.all(jobs);
+  console.log(`[INIT] コマンドを ${client.commands.size} 件読み込みました`);
+}
+
+// ハンドラをすべて読み込み終えてから次へ進む
+async function loadHandlers() {
+  const handlersPath = path.join(process.cwd(), "handlers");
+  const handlerFiles = fs.readdirSync(handlersPath).filter((file) => file.endsWith(".mjs"));
+
+  await Promise.all(handlerFiles.map(async (file) => {
+    const filePath = path.join(handlersPath, file);
+    const module = await import(filePath);
     handlers.set(file.slice(0, -4), module);
-  });
+  }));
+  console.log(`[INIT] ハンドラを ${handlers.size} 件読み込みました`);
 }
 
 client.on("interactionCreate", async (interaction) => {
-  await handlers.get("interactionCreate").default(interaction);
+  const handler = handlers.get("interactionCreate");
+  if (!handler) {
+    console.error("[エラー] interactionCreate ハンドラが読み込まれていません");
+    return;
+  }
+  try {
+    await handler.default(interaction);
+  } catch (err) {
+    console.error("[エラー] interactionCreate の処理中にエラーが発生しました:", err);
+  }
 });
 
 client.on("messageCreate", async (message) => {
-  if (message.author.id == client.user.id || message.author.bot) return;
-  await handlers.get("messageCreate").default(message);
+  if (!client.user || message.author.id == client.user.id || message.author.bot) return;
+  const handler = handlers.get("messageCreate");
+  if (!handler) {
+    console.error("[エラー] messageCreate ハンドラが読み込まれていません");
+    return;
+  }
+  try {
+    await handler.default(message);
+  } catch (err) {
+    console.error("[エラー] messageCreate の処理中にエラーが発生しました:", err);
+  }
 });
 
 function updatePresence() {
+  if (!client.user) return;
   const guildCount = client.guilds.cache.size;
 
   client.user.setPresence({
@@ -114,5 +137,26 @@ client.on("ready", async () => {
 client.on("guildCreate", updatePresence);
 client.on("guildDelete", updatePresence);
 
-CommandsRegister();
-client.login(process.env.TOKEN);
+// 起動: 読み込み → コマンド登録 → ログイン の順に、終わるまで待つ
+async function start() {
+  if (!process.env.TOKEN) {
+    console.error("[エラー] 環境変数 TOKEN が設定されていません。起動を中止します。");
+    process.exit(1);
+  }
+
+  await loadCommands();
+  await loadHandlers();
+
+  if (process.env.APPLICATION_ID) {
+    await CommandsRegister();
+  } else {
+    console.warn("[警告] 環境変数 APPLICATION_ID が未設定のため、スラッシュコマンドの登録をスキップします");
+  }
+
+  await client.login(process.env.TOKEN);
+}
+
+start().catch((err) => {
+  console.error("[エラー] 起動に失敗しました:", err);
+  process.exit(1);
+});

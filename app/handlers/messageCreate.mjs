@@ -44,9 +44,18 @@ export default async function(message) {
           clearTimeout(existing.timeout);
         }
 
-        const intervalId = setInterval(() => {
-          const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
-          message.reply(`${randomSong}`);
+        const intervalId = setInterval(async () => {
+          try {
+            const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
+            await message.reply(`${randomSong}`);
+          } catch (err) {
+            // 元メッセージやチャンネルが消えていると reply が失敗する。
+            // 未処理のままにするとプロセス全体に影響するため、ここで止める。
+            console.error("楽曲ループ送信に失敗しました:", err);
+            clearInterval(intervalId);
+            clearTimeout(timeoutId);
+            activeSessions.delete(message.author.id);
+          }
         }, 20 * 60 * 1000);
 
         const timeoutId = setTimeout(() => {
