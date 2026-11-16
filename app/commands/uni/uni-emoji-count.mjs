@@ -1,4 +1,10 @@
-import { SlashCommandBuilder, ChannelType, PermissionFlagsBits } from 'discord.js';
+import { SlashCommandBuilder, ChannelType, PermissionFlagsBits, AttachmentBuilder } from 'discord.js';
+import { createCanvas, GlobalFonts, loadImage } from '@napi-rs/canvas';
+import path from 'path';
+
+// ランキング画像用のフォント（uni-scoreと同じものを使う）
+const fontPath = path.join(process.cwd(), 'fonts', 'NotoSansJP-Regular.ttf');
+GlobalFonts.registerFromPath(fontPath, 'Noto Sans JP');
 
 export const data = new SlashCommandBuilder()
   .setName('uni-emoji-count')
@@ -9,6 +15,8 @@ export const data = new SlashCommandBuilder()
       .setDescription('対象年')
       .setRequired(true)
       .addChoices(
+        { name: '2023年', value: 2023 },
+        { name: '2024年', value: 2024 },
         { name: '2025年', value: 2025 },
         { name: '2026年', value: 2026 },
         { name: '2027年', value: 2027 },
@@ -59,11 +67,119 @@ async function sendLongText(interaction, text) {
   }
 }
 
+// 絵文字の画像をCDNから取得する。削除済みなどで取得できなければ null を返す。
+async function fetchEmojiImage(id) {
+  for (const ext of ['png', 'gif']) {
+    try {
+      const res = await fetch(`https://cdn.discordapp.com/emojis/${id}.${ext}`);
+      if (!res.ok) continue;
+      const buf = Buffer.from(await res.arrayBuffer());
+      return await loadImage(buf);
+    } catch {
+      // 次の拡張子を試す
+    }
+  }
+  return null;
+}
+
+// ランキング画像を生成する。
+// current: [{ id, name, count, image }] 現在の絵文字（回数順）
+// deleted: [{ id, name, count, image }] 削除済みの絵文字（回数順、imageがnullの場合あり）
+export async function createEmojiRankingImage(year, month, current, deleted) {
+  const WIDTH = 640;
+  const COLS = 8;
+  const TILE_W = WIDTH / COLS;
+  const TILE_H = 78;
+  const TITLE_H = 64;
+  const SECTION_H = 44;
+  const ROW_H = 52;
+
+  const gridRows = Math.ceil(current.length / COLS);
+  const deletedShown = deleted.slice(0, 50);
+  const deletedExtra = deleted.length - deletedShown.length;
+
+  let height = TITLE_H + gridRows * TILE_H + 16;
+  if (deletedShown.length > 0) {
+    height += SECTION_H + deletedShown.length * ROW_H + (deletedExtra > 0 ? ROW_H : 0);
+  }
+
+  const canvas = createCanvas(WIDTH, height);
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, WIDTH, height);
+
+  ctx.fillStyle = '#000000';
+  ctx.font = "bold 26px 'Noto Sans JP'";
+  ctx.textAlign = 'left';
+  ctx.fillText(`${year}年${month}月のカスタム絵文字ランキング`, 20, 42);
+
+  // 現在の絵文字はタイル状に並べ、回数を下に書く
+  current.forEach((emoji, i) => {
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const x = col * TILE_W;
+    const y = TITLE_H + row * TILE_H;
+    if (emoji.image) {
+      ctx.drawImage(emoji.image, x + (TILE_W - 44) / 2, y + 2, 44, 44);
+    }
+    ctx.font = "16px 'Noto Sans JP'";
+    ctx.textAlign = 'center';
+    ctx.fillText(`${emoji.count}`, x + TILE_W / 2, y + 68);
+  });
+
+  // 削除済みの絵文字は1行ずつ並べる
+  if (deletedShown.length > 0) {
+    let y = TITLE_H + gridRows * TILE_H + 8;
+    ctx.font = "bold 20px 'Noto Sans JP'";
+    ctx.textAlign = 'left';
+    ctx.fillText('削除済みのカスタム絵文字ランキング', 20, y + 26);
+    y += SECTION_H;
+
+    deletedShown.forEach((emoji) => {
+      if (emoji.image) {
+        ctx.drawImage(emoji.image, 20, y + 6, 36, 36);
+      } else {
+        ctx.strokeStyle = '#999999';
+        ctx.strokeRect(20, y + 6, 36, 36);
+        ctx.font = "16px 'Noto Sans JP'";
+        ctx.textAlign = 'center';
+        ctx.fillText('?', 38, y + 30);
+      }
+      ctx.font = "18px 'Noto Sans JP'";
+      ctx.textAlign = 'left';
+      ctx.fillText(emoji.name ? `:${emoji.name}:` : `削除済み絵文字（ID: ${emoji.id}）`, 68, y + 32);
+      ctx.textAlign = 'right';
+      ctx.fillText(`${emoji.count}`, WIDTH - 20, y + 32);
+      y += ROW_H;
+    });
+
+    if (deletedExtra > 0) {
+      ctx.font = "16px 'Noto Sans JP'";
+      ctx.textAlign = 'left';
+      ctx.fillText(`ほか ${deletedExtra} 件`, 20, y + 30);
+    }
+  }
+
+  return canvas.toBuffer('image/png');
+}
+
 export async function execute(interaction) {
+  const year = interaction.options.getInteger('year');
+  const rawMonth = interaction.options.getInteger('month');
+
+  // カスタム絵文字を使い始めたのは2023年12月のため、2023年は12月のみ集計できる。
+  // 年と月は別々の選択肢で、組み合わせはDiscord側では制限できないため、ここで弾く。
+  if (year === 2023 && rawMonth !== 12) {
+    return interaction.reply({
+      content: '2023年は12月のみ集計できます（カスタム絵文字を使い始めたのが2023年12月のため）',
+      ephemeral: true
+    });
+  }
+
   await interaction.deferReply();
 
-  const year = interaction.options.getInteger('year');
-  const month = interaction.options.getInteger('month') - 1; // JSの月は0始まり
+  const month = rawMonth - 1; // JSの月は0始まり
   const guild = interaction.guild;
 
   // 対象月の範囲 [monthStart, monthEnd)
@@ -72,6 +188,7 @@ export async function execute(interaction) {
   const monthEnd = new Date(year, month + 1, 1);
 
   const emojiCounts = {};
+  const emojiNames = {};
   const availableEmojiIds = new Set(guild.emojis.cache.map(e => e.id));
 
   const textChannels = guild.channels.cache.filter(ch => ch.type === ChannelType.GuildText);
@@ -97,17 +214,19 @@ export async function execute(interaction) {
           // 対象月の範囲外（新しい月・古い月）は数えない
           if (date < monthStart || date >= monthEnd) continue;
 
-          const matches = [...message.content.matchAll(/<a?:\w+:(\d+)>/g)];
-          for (const [, id] of matches) {
-            if (availableEmojiIds.has(id)) {
-              emojiCounts[id] = (emojiCounts[id] || 0) + 1;
-            }
+          // 現在は削除されている絵文字も含めて数える（表示の段階で振り分ける）。
+          // 名前は、削除済み絵文字を表示するために本文の <:名前:ID> から控えておく。
+          const matches = [...message.content.matchAll(/<a?:(\w+):(\d+)>/g)];
+          for (const [, name, id] of matches) {
+            emojiCounts[id] = (emojiCounts[id] || 0) + 1;
+            if (!emojiNames[id]) emojiNames[id] = name;
           }
 
           message.reactions.cache.forEach(reaction => {
             const emoji = reaction.emoji;
-            if (emoji.id && availableEmojiIds.has(emoji.id)) {
+            if (emoji.id) {
               emojiCounts[emoji.id] = (emojiCounts[emoji.id] || 0) + reaction.count;
+              if (emoji.name && !emojiNames[emoji.id]) emojiNames[emoji.id] = emoji.name;
             }
           });
         }
@@ -138,27 +257,69 @@ export async function execute(interaction) {
     return interaction.editReply(`${year}年${month + 1}月のカスタム絵文字は見つかりませんでした。`);
   }
 
-// すべてのカスタム絵文字を取得（0回も含む）
-const allEmojis = guild.emojis.cache.map(e => e.id);
+// 現在サーバーにあるカスタム絵文字（0回も含む）を回数順に並べる
+const currentList = guild.emojis.cache
+  .map(e => ({ id: e.id, name: e.name ?? "" }))
+  .map(e => ({ ...e, count: emojiCounts[e.id] || 0 }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
-// 使用回数付き配列を作成（未使用は0）
-const sorted = allEmojis
-  .map(id => [id, emojiCounts[id] || 0])
-  .sort((a, b) => b[1] - a[1]) // 多い順
-  .map(([id, count]) => `<:_:${id}>: ${count}`);
+// 削除済みの絵文字を回数順に並べる
+const deletedList = Object.entries(emojiCounts)
+  .filter(([id]) => !availableEmojiIds.has(id))
+  .map(([id, count]) => ({ id, name: emojiNames[id] || null, count }))
+  .sort((a, b) => b.count - a.count || (a.name || "").localeCompare(b.name || ""));
 
-// 5個ごとに改行
-let formatted = "";
-sorted.forEach((emoji, index) => {
-  formatted += emoji + "　";
-  if ((index + 1) % 5 === 0) formatted += "\n";
-});
+const notes = ["※リアクション数は現在の件数で集計しています"];
+if (deletedList.length > 0) {
+  notes.push("※削除済みの絵文字は、画像が残っていない場合は名前のみで表示しています");
+}
 
-const resultText =
-  `${year}年${month + 1}月のカスタム絵文字ランキング（多い順）\n\n` +
-  (formatted || "該当なし") +
-  `\n\n※リアクション数は現在の件数で集計しています`;
+try {
+  // 絵文字の画像を取得し、ランキング画像を生成して投稿する
+  const withImages = await Promise.all(
+    [...currentList, ...deletedList].map(async (e) => ({ ...e, image: await fetchEmojiImage(e.id) }))
+  );
+  const imageBuffer = await createEmojiRankingImage(
+    year,
+    month + 1,
+    withImages.slice(0, currentList.length),
+    withImages.slice(currentList.length)
+  );
+  const attachment = new AttachmentBuilder(imageBuffer, { name: "emoji-ranking.png" });
 
-await sendLongText(interaction, resultText);
+  await interaction.editReply({
+    content: `${year}年${month + 1}月のカスタム絵文字ランキング\n` + notes.join("\n"),
+    files: [attachment]
+  });
+} catch (err) {
+  // 画像生成に失敗した場合は、従来のテキスト表示に切り替える
+  console.error("絵文字ランキング画像の生成に失敗しました:", err);
+
+  const sorted = currentList.map(e => `<:_:${e.id}>: ${e.count}`);
+
+  // 5個ごとに改行
+  let formatted = "";
+  sorted.forEach((emoji, index) => {
+    formatted += emoji + "　";
+    if ((index + 1) % 5 === 0) formatted += "\n";
+  });
+
+  let resultText =
+    `${year}年${month + 1}月のカスタム絵文字ランキング（多い順）\n\n` +
+    (formatted || "該当なし");
+
+  if (deletedList.length > 0) {
+    const deletedText = deletedList.map(e =>
+      e.name ? `:${e.name}:: ${e.count}` : `削除済み絵文字（ID: ${e.id}）: ${e.count}`
+    );
+    resultText +=
+      `\n\n削除済みのカスタム絵文字ランキング（多い順）\n\n` +
+      deletedText.join("\n");
+  }
+
+  resultText += `\n\n` + notes.join("\n");
+
+  await sendLongText(interaction, resultText);
+}
 
 }
