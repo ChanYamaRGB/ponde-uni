@@ -6,6 +6,9 @@ import path from 'path';
 const fontPath = path.join(process.cwd(), 'fonts', 'NotoSansJP-Regular.ttf');
 GlobalFonts.registerFromPath(fontPath, 'Noto Sans JP');
 
+// 集計から除外するカテゴリのID（仕様として固定で除外する）
+const EXCLUDED_CATEGORY_ID = '1156026769388863519';
+
 export const data = new SlashCommandBuilder()
   .setName('uni-emoji-count')
   .setDescription('指定した月のカスタム絵文字使用回数（リアクション含む）を集計します')
@@ -82,6 +85,16 @@ async function fetchEmojiImage(id) {
   return null;
 }
 
+// 絵文字のID（スノーフレーク）から作成日時を求める。求められなければ null を返す。
+function emojiCreatedAt(id) {
+  try {
+    // スノーフレークの上位ビットが、Discordのエポック（2015-01-01）からの経過ミリ秒
+    return new Date(Number((BigInt(id) >> 22n) + 1420070400000n));
+  } catch {
+    return null;
+  }
+}
+
 // ランキング画像を生成する。
 // current: [{ id, name, count, image }] 現在の絵文字（回数順）
 // deleted: [{ id, name, count, image }] 削除済みの絵文字（回数順、imageがnullの場合あり）
@@ -136,6 +149,12 @@ export async function createEmojiRankingImage(year, month, current, deleted) {
     ctx.fillText('削除済みのカスタム絵文字ランキング', 20, y + 26);
     y += SECTION_H;
 
+    // 回数は、名前の右側に一の位が揃う列として描く（右端には寄せない）
+    ctx.font = "18px 'Noto Sans JP'";
+    const deletedLabel = (e) => e.name ? `:${e.name}:` : `削除済み絵文字（ID: ${e.id}）`;
+    const maxLabelWidth = Math.max(0, ...deletedShown.map(e => ctx.measureText(deletedLabel(e)).width));
+    const countRightX = Math.min(68 + maxLabelWidth + 32, WIDTH - 20);
+
     deletedShown.forEach((emoji) => {
       if (emoji.image) {
         ctx.drawImage(emoji.image, 20, y + 6, 36, 36);
@@ -148,9 +167,9 @@ export async function createEmojiRankingImage(year, month, current, deleted) {
       }
       ctx.font = "18px 'Noto Sans JP'";
       ctx.textAlign = 'left';
-      ctx.fillText(emoji.name ? `:${emoji.name}:` : `削除済み絵文字（ID: ${emoji.id}）`, 68, y + 32);
+      ctx.fillText(deletedLabel(emoji), 68, y + 32);
       ctx.textAlign = 'right';
-      ctx.fillText(`${emoji.count}`, WIDTH - 20, y + 32);
+      ctx.fillText(`${emoji.count}`, countRightX, y + 32);
       y += ROW_H;
     });
 
@@ -191,7 +210,12 @@ export async function execute(interaction) {
   const emojiNames = {};
   const availableEmojiIds = new Set(guild.emojis.cache.map(e => e.id));
 
-  const textChannels = guild.channels.cache.filter(ch => ch.type === ChannelType.GuildText);
+  // 仕様として、特定カテゴリ配下のチャンネルは集計対象から外す
+  const excludedCategory = guild.channels.cache.get?.(EXCLUDED_CATEGORY_ID);
+  const textChannels = guild.channels.cache.filter(ch =>
+    ch.type === ChannelType.GuildText &&
+    ch.parentId !== EXCLUDED_CATEGORY_ID
+  );
   const totalChannels = textChannels.size;
   let processedChannels = 0;
 
@@ -261,6 +285,11 @@ export async function execute(interaction) {
 const currentList = guild.emojis.cache
   .map(e => ({ id: e.id, name: e.name ?? "" }))
   .map(e => ({ ...e, count: emojiCounts[e.id] || 0 }))
+  // 調査月より後に作られた絵文字は、その月にはまだ存在していないためランキングに載せない
+  .filter(e => {
+    const createdAt = emojiCreatedAt(e.id);
+    return !createdAt || createdAt < monthEnd;
+  })
   .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
 // 削除済みの絵文字を回数順に並べる
@@ -270,6 +299,9 @@ const deletedList = Object.entries(emojiCounts)
   .sort((a, b) => b.count - a.count || (a.name || "").localeCompare(b.name || ""));
 
 const notes = ["※リアクション数は現在の件数で集計しています"];
+if (excludedCategory) {
+  notes.push(`※カテゴリ「${excludedCategory.name}」配下のチャンネルは集計から除外しています`);
+}
 if (deletedList.length > 0) {
   notes.push("※削除済みの絵文字は、画像が残っていない場合は名前のみで表示しています");
 }
