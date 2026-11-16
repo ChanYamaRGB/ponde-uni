@@ -275,8 +275,8 @@ export async function execute(interaction) {
     // 進捗表示（10チャンネルごと or 最後）
     if (processedChannels % 10 === 0 || processedChannels === totalChannels) {
       const percent = Math.floor((processedChannels / totalChannels) * 100);
-      const gauge = '█'.repeat(Math.round(percent / 10)) + '░'.repeat(10 - Math.round(percent / 10));
-      await interaction.editReply(`集計中... ${percent}% 完了（${gauge}）`);
+      const gauge = '█'.repeat(Math.round(percent / 10)) + '　'.repeat(10 - Math.round(percent / 10));
+      await interaction.editReply(`\`集計中... ${percent}% 完了[${gauge}]\``);
     }
   }
 
@@ -296,12 +296,12 @@ const currentList = guild.emojis.cache
   .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
 // 削除済みの絵文字を回数順に並べる
-// 調査月より後に作られた絵文字は、その月にはまだ存在していないため含めない
+// 削除済みは調査年月に作られた絵文字のみを含める（調査年月以前・以後は含めない）
 const deletedList = Object.entries(emojiCounts)
   .filter(([id]) => !availableEmojiIds.has(id))
   .filter(([id]) => {
     const createdAt = emojiCreatedAt(id);
-    return !createdAt || createdAt < monthEnd;
+    return createdAt && createdAt >= monthStart && createdAt < monthEnd;
   })
   .map(([id, count]) => ({ id, name: emojiNames[id] || null, count }))
   .sort((a, b) => b.count - a.count || (a.name || "").localeCompare(b.name || ""));
@@ -320,7 +320,7 @@ try {
   const attachment = new AttachmentBuilder(imageBuffer, { name: "emoji-ranking.png" });
 
   await interaction.editReply({
-    content: `${year}年${month + 1}月のカスタム絵文字ランキング`,
+    content: null,
     files: [attachment]
   });
 } catch (err) {
