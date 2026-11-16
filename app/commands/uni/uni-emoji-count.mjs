@@ -275,7 +275,8 @@ export async function execute(interaction) {
     // 進捗表示（10チャンネルごと or 最後）
     if (processedChannels % 10 === 0 || processedChannels === totalChannels) {
       const percent = Math.floor((processedChannels / totalChannels) * 100);
-      await interaction.editReply(`集計中... ${percent}% 完了（${processedChannels}/${totalChannels}チャンネル）`);
+      const gauge = '█'.repeat(Math.round(percent / 10)) + '░'.repeat(10 - Math.round(percent / 10));
+      await interaction.editReply(`集計中... ${percent}% 完了（${gauge}）`);
     }
   }
 
