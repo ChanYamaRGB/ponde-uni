@@ -42,32 +42,26 @@ const registered = GlobalFonts.registerFromPath(
 
 // ===== タグ定義 =====
 const TAGS = {
-  ANGEL: {
-    points: -50,
-    label: "エンゼル券",
-    color: 0xFFD1DC
-  },
-
   BOOST: {
-    points: -300,
+    points: -100,
     label: "ブースト日設定券",
     color: 0xFF8C00
   },
 
   COURSE: {
-    points: -200,
+    points: -100,
     label: "チームコース作成券",
     color: 0xFF0055
   },
 
   ROLE_NAME: {
-    points: -150,
+    points: -50,
     label: "ロールの名前作成券",
     color: 0x5865F2
   },
 
   ROLE_COLOR: {
-    points: -100,
+    points: -50,
     label: "ロールの色変更券",
     color: 0x57F287
   }
@@ -314,11 +308,10 @@ export const data = new SlashCommandBuilder()
           .setDescription("タグ")
           .setRequired(true)
           .addChoices(
-            { name: "BOOST (-300pt)", value: "BOOST" },
-            { name: "COURSE (-200pt)", value: "COURSE" },
-            { name: "ROLE_NAME (-150pt)", value: "ROLE_NAME" },
-            { name: "ROLE_COLOR (-100pt)", value: "ROLE_COLOR" },
-            { name: "ANGEL (-50pt)", value: "ANGEL" }
+            { name: "BOOST (-100pt)", value: "BOOST" },
+            { name: "COURSE (-100pt)", value: "COURSE" },
+            { name: "ROLE_NAME (-50pt)", value: "ROLE_NAME" },
+            { name: "ROLE_COLOR (-50pt)", value: "ROLE_COLOR" }
           )
       )
   )
