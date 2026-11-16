@@ -341,7 +341,7 @@ try {
 
   if (deletedList.length > 0) {
     const deletedText = deletedList.map(e =>
-      e.name ? `:${e.name}:: ${e.count}` : `（名前不明）: ${e.count}`
+      e.name ? `:${e.name}:: ${e.count}` : `（名称不明）: ${e.count}`
     );
     resultText +=
       `\n\n削除済みのカスタム絵文字ランキング（多い順）\n\n` +
