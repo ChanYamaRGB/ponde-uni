@@ -8,6 +8,8 @@ export const data = new SlashCommandBuilder()
       .setName("value")
       .setDescription("最大値（1〜）")
       .setRequired(true)
+      .setMinValue(1)
+      .setMaxValue(100000)
   );
 
 export async function execute(interaction) {

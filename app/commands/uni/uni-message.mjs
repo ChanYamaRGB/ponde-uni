@@ -1,8 +1,11 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
   .setName('uni-message')
   .setDescription('指定したユーザーとしてメッセージを送信します')
+  // 他人の名前・アイコンで発言できるコマンドのため、管理者のみに制限する
+  // （uni-score / uni-emoji-count と同じ方式）
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .addUserOption(option =>
     option.setName('user')
       .setDescription('なりすますユーザーを選択')

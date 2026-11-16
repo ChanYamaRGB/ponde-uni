@@ -1,23 +1,22 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import songsData from '../../utils/DB/songs.mjs';
 
 export const data = new SlashCommandBuilder()
   .setName('uni-gacha')
-  .setDescription('ランダムに選曲します！（2025/05/21現在）');
+  .setDescription('ランダムに選曲します！');
+
+// ジャンル名は songs.mjs のキー順（0〜6）に対応する
+const GENRES = ["POPS&ANIME", "niconico", "東方Project", "VARIETY", "イロドリミドリ", "ゲキマイ", "ORIGINAL"];
 
 export async function execute(interaction) {
-  // おみくじデータ定義
+  // 曲数は songs.mjs の実データから数える
+  // （以前は 2025/05/21 時点の曲数を手書きしていたため、楽曲追加に追随できなかった）
   const gachaData = {
   ソート: ["ジャンル順", "楽曲名順", "追加日順", "LEVEL順", "SCORE順", "AJ/FC順", "クリアマーク順", "FULL CHAIN順"],
-  ジャンル: ["POPS&ANIME", "niconico", "東方Project", "VARIETY", "イロドリミドリ", "ゲキマイ", "ORIGINAL"],
-  曲目: {
-    "POPS&ANIME": 144,
-    "niconico": 288,
-    "東方Project": 146,
-    "VARIETY": 231,
-    "イロドリミドリ": 100,
-    "ゲキマイ": 168,
-    "ORIGINAL": 391
-  },
+  ジャンル: GENRES,
+  曲目: Object.fromEntries(
+    GENRES.map((genre, i) => [genre, (songsData[i] ?? []).length])
+  ),
   難易度: ["EXPERT", "MASTER", "ULTIMA（無ければ MASTER）"]
 };
 

@@ -44,27 +44,32 @@ const registered = GlobalFonts.registerFromPath(
 const TAGS = {
   ANGEL: {
     points: -50,
-    label: "エンゼル券"
+    label: "エンゼル券",
+    color: 0xFFD1DC
   },
 
   BOOST: {
     points: -300,
-    label: "ブースト日設定券"
+    label: "ブースト日設定券",
+    color: 0xFF8C00
   },
 
   COURSE: {
     points: -200,
-    label: "チームコース作成券"
+    label: "チームコース作成券",
+    color: 0xFF0055
   },
 
   ROLE_NAME: {
     points: -150,
-    label: "ロールの名前作成券"
+    label: "ロールの名前作成券",
+    color: 0x5865F2
   },
 
   ROLE_COLOR: {
     points: -100,
-    label: "ロールの色変更券"
+    label: "ロールの色変更券",
+    color: 0x57F287
   }
 };
 
@@ -91,21 +96,35 @@ function parseData(content) {
 }
 
 async function getAllUserData(channel) {
-  const messages = await channel.messages.fetch({ limit: 100 });
-
   const data = [];
 
-  for (const msg of messages.values()) {
-    if (!msg.author.bot) continue;
+  // 直近100件だけでは登録ユーザーが100人を超えた時に漏れるため、
+  // 古い方へ辿って全件取得する
+  let before;
+  while (true) {
+    const options = { limit: 100 };
+    if (before) options.before = before;
 
-    const parsed = parseData(msg.content);
+    const messages = await channel.messages.fetch(options);
+    if (messages.size === 0) break;
 
-    if (parsed && parsed.id) {
-      data.push({
-        message: msg,
-        data: parsed
-      });
+    for (const msg of messages.values()) {
+      if (!msg.author.bot) continue;
+
+      const parsed = parseData(msg.content);
+
+      if (parsed && parsed.id) {
+        data.push({
+          message: msg,
+          data: parsed
+        });
+      }
     }
+
+    if (messages.size < 100) break;
+    const lastId = messages.last()?.id;
+    if (!lastId || lastId === before) break;
+    before = lastId;
   }
 
   return data;
@@ -219,6 +238,7 @@ export const data = new SlashCommandBuilder()
           .setName("value")
           .setDescription("加算ポイント")
           .setRequired(true)
+          .setMinValue(1)
       )
   )
 
@@ -238,6 +258,7 @@ export const data = new SlashCommandBuilder()
           .setName("value")
           .setDescription("減算ポイント")
           .setRequired(true)
+          .setMinValue(1)
       )
   )
 
@@ -270,6 +291,7 @@ export const data = new SlashCommandBuilder()
           .setName("value")
           .setDescription("数値")
           .setRequired(true)
+          .setMinValue(1)
       )
   )
 
@@ -525,40 +547,6 @@ export async function execute(interaction) {
         b.data.points - a.data.points
       )
       .slice(0, 20);
-
-    let description = "";
-
-    description +=
-      "順位　ユーザー名　累計（使用可能）\n\n";
-
-    let rank = 1;
-
-    for (const { data } of sorted) {
-
-      let displayName = nicknames[data.id];
-
-      if (!displayName) {
-
-        try {
-
-          const member =
-            await interaction.guild.members.fetch(data.id);
-
-          displayName =
-            member.nickname ??
-            member.user.username;
-
-        } catch {
-
-          displayName = `Unknown (${data.id})`;
-        }
-      }
-
-      description +=
-        `**${rank}位　${displayName}**　${data.points}pt（${data.usable}pt）\n`;
-
-      rank++;
-    }
 
     const imageBuffer =
   await createRankingImage(

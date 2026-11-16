@@ -63,9 +63,10 @@ export async function execute(interaction) {
         .setCustomId('select_song')
         .setPlaceholder('▼ 検索結果から楽曲を選択してください');
       
-      searchResults.forEach(song => {
-        // プルダウンの文字数制限(100文字)を超えないようにカット
-        songSelect.addOptions({ label: song.substring(0, 100), value: song.substring(0, 100) });
+      searchResults.forEach((song, index) => {
+        // 表示ラベルは文字数制限(100文字)に合わせてカットするが、
+        // value はインデックスにする（曲名そのものを入れると100文字で切れて正式名称が失われるため）
+        songSelect.addOptions({ label: song.substring(0, 100), value: String(index) });
       });
 
       const diffSelect = new StringSelectMenuBuilder()
@@ -120,6 +121,17 @@ export async function execute(interaction) {
   // 10分間（600000ミリ秒）ボタン等の操作を受け付ける
   const collector = response.createMessageComponentCollector({ time: 600000 });
 
+  let finished = false;
+
+  // 時間切れで終わった場合はボタンを取り除く
+  // （残しておくと、押せる見た目なのに反応しない状態になるため）
+  collector.on('end', async () => {
+    if (finished) return;
+    try {
+      await response.edit({ components: [] });
+    } catch {}
+  });
+
   collector.on('collect', async (i) => {
     // コマンド実行者以外が押した場合は弾く
     if (i.user.id !== interaction.user.id) {
@@ -164,9 +176,10 @@ export async function execute(interaction) {
       }
     }
 
-    // 楽曲用プルダウンが選ばれた時
+    // 楽曲用プルダウンが選ばれた時（value は searchResults のインデックス）
     if (i.customId === 'select_song') {
-      songs[editingSongIndex].name = i.values[0];
+      const selected = searchResults[Number(i.values[0])];
+      if (selected) songs[editingSongIndex].name = selected;
       await i.update({ embeds: [generateEmbed()] });
     }
     if (i.customId === 'select_diff') {
@@ -212,7 +225,8 @@ export async function execute(interaction) {
         embeds: [],      // ◀ 空の配列にすることでEmbedが消えます
         components: []   // ◀ ボタンも消えます
       });
-      
+
+      finished = true;
       collector.stop(); // 待機終了
     }
   });

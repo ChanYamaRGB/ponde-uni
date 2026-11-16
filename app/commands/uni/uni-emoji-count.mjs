@@ -37,12 +37,39 @@ export const data = new SlashCommandBuilder()
       )
   );
 
+// 2000文字制限に収まるよう、行単位で分割して送る
+async function sendLongText(interaction, text) {
+  const MAX = 1900; // 制限2000に対して余裕を持つ
+  const chunks = [];
+  let current = '';
+
+  for (const line of text.split('\n')) {
+    if (current && current.length + 1 + line.length > MAX) {
+      chunks.push(current);
+      current = line;
+    } else {
+      current = current ? `${current}\n${line}` : line;
+    }
+  }
+  if (current) chunks.push(current);
+
+  await interaction.editReply(chunks[0]);
+  for (const chunk of chunks.slice(1)) {
+    await interaction.followUp(chunk);
+  }
+}
+
 export async function execute(interaction) {
   await interaction.deferReply();
 
   const year = interaction.options.getInteger('year');
   const month = interaction.options.getInteger('month') - 1; // JSの月は0始まり
   const guild = interaction.guild;
+
+  // 対象月の範囲 [monthStart, monthEnd)
+  // ※月の境界はサーバーのローカル時刻基準です（Dockerでは TZ=Asia/Tokyo を設定済み）
+  const monthStart = new Date(year, month, 1);
+  const monthEnd = new Date(year, month + 1, 1);
 
   const emojiCounts = {};
   const availableEmojiIds = new Set(guild.emojis.cache.map(e => e.id));
@@ -61,9 +88,14 @@ export async function execute(interaction) {
         const messages = await channel.messages.fetch(options);
         if (messages.size === 0) break;
 
+        let oldestInBatch = null;
+
         for (const message of messages.values()) {
           const date = message.createdAt;
-          if (date.getFullYear() !== year || date.getMonth() !== month) continue;
+          if (!oldestInBatch || date < oldestInBatch) oldestInBatch = date;
+
+          // 対象月の範囲外（新しい月・古い月）は数えない
+          if (date < monthStart || date >= monthEnd) continue;
 
           const matches = [...message.content.matchAll(/<a?:\w+:(\d+)>/g)];
           for (const [, id] of matches) {
@@ -80,8 +112,13 @@ export async function execute(interaction) {
           });
         }
 
-        lastId = messages.last()?.id;
-        if (!lastId) break;
+        // 取得は新しい順なので、このバッチの最古が対象月より前なら
+        // 以降のバッチはすべて対象外。チャンネルの全履歴を読み切らずに終える。
+        if (oldestInBatch && oldestInBatch < monthStart) break;
+
+        const newLastId = messages.last()?.id;
+        if (!newLastId || newLastId === lastId) break;
+        lastId = newLastId;
       }
     } catch (e) {
       console.warn(`⚠️ チャンネル「${channel.name}」の取得失敗: ${e.message}`);
@@ -119,8 +156,9 @@ sorted.forEach((emoji, index) => {
 
 const resultText =
   `${year}年${month + 1}月のカスタム絵文字ランキング（多い順）\n\n` +
-  (formatted || "該当なし");
+  (formatted || "該当なし") +
+  `\n\n※リアクション数は現在の件数で集計しています`;
 
-await interaction.editReply(resultText);
+await sendLongText(interaction, resultText);
 
 }
