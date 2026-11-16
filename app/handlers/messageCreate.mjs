@@ -12,6 +12,47 @@ const TARGET_CHANNEL_ID = '1185543219241562172';
 const START_STICKER_ID = '1229639647861411922';
 const STOP_STICKER_ID = '1231291282324721684';
 
+// 楽曲ループのセッションはユーザーごとに独立して管理する。
+// 停止処理は「そのセッション自身」であることを確認してから行い、
+// 再開始した後の新しいセッションを巻き込んで止めないようにする。
+function stopSession(userId, session) {
+  if (activeSessions.get(userId) !== session) return;
+  clearInterval(session.interval);
+  clearTimeout(session.timeout);
+  activeSessions.delete(userId);
+}
+
+function startSession(message) {
+  const userId = message.author.id;
+  const channel = message.channel;
+
+  const existing = activeSessions.get(userId);
+  if (existing) {
+    clearInterval(existing.interval);
+    clearTimeout(existing.timeout);
+    activeSessions.delete(userId);
+  }
+
+  const session = { interval: null, timeout: null };
+  session.interval = setInterval(async () => {
+    try {
+      const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
+      // 開始メッセージへの返信ではなく、チャンネルへメンション付きで送る。
+      // 開始メッセージが削除されても送信が失敗しないようにするため。
+      await channel.send(`<@${userId}> ${randomSong}`);
+    } catch (err) {
+      // 送信に失敗した場合は、このユーザーのセッションだけを止める。
+      console.error("楽曲ループ送信に失敗しました:", err);
+      stopSession(userId, session);
+    }
+  }, 20 * 60 * 1000);
+  session.timeout = setTimeout(() => {
+    stopSession(userId, session);
+  }, 3 * 60 * 60 * 1000);
+
+  activeSessions.set(userId, session);
+}
+
 export default async function(message) {
   await aa(message);
   if (message.author.bot) return;
@@ -38,41 +79,14 @@ export default async function(message) {
 
       // --- 開始スタンプ ---
       if (stickerId === START_STICKER_ID) {
-        if (activeSessions.has(message.author.id)) {
-          const existing = activeSessions.get(message.author.id);
-          clearInterval(existing.interval);
-          clearTimeout(existing.timeout);
-        }
-
-        const intervalId = setInterval(async () => {
-          try {
-            const randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
-            await message.reply(`${randomSong}`);
-          } catch (err) {
-            // 元メッセージやチャンネルが消えていると reply が失敗する。
-            // 未処理のままにするとプロセス全体に影響するため、ここで止める。
-            console.error("楽曲ループ送信に失敗しました:", err);
-            clearInterval(intervalId);
-            clearTimeout(timeoutId);
-            activeSessions.delete(message.author.id);
-          }
-        }, 20 * 60 * 1000);
-
-        const timeoutId = setTimeout(() => {
-          clearInterval(intervalId);
-          activeSessions.delete(message.author.id);
-        }, 3 * 60 * 60 * 1000);
-
-        activeSessions.set(message.author.id, { interval: intervalId, timeout: timeoutId });
+        startSession(message);
       }
 
       // --- 停止スタンプ ---
       else if (stickerId === STOP_STICKER_ID) {
-        if (activeSessions.has(message.author.id)) {
-          const session = activeSessions.get(message.author.id);
-          clearInterval(session.interval);
-          clearTimeout(session.timeout);
-          activeSessions.delete(message.author.id);
+        const session = activeSessions.get(message.author.id);
+        if (session) {
+          stopSession(message.author.id, session);
         }
       }
     }
