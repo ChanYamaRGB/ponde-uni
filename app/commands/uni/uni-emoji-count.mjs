@@ -70,6 +70,12 @@ async function sendLongText(interaction, text) {
   }
 }
 
+// 進捗表示の文を作る（パーセントと「完了」の間は全角空白、全体をバッククォートで囲む）
+function formatProgress(percent) {
+  const gauge = '█'.repeat(Math.round(percent / 10)) + '　'.repeat(10 - Math.round(percent / 10));
+  return `\`集計中... ${percent}%　完了[${gauge}]\``;
+}
+
 // 絵文字の画像をCDNから取得する。削除済みなどで取得できなければ null を返す。
 async function fetchEmojiImage(id) {
   for (const ext of ['png', 'gif']) {
@@ -199,7 +205,8 @@ export async function execute(interaction) {
     });
   }
 
-  await interaction.deferReply();
+  // 「考え中」（deferReply）は使わず、最初の応答として0%の進捗を表示する
+  await interaction.reply(formatProgress(0));
 
   const month = rawMonth - 1; // JSの月は0始まり
   const guild = interaction.guild;
@@ -275,8 +282,7 @@ export async function execute(interaction) {
     // 進捗表示（10チャンネルごと or 最後）
     if (processedChannels % 10 === 0 || processedChannels === totalChannels) {
       const percent = Math.floor((processedChannels / totalChannels) * 100);
-      const gauge = '█'.repeat(Math.round(percent / 10)) + '　'.repeat(10 - Math.round(percent / 10));
-      await interaction.editReply(`\`集計中... ${percent}% 完了[${gauge}]\``);
+      await interaction.editReply(formatProgress(percent));
     }
   }
 
