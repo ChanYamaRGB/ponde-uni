@@ -58,8 +58,8 @@ export function createDefaultProfile(userId) {
     honors: defaultHonors(),  // 称号（最大3つ）: { text, color } の配列
     teamName: null,           // null の場合は DEFAULT_TEAM_NAME
     teamColor: "gold",        // チームの色（team_bg_mini のバリアント名）
-    charaBg: "holographic",   // キャラクター背景（bg_chara のバリアント名）
-    background: "rainbow",    // プロフィール全体の背景（profile のバリアント名）
+    charaBg: "normal",   // キャラクター背景（bg_chara のバリアント名）
+    background: "normal",    // プロフィール全体の背景（profile のバリアント名）
     battleRank: "C3",
     classEmblem: null,        // クラスエンブレム（1〜6、null は非表示）
     rating: 0,
