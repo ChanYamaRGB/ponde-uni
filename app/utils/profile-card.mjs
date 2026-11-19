@@ -1,6 +1,6 @@
 import path from "path";
 import { createCanvas, loadImage, GlobalFonts } from "@napi-rs/canvas";
-import { DEFAULT_TEAM_NAME, normalizeHonors } from "./profile-store.mjs";
+import { DEFAULT_TEAM_NAME, normalizeHonors, levelOf } from "./profile-store.mjs";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const ASSETS = path.join(__dirname, "..", "assets", "profile");
@@ -307,8 +307,7 @@ export async function createProfileCard(data, name, avatarImage) {
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
 
-  const level = data.msgCount % 100;
-  const star = Math.floor(data.msgCount / 100);
+  const { level, star } = levelOf(data.msgCount);
 
   // ===== 全体背景（ポゼッション） =====
   const bg = await assetImage(`profile_${data.background}.png`);
@@ -343,11 +342,6 @@ export async function createProfileCard(data, name, avatarImage) {
     ctx.fillText((name || "?").slice(0, 1), 59, 109);
     ctx.textAlign = "left";
   }
-  ctx.strokeStyle = "rgba(0,0,0,0.18)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.rect(15, 52, 88, 88);
-  ctx.stroke();
 
   // ===== チーム名バー（300x42） =====
   const teamBar = await assetImage(`team_bg_${data.teamColor}_mini.png`);

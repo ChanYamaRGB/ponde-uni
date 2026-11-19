@@ -97,8 +97,28 @@ export const data = new SlashCommandBuilder()
         addChoices(o.setName("background").setDescription("プロフィール全体の背景"), BACKGROUND_VARIANTS)
       )
       .addStringOption((o) =>
-        o.setName("battle-rank").setDescription("BATTLE RANK（例: S3、SS1、盟1、エリート）")
-          .setMinLength(2).setMaxLength(4)
+        o.setName("battle-rank").setDescription("BATTLE RANK の帯")
+          .addChoices(
+            { name: "D", value: "D" },
+            { name: "C", value: "C" },
+            { name: "B", value: "B" },
+            { name: "A", value: "A" },
+            { name: "S", value: "S" },
+            { name: "SS", value: "SS" },
+            { name: "燦（SUN）", value: "燦" },
+            { name: "煌（LUMINOUS）", value: "煌" },
+            { name: "想（VERSE）", value: "想" },
+            { name: "盟（Mate）", value: "盟" },
+            { name: "エリート", value: "エリート" }
+          )
+      )
+      .addStringOption((o) =>
+        o.setName("battle-rank-number").setDescription("BATTLE RANK の数字（エリートには不要）")
+          .addChoices(
+            { name: "1", value: "1" },
+            { name: "2", value: "2" },
+            { name: "3", value: "3" }
+          )
       )
       .addStringOption((o) =>
         o.setName("class-emblem").setDescription("クラスエンブレム")
@@ -227,17 +247,21 @@ export async function execute(interaction) {
       summary.push(`背景: ${variantLabel(BACKGROUND_VARIANTS, background)}`);
     }
 
-    const battleRank = interaction.options.getString("battle-rank");
-    if (battleRank !== null) {
-      const normalized = battleRank.toUpperCase();
-      if (/^E\d?$/.test(normalized)) {
-        errors.push("Eランクは存在しません");
-      } else if (/^((D|C|B|A|S|SS)|[燦煌想盟])[0456789]$/.test(normalized)) {
-        errors.push("BATTLE RANK の数字は1〜3のみ指定できます");
-      } else if (!/^((D|C|B|A|S|SS)[1-3]|[燦煌想盟][1-3]|エリート)$/.test(normalized)) {
-        errors.push("BATTLE RANK は「D3」「C1」「B2」「A1」「S3」「SS1」「盟1」「エリート」のような形式で指定してください");
+    // BATTLE RANK は帯と数字の選択式。片方だけの指定では、もう片方は現在の値を引き継ぐ
+    const rankBand = interaction.options.getString("battle-rank");
+    const rankNumber = interaction.options.getString("battle-rank-number");
+    if (rankBand !== null || rankNumber !== null) {
+      if (rankBand === "エリート") {
+        patch.battleRank = "エリート";
+        summary.push("BATTLE RANK: エリート");
       } else {
-        patch.battleRank = normalized;
+        const current = await getProfile(interaction.client, interaction.user.id);
+        const currentRank = current.battleRank || "C3";
+        const currentBand = currentRank.replace(/[0-9]/g, "");
+        const band = rankBand
+          ?? (["D", "C", "B", "A", "S", "SS", "燦", "煌", "想", "盟"].includes(currentBand) ? currentBand : "C");
+        const number = rankNumber ?? currentRank.match(/[1-3]/)?.[0] ?? "3";
+        patch.battleRank = `${band}${number}`;
         summary.push(`BATTLE RANK: ${patch.battleRank}`);
       }
     }
