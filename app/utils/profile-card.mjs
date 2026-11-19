@@ -138,12 +138,20 @@ export function toFullWidthName(text) {
   return out;
 }
 
-// レーティングの値から数字画像の色を決める（本家CHUNITHMの色分けに倣う）
+// レーティングの値から数字画像の色を決める（本家CHUNITHMの色分け、VERSE以降）
+// 緑 0.00- / 橙 4.00- / 赤 7.00- / 紫 10.00- / 銅 12.00- / 銀 13.25- /
+// 金 14.50- / プラチナ 15.25- / 虹 16.00- / 虹極（kiwami）17.00-
 export function ratingColorKey(rating) {
+  if (rating >= 17) return "kiwami";
   if (rating >= 16) return "rainbow";
-  if (rating >= 15) return "gold";
-  if (rating >= 14) return "silver";
-  return "bronze";
+  if (rating >= 15.25) return "platinum";
+  if (rating >= 14.5) return "gold";
+  if (rating >= 13.25) return "silver";
+  if (rating >= 12) return "bronze";
+  if (rating >= 10) return "purple";
+  if (rating >= 7) return "red";
+  if (rating >= 4) return "orange";
+  return "green";
 }
 
 const RANK_COLORS = {
@@ -189,7 +197,7 @@ function fitFont(ctx, text, maxWidth, baseSize, minSize, weight = "bold") {
 }
 
 function formatLastPlay(ts) {
-  if (!ts) return "記録なし";
+  if (!ts) return "----/--/-- --:--";
   const parts = new Intl.DateTimeFormat("ja-JP", {
     timeZone: "Asia/Tokyo",
     year: "numeric",
