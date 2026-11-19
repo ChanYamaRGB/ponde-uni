@@ -71,11 +71,16 @@ export function createDefaultProfile(userId) {
   };
 }
 
-// レベル表示への変換。100投稿ごとに星が1つ増え、レベルは0に戻る。
+// レベル表示への変換。次のレベルへ上がるには「次のレベルの数」と同じ投稿数が
+// 必要（Lv.1 には1投稿、Lv.2 にはさらに2投稿、Lv.3 にはさらに3投稿…）。
+// Lv.100 到達分の累計 5,050 投稿（1+2+…+100）ごとに星が1つ増え、レベルは0に戻る。
 export function levelOf(msgCount) {
+  const POSTS_PER_STAR = 5050; // 1+2+...+100
+  const cycle = msgCount % POSTS_PER_STAR;
+  const level = Math.floor((Math.sqrt(1 + 8 * cycle) - 1) / 2);
   return {
-    level: msgCount % 100,
-    star: Math.floor(msgCount / 100)
+    level,
+    star: Math.floor(msgCount / POSTS_PER_STAR)
   };
 }
 
