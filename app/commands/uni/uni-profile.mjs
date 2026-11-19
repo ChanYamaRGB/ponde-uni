@@ -97,8 +97,8 @@ export const data = new SlashCommandBuilder()
         addChoices(o.setName("background").setDescription("プロフィール全体の背景"), BACKGROUND_VARIANTS)
       )
       .addStringOption((o) =>
-        o.setName("battle-rank").setDescription("BATTLE RANK（例: S3、C3）")
-          .setMinLength(2).setMaxLength(2)
+        o.setName("battle-rank").setDescription("BATTLE RANK（例: S3、SS1、盟1、エリート）")
+          .setMinLength(2).setMaxLength(4)
       )
       .addStringOption((o) =>
         o.setName("class-emblem").setDescription("クラスエンブレム")
@@ -229,10 +229,15 @@ export async function execute(interaction) {
 
     const battleRank = interaction.options.getString("battle-rank");
     if (battleRank !== null) {
-      if (!/^[A-Ea-eSs][1-5]$/.test(battleRank)) {
-        errors.push("BATTLE RANK は「S3」「C3」のように、英字1文字＋数字1文字で指定してください");
+      const normalized = battleRank.toUpperCase();
+      if (/^E\d?$/.test(normalized)) {
+        errors.push("Eランクは存在しません");
+      } else if (/^((D|C|B|A|S|SS)|[燦煌想盟])[0456789]$/.test(normalized)) {
+        errors.push("BATTLE RANK の数字は1〜3のみ指定できます");
+      } else if (!/^((D|C|B|A|S|SS)[1-3]|[燦煌想盟][1-3]|エリート)$/.test(normalized)) {
+        errors.push("BATTLE RANK は「D3」「C1」「B2」「A1」「S3」「SS1」「盟1」「エリート」のような形式で指定してください");
       } else {
-        patch.battleRank = battleRank.toUpperCase();
+        patch.battleRank = normalized;
         summary.push(`BATTLE RANK: ${patch.battleRank}`);
       }
     }
