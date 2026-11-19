@@ -1,5 +1,6 @@
 import aa from './messageCreate/aa.mjs';
 import songsData from '../utils/DB/highDifficulty.mjs';
+import { trackMessage } from '../utils/profile-store.mjs';
 
 const allSongs = Object.values(songsData).flat();
 const activeSessions = new Map();
@@ -54,6 +55,10 @@ function startSession(message) {
 }
 
 export default async function(message) {
+  // プロフィールカード用の活動記録（レベル・最終プレイ）。
+  // trackMessage 内で例外は握っているため、他の処理には影響しない。
+  await trackMessage(message);
+
   await aa(message);
   if (message.author.bot) return;
 
