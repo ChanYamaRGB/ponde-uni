@@ -1,6 +1,7 @@
 import {
   SlashCommandBuilder,
-  AttachmentBuilder
+  AttachmentBuilder,
+  PermissionFlagsBits
 } from "discord.js";
 import { loadImage } from "@napi-rs/canvas";
 import fs from "fs";
@@ -193,9 +194,18 @@ export async function execute(interaction) {
 
   // ===== show =====
   if (sub === "show") {
-    await interaction.deferReply();
-
     const target = interaction.options.getUser("user") ?? interaction.user;
+
+    // 他のユーザーを指定できるのは管理者権限を持ったユーザーのみ
+    if (target.id !== interaction.user.id &&
+        !interaction.member?.permissions?.has(PermissionFlagsBits.Administrator)) {
+      return interaction.reply({
+        content: "他のユーザーのプロフィールを表示できるのは、管理者権限を持ったユーザーのみです",
+        ephemeral: true
+      });
+    }
+
+    await interaction.deferReply();
     let member = null;
     if (interaction.guild) {
       member = await interaction.guild.members.fetch(target.id).catch(() => null);
