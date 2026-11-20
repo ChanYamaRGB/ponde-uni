@@ -1,6 +1,6 @@
 import path from "path";
 import { createCanvas, loadImage, GlobalFonts } from "@napi-rs/canvas";
-import { DEFAULT_TEAM_NAME, normalizeHonors, levelOf } from "./profile-store.mjs";
+import { DEFAULT_TEAM_NAME, normalizeHonors, levelOf, overPowerOf } from "./profile-store.mjs";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const ASSETS = path.join(__dirname, "..", "assets", "profile");
@@ -468,11 +468,12 @@ export async function createProfileCard(data, name, avatarImage) {
   ctx.font = `bold 14px ${FONT}`;
   ctx.fillText(`(MAX ${ratingMax.toFixed(2)})`, 311, 203);
 
-  // ===== OVER POWER（12px太字） =====
+  // ===== OVER POWER（12px太字、カウンタから自動計算し達成率を常時表示） =====
   ctx.font = `bold 12px ${FONT}`;
   ctx.fillStyle = "#222222";
-  const opText = (data.overPower ?? 0).toFixed(2);
-  const opSuffix = data.overPowerPercent != null ? ` (${data.overPowerPercent.toFixed(2)}%)` : "";
+  const op = overPowerOf(data);
+  const opText = op.value.toFixed(2);
+  const opSuffix = ` (${op.percent.toFixed(2)}%)`;
   ctx.fillText(opText + opSuffix, 227, 229);
 
   // ===== 最終プレイ（12px太字） =====

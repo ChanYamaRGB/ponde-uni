@@ -26,6 +26,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildMessageReactions,
   ],
 });
 
@@ -100,6 +101,45 @@ client.on("messageCreate", async (message) => {
     await handler.default(message);
   } catch (err) {
     console.error("[エラー] messageCreate の処理中にエラーが発生しました:", err);
+  }
+});
+
+client.on("messageDelete", async (message) => {
+  const handler = handlers.get("messageDelete");
+  if (!handler) {
+    console.error("[エラー] messageDelete ハンドラが読み込まれていません");
+    return;
+  }
+  try {
+    await handler.default(message);
+  } catch (err) {
+    console.error("[エラー] messageDelete の処理中にエラーが発生しました:", err);
+  }
+});
+
+client.on("messageReactionAdd", async (reaction, user) => {
+  const handler = handlers.get("messageReactionAdd");
+  if (!handler) {
+    console.error("[エラー] messageReactionAdd ハンドラが読み込まれていません");
+    return;
+  }
+  try {
+    await handler.default(reaction, user);
+  } catch (err) {
+    console.error("[エラー] messageReactionAdd の処理中にエラーが発生しました:", err);
+  }
+});
+
+client.on("messageReactionRemove", async (reaction, user) => {
+  const handler = handlers.get("messageReactionRemove");
+  if (!handler) {
+    console.error("[エラー] messageReactionRemove ハンドラが読み込まれていません");
+    return;
+  }
+  try {
+    await handler.default(reaction, user);
+  } catch (err) {
+    console.error("[エラー] messageReactionRemove の処理中にエラーが発生しました:", err);
   }
 });
 
