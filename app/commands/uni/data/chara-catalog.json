@@ -1,0 +1,3287 @@
+[
+ {
+  "key": "cardmaker/a11",
+  "name": "津久井 シズノ／弘明寺温泉物語",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a17",
+  "name": "HAR-ヒロイン09【ネレイダム／聖夜の女神】",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a18",
+  "name": "兎音 ココ／満点ドリーム",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a24",
+  "name": "葉和 とれび／テンタクラースイーツ",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a30",
+  "name": "舞園 星斗＆荒場 流子／雛飾りの二人",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a36",
+  "name": "ソラマチ・メメ／駆け抜ける桜吹雪",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a37",
+  "name": "牧野 もこ／ファザーファーム",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a38",
+  "name": "MIR-203【セレネ・シェリル／ブライドフォーム】",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a42",
+  "name": "愛野 ヒカリ／シャイニーフラワー",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a47",
+  "name": "暁 凶香／ひと時の休息を",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a52",
+  "name": "鬼蝮 ユリア／オールスター運動会",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/a53",
+  "name": "ショコラ／チョコレートハロウィン",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card1",
+  "name": "DJ-MEGA／悪夢の節句",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card10",
+  "name": "兎音 ココ／秘密の補習",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card11",
+  "name": "ネルネ＆ツムネ／幸せの五月晴れ",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card12",
+  "name": "MIR-202【アルテミス・レナ／ブライドフォーム】",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card13",
+  "name": "新田 ちえ／七夕の願い",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card14",
+  "name": "ナージャ・ベルリオーズ／祈りの海にて",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card15",
+  "name": "鬼蝮 アイリ／オールスター運動会",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card16",
+  "name": "テルミット・ヴィエルジュ／マスカレイド",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card17",
+  "name": "知雲 ひばり／湯上りライブ",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card18",
+  "name": "宍戸 美鈴／光の聖歌隊",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card19",
+  "name": "不動 絶音／音神の悟り",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card2",
+  "name": "MIR-201【ヘカティ・ベアトリクス／ブライドフォーム】",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card20",
+  "name": "ミィム・ミクラー／豊穣のブルーノヴァで",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card21",
+  "name": "伊賀崎ノ楠子／ニャンジャ♡フェスティバル",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card22",
+  "name": "向来 隼＆御影 昴／今日からよろしくね、先輩♪",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card23",
+  "name": "ポメ太＆トラ吉／スピードの向こう岸",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card24",
+  "name": "シエロ・メーヴェ／求めし夢の花よ",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card25",
+  "name": "水戸 雫／あなたの手を引いて",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card26",
+  "name": "ヨナ・ライゼ／ラストバケーション",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card27",
+  "name": "リー・メイメイ／爆裂旋風運動界",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card3",
+  "name": "ハイパーネットゲーマーアルテラ／パリピビーチスプラッシュ",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card4",
+  "name": "アーリア・ネージュ／縁日FESTIVAL",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card5",
+  "name": "スカイフェザー／オールスター運動会",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card6",
+  "name": "イングリット・オーリック・コーネル／乙女の湯",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card7",
+  "name": "カラドリウス・ブルー／魂の収穫者",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card8",
+  "name": "ジュナ・サラキア／愛と幸せのバレンタイン",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/card9",
+  "name": "舞浜 優芽／Doll's Festival",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr15",
+  "name": "新井 桃子／秋の温泉ぼっち旅",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr16",
+  "name": "フィーネ・アルトリネス／クリスマスベル",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr22",
+  "name": "グランレイス／コスモイレイザー",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr23",
+  "name": "七海 あおい＆高砂 瑞穂／バレンタインメモリー",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr29",
+  "name": "マリアンヌ新城＆マイケル斉藤／SAMURAI",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr30",
+  "name": "八咫烏 鋼太郎／幸せの花見重箱弁当",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "cardmaker/cr31",
+  "name": "パンタ＆コニー／タカサキ春のパン祭り",
+  "series": "カードメイカー"
+ },
+ {
+  "key": "chunithm-luminous/l_1_1",
+  "name": "八月朔日 みはね",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_1_2",
+  "name": "犬公 ミミ美",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_1_3",
+  "name": "御茶ノ水 遥",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_1_4",
+  "name": "Android_type_Cleaner-2145",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_1_5",
+  "name": "ソロ・モーニア／メタヴァース適応体",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_2_1",
+  "name": "ゴダイ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_2_2",
+  "name": "モフマロ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_2_3",
+  "name": "ヤクオン",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_2_4",
+  "name": "ロイ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_2_5",
+  "name": "タキザワ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_3_1",
+  "name": "エル・リベルテ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_3_2",
+  "name": "ミスラ・テルセーラ／REメタヴァース",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_3_3",
+  "name": "バテシバ／メタヴァース異体",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_4_1",
+  "name": "JiИ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_4_2",
+  "name": "羽生 二三",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_4_3",
+  "name": "ライチ・アエーシュマ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_4_4",
+  "name": "興石 甜香",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_4_5",
+  "name": "明光澤 米子",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_5_1",
+  "name": "陽川 ユエ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_5_2",
+  "name": "淀川 沙音瑠／たこやきデイドリーム",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_5_3",
+  "name": "九蓮宝燈",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_5_4",
+  "name": "有栖川 真莉愛",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_5_5",
+  "name": "土呂城 ゆい／欲楽の夢",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_6_1",
+  "name": "ピュエル・バビステ",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_6_2",
+  "name": "リズリスヴェル",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_6_3",
+  "name": "ラフィン・ベネルエム",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_6_4",
+  "name": "コンダクター",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_7_1",
+  "name": "アレウス／天魔咆哮",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_a_1",
+  "name": "長瀬有花／驚異の魔法",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_a_2",
+  "name": "周防パトラ／ウニの歌",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_a_3",
+  "name": "somunia／liberate",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ascension_1",
+  "name": "ヴァルマシアゴースト",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ex_1",
+  "name": "ナイ／サンカヨウの子守唄",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ex_2",
+  "name": "MIR-203【セレネ・シェリル】／ウィアトル",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ex_3",
+  "name": "メリム／癒しの陽光",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ex_4",
+  "name": "ロト・トゥエルヴ／赤き死神",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_ex_5",
+  "name": "覚醒者バシアン／残滓黎明",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_others_1",
+  "name": "アストライア／審判の炎",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-luminous/l_others_2",
+  "name": "ピリオ／再鋼築世界",
+  "series": "CHUNITHM LUMINOUS"
+ },
+ {
+  "key": "chunithm-mate/m_1",
+  "name": "ベネデッタ",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_10",
+  "name": "ルル・ノワール",
+  "series": "Mate ep. II"
+ },
+ {
+  "key": "chunithm-mate/m_11",
+  "name": "アンク／暴威の執行者",
+  "series": "Mate ep. III"
+ },
+ {
+  "key": "chunithm-mate/m_12",
+  "name": "ラヴィーナ・キトゥン／Virtual summer Ride",
+  "series": "Mate ep. III"
+ },
+ {
+  "key": "chunithm-mate/m_13",
+  "name": "クーニグンデ",
+  "series": "Mate ep. III"
+ },
+ {
+  "key": "chunithm-mate/m_14",
+  "name": "ヴェルウィッチア",
+  "series": "Mate ep. III"
+ },
+ {
+  "key": "chunithm-mate/m_15",
+  "name": "坂城 羽莉",
+  "series": "MATE ep. IV"
+ },
+ {
+  "key": "chunithm-mate/m_16",
+  "name": "ハニーリリナ",
+  "series": "MATE ep. IV"
+ },
+ {
+  "key": "chunithm-mate/m_17",
+  "name": "エイリィ・紅牙・ストレジア",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-mate/m_2",
+  "name": "リンネ／Silent Gear",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_3",
+  "name": "上級執行官ノワ",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_4",
+  "name": "角倉 ひなた",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_5",
+  "name": "如月 レイナ",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_6",
+  "name": "レイ=ジンジャー",
+  "series": "Mate ep. I"
+ },
+ {
+  "key": "chunithm-mate/m_7",
+  "name": "天使・かなえ",
+  "series": "Mate ep. II"
+ },
+ {
+  "key": "chunithm-mate/m_8",
+  "name": "エルディオネ・ヴァーミリア",
+  "series": "Mate ep. II"
+ },
+ {
+  "key": "chunithm-mate/m_9",
+  "name": "人見ちゃん",
+  "series": "Mate ep. II"
+ },
+ {
+  "key": "chunithm-new/n_1a1",
+  "name": "マゼラン・マゼラン／コズミックラバー",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a10",
+  "name": "エイハヴ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a2",
+  "name": "メリム",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a3",
+  "name": "縁",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a4",
+  "name": "ちずこ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a5",
+  "name": "ポン助",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a6",
+  "name": "サルゴン・フェルネス",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a7",
+  "name": "九十九 宗治郎",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a8",
+  "name": "ユグドラシル",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1a9",
+  "name": "百鬼 煌星",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b1",
+  "name": "荒場 流子／NEW GAME",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b10",
+  "name": "不来方 とあ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b2",
+  "name": "愛野 ヒカリ／最盛のエール",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b3",
+  "name": "土呂城 ゆい",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b4",
+  "name": "オネスト・クンツァイト",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b5",
+  "name": "リタ・カールステット",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b6",
+  "name": "コタロー",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b7",
+  "name": "シマッチ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b8",
+  "name": "バテシバ・アヒトフェル",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_1b9",
+  "name": "メギド・ゴグ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_2_1",
+  "name": "原初の巫女アヴェニアス",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_2_2",
+  "name": "原初の巫女テルスウラス",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_2_3",
+  "name": "原初の巫女メーヴェ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_2_4",
+  "name": "原初の巫女サラキア",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_3_1",
+  "name": "ゼファー・ニアルデ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_3_2",
+  "name": "ソロ・モーニア",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_3_3",
+  "name": "ミスラ・テルセーラ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_3_4",
+  "name": "ヨアキム・イヤムル",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_3_5",
+  "name": "ニア・ユーディット",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_4_1",
+  "name": "天月-あまつき-／タイムカプセル",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_4_2",
+  "name": "淀川 沙音瑠",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_4_3",
+  "name": "黒須 紘",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_4_4",
+  "name": "藍沢 奏雨",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_4_5",
+  "name": "ミカ・ドミナンスⅢ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_5_1",
+  "name": "モーガン・フェール",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_5_2",
+  "name": "EMANON",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_5_3",
+  "name": "エヴァ・ラグエル",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_5_4",
+  "name": "闇よりも深い黒に染まるバーニッシュ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_6_1",
+  "name": "ダンディ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_6_2",
+  "name": "ロト・トゥエルヴ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_6_3",
+  "name": "マードゥク・アニマート",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_6_4",
+  "name": "カイナン・メルヴィアス",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_c_1",
+  "name": "マルクトの女神",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/n_c_2",
+  "name": "覚醒者バシアン",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_1",
+  "name": "MTA-XXX【パンドラネメシス】／アンテノラ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_10",
+  "name": "ティータ・アヴェニアス／混乱の業火",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_2",
+  "name": "戦禍を呼ぶ戦乙女 エルルーン",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_3",
+  "name": "黒原 きずな／サークルプリンセス",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_4",
+  "name": "ジョニー・サイアスティン／マイトリロジー",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_5",
+  "name": "アイザック・ドミナンスⅤⅢ",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_6",
+  "name": "HAR-ヒロイン09【ネレイダム／メタモルフォーゼ】",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_7",
+  "name": "リリアリス・コルチカム／エターナルメイデン",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_8",
+  "name": "オメガギーゼグール",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-new/others_9",
+  "name": "セラフィータ／アドミラルフォーム",
+  "series": "CHUNITHM NEW"
+ },
+ {
+  "key": "chunithm-sun/s_1_1",
+  "name": "冴川 芽依",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_2",
+  "name": "神園 零",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_3",
+  "name": "ヴァン",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_4",
+  "name": "幡桐 こよみ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_5",
+  "name": "チキ＆ウリシュ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_6",
+  "name": "ティリー・キャクストン",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_1_7",
+  "name": "フリーシア・ベイヤード",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_2_1",
+  "name": "安倍 八雲",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_2_2",
+  "name": "小鳥遊 えりか",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_2_3",
+  "name": "神開 つかさ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_2_4",
+  "name": "薬研堀 ユウ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_3_1",
+  "name": "エリシャ・ムルシア",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_3_2",
+  "name": "ナディン・ナタナエル",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_3_3",
+  "name": "ドヴェルグ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_3_4",
+  "name": "アンシャール・アウダーチア",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_4_1",
+  "name": "宮岸 知花",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_4_2",
+  "name": "遊馬 万里亜",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_4_3",
+  "name": "アッシュ（ASH:3-013）",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_4_4",
+  "name": "ウルガレオン",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_4_5",
+  "name": "エステル・ヤグルーシュ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_5_1",
+  "name": "レア・エ・フラータ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_5_2",
+  "name": "ヴォイド",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_5_3",
+  "name": "セロ・ダーウィーズ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_5_4",
+  "name": "ニア・バテシバ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_6_1",
+  "name": "炎の精霊",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_6_2",
+  "name": "土の精霊",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_6_3",
+  "name": "風の精霊",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_6_4",
+  "name": "水の精霊",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_6_5",
+  "name": "希望の巫女 ネフェシェ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_a_1",
+  "name": "MaiR／Crawler / Flyer",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_a_2",
+  "name": "BOOGEY VOXX feat.IURA TOI／Re:Credits",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_a_3",
+  "name": "YACA IN DA HOUSE／Cheat Sheet",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_a_4",
+  "name": "MonsterZ MATE／One Room Sky",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_ex_1",
+  "name": "導師 ミィム・ミクラー／真なる世界への祈り",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_ex_2",
+  "name": "不来方 とあ／僕たちの約束",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_ex_3",
+  "name": "レナ・イシュメイル／希望の灯火",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_ex_4",
+  "name": "宍戸 美鈴／It’s meant to be.",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_ex_5",
+  "name": "ミスラ・テルセーラ／新たなる希望",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_others_1",
+  "name": "ナイ／0419_Guardian",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_others_2",
+  "name": "サジ＆ニナ／パステルウォーカー",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_others_3",
+  "name": "蒼き大地のソルナ",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_others_4",
+  "name": "聖女 アンナ・マルグレーテ／運命の禍福",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_others_5",
+  "name": "エヴァ・ドミナンスXII",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-sun/s_sin",
+  "name": "ヴェーネス",
+  "series": "CHUNITHM SUN"
+ },
+ {
+  "key": "chunithm-verse/v_1_1",
+  "name": "ムッシュ・シャポー",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_2",
+  "name": "柴村 ユカリ",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_3",
+  "name": "法月 ぴこ",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_4",
+  "name": "鬼蝮 ユリア／null☆nulllぱにっく",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_5",
+  "name": "ウィリアム・ウィンスレッド",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_6",
+  "name": "アイリーニ・キュリアス",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_1_7",
+  "name": "モモ＆ジジ",
+  "series": "VERSE ep.I"
+ },
+ {
+  "key": "chunithm-verse/v_2_1",
+  "name": "アルミナ・フラム",
+  "series": "VERSE ep.II"
+ },
+ {
+  "key": "chunithm-verse/v_2_2",
+  "name": "エレハイム・エルデ",
+  "series": "VERSE ep.II"
+ },
+ {
+  "key": "chunithm-verse/v_2_3",
+  "name": "メア・グランディーネ",
+  "series": "VERSE ep.II"
+ },
+ {
+  "key": "chunithm-verse/v_2_4",
+  "name": "リエア・リエル",
+  "series": "VERSE ep.II"
+ },
+ {
+  "key": "chunithm-verse/v_3_1",
+  "name": "リンネ",
+  "series": "VERSE ep.III"
+ },
+ {
+  "key": "chunithm-verse/v_3_2",
+  "name": "ラヴィーナ・キトゥン",
+  "series": "VERSE ep.III"
+ },
+ {
+  "key": "chunithm-verse/v_3_3",
+  "name": "アストル",
+  "series": "VERSE ep.III"
+ },
+ {
+  "key": "chunithm-verse/v_3_4",
+  "name": "クレイ＝グ",
+  "series": "VERSE ep.III"
+ },
+ {
+  "key": "chunithm-verse/v_4_1",
+  "name": "アンク",
+  "series": "VERSE ep. IV"
+ },
+ {
+  "key": "chunithm-verse/v_o_1",
+  "name": "ワイズマン／復古せし調律者",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-verse/v_o_2",
+  "name": "ミカ・ドミナンスⅢ／狂乱【規制音】マザー",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-verse/v_o_3",
+  "name": "ヴェルゼビュートネメシス／デセプションクイーン",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-verse/v_o_4",
+  "name": "犬公 ミミ美／真夏のめざめ",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-verse/v_u_1",
+  "name": "蛇狩 あこ",
+  "series": "UNLOCK CHALLENGE"
+ },
+ {
+  "key": "chunithm-verse/v_u_2",
+  "name": "やまだっち",
+  "series": "UNLOCK CHALLENGE"
+ },
+ {
+  "key": "chunithm-verse/v_u_3",
+  "name": "バーニッシュ／煉獄のグロウル",
+  "series": "UNLOCK CHALLENGE"
+ },
+ {
+  "key": "chunithm-verse/v_u_4",
+  "name": "ラルヴァ",
+  "series": "UNLOCK CHALLENGE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_1",
+  "name": "藍月なくる",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_10",
+  "name": "ソラマチ・メメ／未来のアドベンチャー",
+  "series": "VERSE ep. AIR"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_11",
+  "name": "安栖沢香恋",
+  "series": "VERSE ep. STAR"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_12",
+  "name": "リーサ=ヴィルタネン",
+  "series": "VERSE ep. STAR"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_13",
+  "name": "観音寺 にこる／Mermaid♡Moment",
+  "series": "VERSE ep. STAR"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_14",
+  "name": "粛清天使れっぴ～",
+  "series": "VERSE ep. AMAZON"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_15",
+  "name": "脅威対象コード2103【イセキノボウレイ】",
+  "series": "VERSE ep. AMAZON"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_16",
+  "name": "高橋早苗／琥珀色のReverie",
+  "series": "VERSE ep. AMAZON"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_17",
+  "name": "ウィリアム・ウィンスレッド／Morning breeze",
+  "series": "VERSE ep. CRYSTAL"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_18",
+  "name": "アイリーニ・キュリアス／はじまりのあおいそら",
+  "series": "VERSE ep. CRYSTAL"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_19",
+  "name": "セーレ・ヘイズ／輝刃（きじん）",
+  "series": "VERSE ep. CRYSTAL"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_2",
+  "name": "棗いつき",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_20",
+  "name": "マリア・キュリアス",
+  "series": "VERSE ep. PARADISE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_21",
+  "name": "アンク／Whirlwind strike",
+  "series": "VERSE ep. PARADISE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_22",
+  "name": "イゼヴェル・ヤグルーシュ／Fake insanity",
+  "series": "VERSE ep. PARADISE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_23",
+  "name": "夜凪 琴音",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_24",
+  "name": "ジナ=影紗=アンブロイド",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_25",
+  "name": "ディザスター・ジェーン",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_26",
+  "name": "ハイケ・ハイミリーヒ",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_27",
+  "name": "MMCO？",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_28",
+  "name": "レナス・オルスキュラ",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_29",
+  "name": "ミカ・ドミナンスⅢ／BadBeat Bunny",
+  "series": "VERSE ep. NEW"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_3",
+  "name": "タクヤ",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_30",
+  "name": "雨ノ森 識穂",
+  "series": "VERSE ep. SUN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_31",
+  "name": "エルタ・ステラ",
+  "series": "VERSE ep. SUN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_32",
+  "name": "冴川芽依／蒼空のエトワール",
+  "series": "VERSE ep. SUN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_33",
+  "name": "ヴァルキュリエ・ブリュンヒルド",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_34",
+  "name": "チュウニペンギン／Re:Generation",
+  "series": "その他のキャラクター"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_35",
+  "name": "南条 ゆめ",
+  "series": "VERSE ep. LUMINOUS"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_36",
+  "name": "狗之宮 アキ",
+  "series": "VERSE ep. LUMINOUS"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_37",
+  "name": "八月朔日 みはね／Wings to the Unknown",
+  "series": "VERSE ep. LUMINOUS"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_38",
+  "name": "「在り続ける都」ジグラット",
+  "series": "VERSE ep. VERSE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_39",
+  "name": "リザ・カーネリアン",
+  "series": "VERSE ep. VERSE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_4",
+  "name": "アイビス・ハービンジャー",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_40",
+  "name": "アイリーニ・キュリアス／Twilight Will",
+  "series": "VERSE ep. VERSE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_41",
+  "name": "星間軌道航行船ヒューペリオン",
+  "series": "Linked VERSE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_42",
+  "name": "ユニ",
+  "series": "Linked VERSE"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_5",
+  "name": "ヒルデ",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_6",
+  "name": "エヴェレット・ウィンスレッド",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_7",
+  "name": "アンナプルナ／かみさまのつばさ",
+  "series": "VERSE ep. ORIGIN"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_8",
+  "name": "山穿轟突のガイアス",
+  "series": "VERSE ep. AIR"
+ },
+ {
+  "key": "chunithm-x-verse/v_1_9",
+  "name": "Lauretta",
+  "series": "VERSE ep. AIR"
+ },
+ {
+  "key": "chunithm/a1",
+  "name": "高橋 早苗",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a10",
+  "name": "シルヴィアス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a12",
+  "name": "ルミエラ・ヴィス・アニマート／セイクリッドフォトン",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a13",
+  "name": "八咫烏 鋼太郎／慰めの天使",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a14",
+  "name": "MDA-21【レグルス／フォースリベレイター】",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a15",
+  "name": "ニニカ・クロッシュ／無意識との対話",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a16",
+  "name": "アストライア／女神の微笑み",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a19",
+  "name": "新田 ちえ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a2",
+  "name": "橘 伸吾",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a20",
+  "name": "マリーメイア・クレスケンス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a21",
+  "name": "ハイパーネットゲーマーアルテラ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a22",
+  "name": "モガラ様",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a23",
+  "name": "三田 ナナコ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a25",
+  "name": "XES-72【ディアナ・プリメーラ】",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a26",
+  "name": "XGN-72【ルナ・ノーヴァ】",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a27",
+  "name": "ソルナ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a28",
+  "name": "Dr.ユバル・ホルミスダス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a29",
+  "name": "憎悪の戦神 アレウス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a3",
+  "name": "ダオ・トッテナ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a31",
+  "name": "リラ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a32",
+  "name": "コニー",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a33",
+  "name": "鬼蝮 アイリ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a34",
+  "name": "哲学主 ジェフティ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a35",
+  "name": "Dr.メト・バサナテル",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a39",
+  "name": "美嶋 はるな／放課後の天使",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a4",
+  "name": "アーリア・ネージュ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a40",
+  "name": "兎音 ココ／受験相談室",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a41",
+  "name": "愛野 ヒカリ／最強の花嫁",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a43",
+  "name": "裁定者 セラフィータ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a44",
+  "name": "Dr.テオ・メルキオル",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a45",
+  "name": "ヴェルゼビュートネメシス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a46",
+  "name": "テスタメントネメシス",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a48",
+  "name": "京極院 桜花",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a49",
+  "name": "クーデルカ・プルミエール",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a5",
+  "name": "新井 桃子",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a50",
+  "name": "ジョニー・サイアスティン",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a51",
+  "name": "不動 絶音",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a54",
+  "name": "チュウニペンギン／ラブリーハート",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a6",
+  "name": "ネルネ＆ツムネ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a7",
+  "name": "ナージャ・ベルリオーズ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a8",
+  "name": "後藤田 杏",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/a9",
+  "name": "シラタキ",
+  "series": "CHUNITHM AMAZON"
+ },
+ {
+  "key": "chunithm/c1",
+  "name": "チュウニペンギン",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c10",
+  "name": "マジカルスター☆リリィ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c11",
+  "name": "黒原 きずな",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c12",
+  "name": "TXR-メルヴィア",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c13",
+  "name": "波風 レン",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c14",
+  "name": "熱砂のディース",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c15",
+  "name": "棚町 ケンゴ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c16",
+  "name": "ブリランテ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c17",
+  "name": "美嶋 はるな",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c18",
+  "name": "クレメンス・ジークハルト",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c19",
+  "name": "エクレール",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c2",
+  "name": "荒場 流子",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c20",
+  "name": "グレン・ヴァン・トランクイロ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c21",
+  "name": "ローズマリー",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c22",
+  "name": "青の死神",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c23",
+  "name": "ピリオ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c24",
+  "name": "G．O．D",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c25",
+  "name": "東雲 彰",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c26",
+  "name": "DJ-MEGA",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c27",
+  "name": "アルマ・ヴィス・アウダーチア",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c28",
+  "name": "ルミエラ・ヴィス・アニマート",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c29",
+  "name": "帝国魔導師 イセリア",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c3",
+  "name": "愛野 ヒカリ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c30",
+  "name": "帝国騎士 グスタフ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c31",
+  "name": "機神 トール",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c32",
+  "name": "幸野 うさぎ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c33",
+  "name": "兎音 ココ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c34",
+  "name": "織原 ひめみ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c35",
+  "name": "鬼蝮 ユリア",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c36",
+  "name": "アストライア",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c37",
+  "name": "ティエイト",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c38",
+  "name": "ペンデュラム・オルタ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c39",
+  "name": "グラーヴェ・ノーヴァ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c4",
+  "name": "シズマ・クロサキ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c40",
+  "name": "シラー・スティング",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c41",
+  "name": "カラドリウス・ブルー",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c42",
+  "name": "パピオン",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c43",
+  "name": "アンナプルナ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c44",
+  "name": "TKG-SOUSOU",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c45",
+  "name": "ジェミニ・α",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c46",
+  "name": "RG-XIII ダインスレイヴ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c5",
+  "name": "NEO",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c6",
+  "name": "ノルン",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c7",
+  "name": "バーニッシュ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c8",
+  "name": "常世のサツキ",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/c9",
+  "name": "フィーネ・アルトリネス",
+  "series": "CHUNITHM"
+ },
+ {
+  "key": "chunithm/ca1",
+  "name": "MDA-21【レグルス】",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca10",
+  "name": "葉和 とれび",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca11",
+  "name": "美嶋 はるな／夢のカケラ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca12",
+  "name": "八咫烏 鋼太郎",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca13",
+  "name": "舞園 星斗",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca14",
+  "name": "愛野 ヒカリ／最愛の光",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca15",
+  "name": "マリアンヌ新城",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca16",
+  "name": "エクレール・エヴァンジール",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca17",
+  "name": "渋沢 ノノ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca18",
+  "name": "黄金井 竜子",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca19",
+  "name": "少年A",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca2",
+  "name": "断絶の破壊神",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca20",
+  "name": "黒亀 北斗",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca21",
+  "name": "リリアリス・コルチカム",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca23",
+  "name": "ラニウス・ヴルペクラ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca24",
+  "name": "MDA-01【シリウス】",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca25",
+  "name": "シュープリス",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca26",
+  "name": "スザク",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca27",
+  "name": "七海 あおい",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca28",
+  "name": "高砂 瑞穂",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca29",
+  "name": "轟 雷音",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca3",
+  "name": "RG-XXX ティアマット",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca30",
+  "name": "星河 うた",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca31",
+  "name": "天音 エイジ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca32",
+  "name": "天野 あい",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca33",
+  "name": "ロックスター★アミー",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca34",
+  "name": "ニニカ・クロッシュ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca35",
+  "name": "シカトリス",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca36",
+  "name": "ソラマチ・メメ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca37",
+  "name": "しゃま",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca38",
+  "name": "サツキ／光と闇を紡ぎし者",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca39",
+  "name": "NEO／リジェネイト",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca4",
+  "name": "オメガ・クィントゥス",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca40",
+  "name": "ディース／砂海の舞姫",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca41",
+  "name": "光吉 猛修／友",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca42",
+  "name": "光吉 猛修／美",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca43",
+  "name": "光吉 猛修／愛",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca44",
+  "name": "光吉 猛修／東方Project：森近 霖之助",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca5",
+  "name": "セリドウェン・マグメール",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca6",
+  "name": "ステラリウス・エオン・ブリルノーヴァ",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca7",
+  "name": "白川 虎之助",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca8",
+  "name": "チュウニペンギン／サウンドパレード！！",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/ca9",
+  "name": "兎音 ココ／ゲシュタルト崩壊中",
+  "series": "CHUNITHM AIR"
+ },
+ {
+  "key": "chunithm/cr1",
+  "name": "No.13_サジ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr10",
+  "name": "パンタパンタ／ビューティフルドリーム",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr11",
+  "name": "リヒトシュッツェ／ラストサクリファイス",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr12",
+  "name": "鬼蝮 ユリア／サーヴァントマスター",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr13",
+  "name": "ステラリウス／デモンズクライ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr14",
+  "name": "青の死神／命脈を刈り取る刃",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr17",
+  "name": "ティータ・アヴェニアス",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr18",
+  "name": "ミァン・テルスウラス",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr19",
+  "name": "シエロ・メーヴェ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr2",
+  "name": "No.9_ニナ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr20",
+  "name": "ジュナ・サラキア",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr21",
+  "name": "聖女 アンナ・マルグレーテ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr24",
+  "name": "セーレ・ヘイズ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr25",
+  "name": "全天の支配者 シエル",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr26",
+  "name": "埋葬者 ストゥム",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr27",
+  "name": "再生者 ディアン",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr28",
+  "name": "黄泉の盟主 ネルガル",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr3",
+  "name": "舞浜 優芽",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr32",
+  "name": "クラウン",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr33",
+  "name": "セラフィナ・ヴィス・アニマート",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr34",
+  "name": "紫藤 流星",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr35",
+  "name": "創造神 イデア",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr36",
+  "name": "MIR-201【ヘカティ・ベアトリクス／リベルタス】",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr37",
+  "name": "MIR-202【アルテミス・レナ／リベルタス】",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr38",
+  "name": "御手洗 千里",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr39",
+  "name": "アンプルール",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr4",
+  "name": "イングリット・オーリック・コーネル",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr40",
+  "name": "エルザ・フォン・オーディット",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr41",
+  "name": "精神科医 東海林 伊周",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr42",
+  "name": "MIR-203【セレネ・シェリル／リベルタス】",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr43",
+  "name": "ティフォン／ルドラティックフォーム",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr44",
+  "name": "知雲 ひばり",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr45",
+  "name": "伊賀崎ノ楠子",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr46",
+  "name": "天稲荷 コテツ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr47",
+  "name": "大天使 ユリア",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr48",
+  "name": "ユーリス／ピュアアニムス",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr49",
+  "name": "セシャト・シャフトリッヒ",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr5",
+  "name": "宍戸 美鈴",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr50",
+  "name": "古き混沌の巨人",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr51",
+  "name": "憎悪の始まりたる古竜",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr52",
+  "name": "導師 ミィム・ミクラー",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr53",
+  "name": "古き破壊者 ベルゲルミル",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr54",
+  "name": "チュウニペンギン／コンダクター",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr6",
+  "name": "パトリオット",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr7",
+  "name": "ジーン・ザイン",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cr9",
+  "name": "マゼラン・マゼラン／ラブリーハンター",
+  "series": "CHUNITHM CRYSTAL"
+ },
+ {
+  "key": "chunithm/cs1",
+  "name": "マゼラン・マゼラン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs10",
+  "name": "津久井 シズノ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs11",
+  "name": "スカイフェザー",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs12",
+  "name": "MIR-202【アルテミス・レナ】",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs13",
+  "name": "オールドブルー",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs14",
+  "name": "リヒトシュッツェ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs15",
+  "name": "MTA-XXX【パンドラネメシス】",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs16",
+  "name": "ショコラ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs17",
+  "name": "テルミット・ヴィエルジュ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs18",
+  "name": "中曽根 秀光",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs19",
+  "name": "HAR-ヒロイン09【ネレイダム】",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs2",
+  "name": "純白の歌闘士 ユーリス",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs20",
+  "name": "間宮 真琴",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs21",
+  "name": "ティフォン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs22",
+  "name": "第八皇女エルルーン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs23",
+  "name": "暴虐のギーゼグール",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs24",
+  "name": "G．O．D／魔縁",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs25",
+  "name": "ペンデラ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs26",
+  "name": "ミミ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs27",
+  "name": "シロタ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs28",
+  "name": "ゴマネ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs29",
+  "name": "パンタパンタ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs3",
+  "name": "観音寺 にこる",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs30",
+  "name": "美嶋 はるな／淡い約束",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs31",
+  "name": "兎音 ココ／夏だ！海だ！夏期講習だ！",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs32",
+  "name": "愛野 ヒカリ／サンシャインサマー",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs33",
+  "name": "MIR-203【セレネ・シェリル】",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs34",
+  "name": "MIR-201【ヘカティ・ベアトリクス】",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs35",
+  "name": "エリスネメシス",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs36",
+  "name": "ワイズマン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs37",
+  "name": "グランレイス",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs4",
+  "name": "トリスメギストス",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs5",
+  "name": "戯曲のフォルネウス",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs6",
+  "name": "清瀧 藍",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs7",
+  "name": "ソウル・ブラザーズ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs8",
+  "name": "牧野 もこ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cs9",
+  "name": "暁 凶香",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso1",
+  "name": "アシェル＆シメオン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso2",
+  "name": "アストライア／ゾディアック",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso3",
+  "name": "ソラマチ・メメ／夢の大地へ",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso4",
+  "name": "観音寺 にこる／ポートレイトマフィア",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso5",
+  "name": "渋沢 ノノ／BIG BANG!!",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso7",
+  "name": "ショウニペンギン",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso8",
+  "name": "チュウニペンギン／メシア",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/cso9",
+  "name": "CHUNITHM筐体(STAR)",
+  "series": "CHUNITHM STAR"
+ },
+ {
+  "key": "chunithm/p1",
+  "name": "ナイ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p10",
+  "name": "七海 あおい／夢の合わさる場所で",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p11",
+  "name": "娯楽の守護者 スカイフェザー",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p12",
+  "name": "真なる奏者 シルヴィアス",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p13",
+  "name": "黒亀 北斗／中野の守護者",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p14",
+  "name": "ジェミニ・Ω／パルヴァライザー",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p15",
+  "name": "轟 雷音／血罵バリバリ最強伝説",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p16",
+  "name": "ノルン／暖かな記憶",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p17",
+  "name": "TKG-ZETSU-A",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p18",
+  "name": "ルチア・レ・ベルナデート",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p19",
+  "name": "ミァン・クレスターニ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p1s",
+  "name": "メーネ・テルセーラ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p2",
+  "name": "遠夜 灯",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p20",
+  "name": "システィーナ・メーヴェ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p21",
+  "name": "ジュナ・フェリクス",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p22",
+  "name": "ウェスタ・グロリオサ・フォティア",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p23",
+  "name": "水戸 雫",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p24",
+  "name": "高須 らいむ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p25",
+  "name": "御影 昴",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p26",
+  "name": "リー・メイメイ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p27",
+  "name": "トラ吉",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p28",
+  "name": "ヨナ・ライゼ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p29",
+  "name": "風焔",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p3",
+  "name": "ポメ太",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p30",
+  "name": "エヴェリーナ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p31",
+  "name": "灰飾 カナエ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p32",
+  "name": "ヴィンデット・ジャン・ラディオール",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p33",
+  "name": "巫黒 ユリ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p34",
+  "name": "姫月 るーな",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p35",
+  "name": "星街すいせい(ホロライブ)／自分勝手Dazzling",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p36",
+  "name": "memex／Utopithm",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p37",
+  "name": "ぼっちぼろまる／妖怪ですから",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p38",
+  "name": "KMNZ／Glory Days",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p39",
+  "name": "Marpril／Spiral Fortune",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p4",
+  "name": "美咲 杏奈",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p40",
+  "name": "レナ・イシュメイル",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p41",
+  "name": "ギデオン・ライゼ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p42",
+  "name": "サウル・カイム",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p43",
+  "name": "ミリアム・ベミドバル",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p44",
+  "name": "ブルー・スタイン",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p45",
+  "name": "創始者 カイン",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p46",
+  "name": "チュウニペンギン／ボクノリレイション",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p5",
+  "name": "ラトーナ・ヘイズ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p6",
+  "name": "向来 隼",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p7",
+  "name": "イゼヴェル・ヤグルーシュ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p8",
+  "name": "チュウニペンギン＆ショウニペンギン／8bit",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "chunithm/p9",
+  "name": "織原 ひめみ／星の海へ",
+  "series": "CHUNITHM PARADISE"
+ },
+ {
+  "key": "irodori-midori/i1",
+  "name": "明坂 芹菜",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i10",
+  "name": "天王洲 なずな／学園MVP編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i100",
+  "name": "運命に抗う神の目・小野 美苗／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i101",
+  "name": "禁忌の言霊使い・ヒナコンタ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i102",
+  "name": "深窓の令嬢・セレナ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i103",
+  "name": "皇国の若き統治者・カナディ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i104",
+  "name": "明坂 芹菜／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i105",
+  "name": "御形 アリシアナ／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i106",
+  "name": "天王洲 なずな／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i107",
+  "name": "箱部 なる／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i108",
+  "name": "小仏 凪／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i109",
+  "name": "月鈴 白奈／Snow Colored Score",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i11",
+  "name": "小仏 凪／学園MVP編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i110",
+  "name": "五十嵐 撫子／カモンゴー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i111",
+  "name": "萩原 七々瀬／カモンゴー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i112",
+  "name": "葛城 華／カモンゴー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i113",
+  "name": "小野 美苗／カモンゴー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i114",
+  "name": "藤堂 陽南袴／We don't need tears!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i115",
+  "name": "桔梗 小夜曲／We don't need tears!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i116",
+  "name": "芒崎 奏／We don't need tears!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i117",
+  "name": "明坂 芹菜／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i118",
+  "name": "天王洲 なずな／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i119",
+  "name": "御形 アリシアナ／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i12",
+  "name": "箱部 なる／学園MVP編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i120",
+  "name": "箱部 なる／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i121",
+  "name": "小仏 凪／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i122",
+  "name": "月鈴 白奈／Here the our MIRAI!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i13",
+  "name": "月鈴 那知／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i14",
+  "name": "1年生組(イロドリミドリ)／打ち上げフィーバー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i15",
+  "name": "2年生組(イロドリミドリ)／打ち上げフィーバー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i16",
+  "name": "月鈴姉妹(イロドリミドリ)／打ち上げフィーバー！",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i17",
+  "name": "小仏 凪／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i18",
+  "name": "箱部 なる／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i19",
+  "name": "御形 アリシアナ／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i2",
+  "name": "御形 アリシアナ",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i20",
+  "name": "天王洲 なずな／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i21",
+  "name": "明坂 芹菜／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i22",
+  "name": "月鈴 白奈／試練の三送会編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i23",
+  "name": "五十嵐 撫子",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i24",
+  "name": "明坂 芹菜／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i25",
+  "name": "御形 アリシアナ／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i26",
+  "name": "天王洲 なずな／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i27",
+  "name": "箱部 なる／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i28",
+  "name": "小仏 凪／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i29",
+  "name": "月鈴 白奈／波瀾の新入生編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i3",
+  "name": "天王洲 なずな",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i30",
+  "name": "萩原 七々瀬",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i31",
+  "name": "五十嵐 撫子／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i32",
+  "name": "葛城 華",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i33",
+  "name": "小野 美苗",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i34",
+  "name": "萩原 七々瀬／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i35",
+  "name": "小仏 凪／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i36",
+  "name": "月鈴 白奈／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i37",
+  "name": "イロドリミドリ／Still Going On!!!!!!!",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i38",
+  "name": "月鈴 那知／留年協奏曲",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i39",
+  "name": "箱部 なる＆小仏 凪／ある休日の小仏家",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i4",
+  "name": "小仏 凪",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i40",
+  "name": "明坂 芹菜＆御形 アリシアナ／代々木デート",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i41",
+  "name": "天王洲 なずな＆月鈴 白奈／温泉テーマパーク",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i42",
+  "name": "御形 アリシアナ／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i43",
+  "name": "箱部 なる／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i44",
+  "name": "明坂 芹菜／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i45",
+  "name": "天王洲 なずな／決意の夏合宿編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i46",
+  "name": "藤堂 陽南袴",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i47",
+  "name": "桔梗 小夜曲",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i48",
+  "name": "明坂 芹菜／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i49",
+  "name": "御形 アリシアナ／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i5",
+  "name": "箱部 なる",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i50",
+  "name": "天王洲 なずな／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i51",
+  "name": "小仏 凪／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i52",
+  "name": "箱部 なる／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i53",
+  "name": "月鈴 白奈／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i54",
+  "name": "芒崎 奏",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i55",
+  "name": "五十嵐 撫子／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i56",
+  "name": "萩原 七々瀬／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i57",
+  "name": "葛城 華／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i58",
+  "name": "小野 美苗／襲来のシンセ研編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i59",
+  "name": "明坂 芹菜／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i6",
+  "name": "月鈴 那知",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i60",
+  "name": "御形 アリシアナ／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i61",
+  "name": "天王洲 なずな／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i62",
+  "name": "小仏 凪／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i63",
+  "name": "箱部 なる／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i64",
+  "name": "月鈴 白奈／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i65",
+  "name": "芒崎 奏／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i66",
+  "name": "藤堂 陽南袴／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i67",
+  "name": "桔梗 小夜曲／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i68",
+  "name": "五十嵐 撫子／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i69",
+  "name": "萩原 七々瀬／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i7",
+  "name": "月鈴 白奈",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i70",
+  "name": "葛城 華／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i71",
+  "name": "小野 美苗／僕らの学園フェス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i8",
+  "name": "明坂 芹菜／学園MVP編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i85",
+  "name": "箱部 なる／卒業編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i86",
+  "name": "天王洲 なずな／卒業編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i87",
+  "name": "明坂 芹菜／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i88",
+  "name": "清心の戦乙女・アリシアナ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i89",
+  "name": "マイガハラントの王女・ナズーナ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i9",
+  "name": "御形 アリシアナ／学園MVP編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i90",
+  "name": "小さな宮廷魔術師長・ナギーヌ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i91",
+  "name": "王家の懐刀・ナルル／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i92",
+  "name": "創造と破壊を司る輪廻の神・鳳凰",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i93",
+  "name": "鳳凰の依り代・シローニャ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i94",
+  "name": "月鈴 白奈／卒業編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i95",
+  "name": "御形 アリシアナ／卒業編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i96",
+  "name": "明坂 芹菜／卒業編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i97",
+  "name": "教会の番犬・ケルベロス=ナデチャ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i98",
+  "name": "鳳凰神話の伝承者・ナナセリアン／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i99",
+  "name": "敬虔なるシスター・ハンナ／フェニックスドレス",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_1",
+  "name": "明坂 芹菜／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_10",
+  "name": "小野 美苗／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_11",
+  "name": "藤堂 陽南袴／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_12",
+  "name": "桔梗 小夜曲／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_13",
+  "name": "芒崎 奏／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_2",
+  "name": "御形 アリシアナ／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_3",
+  "name": "天王洲 なずな／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_4",
+  "name": "小仏 凪／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_5",
+  "name": "箱部 なる／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_6",
+  "name": "月鈴 白奈／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_7",
+  "name": "五十嵐 撫子／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_8",
+  "name": "萩原 七々瀬／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ },
+ {
+  "key": "irodori-midori/i_6_9",
+  "name": "葛城 華／途惑いのクリスマス編",
+  "series": "イロドリミドリ"
+ }
+]

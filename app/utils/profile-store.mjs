@@ -62,6 +62,7 @@ export function createDefaultProfile(userId) {
     background: "normal",    // プロフィール全体の背景（profile のバリアント名）
     battleRank: "C3",
     classEmblem: null,        // クラスエンブレム（1〜6、null は非表示）
+    avatar: null,             // キャラクターアバター（"<page>/<id>"、null は Discord のアバター）
     rating: 0,
     ratingMax: null,          // null の場合は rating と同じ値を表示
     overPower: 0,

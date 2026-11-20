@@ -3,6 +3,17 @@ import {
   AttachmentBuilder
 } from "discord.js";
 import { loadImage } from "@napi-rs/canvas";
+import fs from "fs";
+import path from "path";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+// 公式サイト（chunithm.sega.jp）のキャラクターカタログ。アバター選択用
+const charaCatalog = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "data", "chara-catalog.json"), "utf8")
+);
+const charaCatalogMap = new Map(charaCatalog.map((e) => [e.key, e]));
+const CHARA_IMAGE_BASE = "https://chunithm.sega.jp/storage/chara";
 
 import {
   getProfile,
@@ -37,6 +48,29 @@ async function fetchAvatarImage(userOrMember) {
   } catch {
     return null;
   }
+}
+
+// キャラクターのサムネイル画像（アバター用）を公式サイトから取得する
+async function fetchCharaAvatarImage(key) {
+  if (!charaCatalogMap.has(key)) return null;
+  const [page, id] = key.split("/");
+  try {
+    const res = await fetch(`${CHARA_IMAGE_BASE}/${page}/thumbnail/${id}.webp`);
+    if (!res.ok) return null;
+    return await loadImage(Buffer.from(await res.arrayBuffer()));
+  } catch {
+    return null;
+  }
+}
+
+// キャラクターアバターが設定されていればそれを使い、
+// 未設定・取得失敗の場合は Discord のアバターを使う
+async function resolveAvatarImage(profile, userOrMember) {
+  if (profile.avatar) {
+    const chara = await fetchCharaAvatarImage(profile.avatar);
+    if (chara) return chara;
+  }
+  return fetchAvatarImage(userOrMember);
 }
 
 export const data = new SlashCommandBuilder()
@@ -132,6 +166,10 @@ export const data = new SlashCommandBuilder()
             { name: "クラス6", value: "6" }
           )
       )
+      .addStringOption((o) =>
+        o.setName("avatar").setDescription("アバターにするキャラクター（名前の一部を入力して候補から選択）")
+          .setAutocomplete(true)
+      )
       .addNumberOption((o) =>
         o.setName("rating").setDescription("RATING")
           .setMinValue(0).setMaxValue(18)
@@ -165,7 +203,7 @@ export async function execute(interaction) {
 
     const profile = await getProfile(interaction.client, target.id);
     const name = profile.name ?? member?.displayName ?? target.username;
-    const avatarImage = await fetchAvatarImage(member ?? target);
+    const avatarImage = await resolveAvatarImage(profile, member ?? target);
     const buffer = await createProfileCard(profile, name, avatarImage);
 
     return interaction.editReply({
@@ -272,6 +310,19 @@ export async function execute(interaction) {
       summary.push(`クラスエンブレム: ${classEmblem === "none" ? "なし" : `クラス${classEmblem}`}`);
     }
 
+    const avatar = interaction.options.getString("avatar");
+    if (avatar !== null) {
+      if (avatar === "discord") {
+        patch.avatar = null;
+        summary.push("アバター: Discordのアバター");
+      } else if (charaCatalogMap.has(avatar)) {
+        patch.avatar = avatar;
+        summary.push(`アバター: ${charaCatalogMap.get(avatar).name}`);
+      } else {
+        errors.push("アバターのキャラクターは、名前の一部を入力して候補から選んでください");
+      }
+    }
+
     const rating = interaction.options.getNumber("rating");
     if (rating !== null) {
       patch.rating = Math.round(rating * 100) / 100;
@@ -310,7 +361,7 @@ export async function execute(interaction) {
 
     const profile = await updateProfile(interaction.client, interaction.user.id, patch);
     const displayName = profile.name ?? interaction.member?.displayName ?? interaction.user.username;
-    const avatarImage = await fetchAvatarImage(interaction.member ?? interaction.user);
+    const avatarImage = await resolveAvatarImage(profile, interaction.member ?? interaction.user);
     const buffer = await createProfileCard(profile, displayName, avatarImage);
 
     return interaction.editReply({
@@ -318,4 +369,22 @@ export async function execute(interaction) {
       files: [new AttachmentBuilder(buffer, { name: "profile.png" })]
     });
   }
+}
+
+// アバター選択のオートコンプリート（キャラクター名の一部で検索）
+export async function autocomplete(interaction) {
+  const focused = interaction.options.getFocused(true);
+  if (focused.name !== "avatar") return interaction.respond([]);
+  const q = String(focused.value ?? "").replace(/\s+/g, "");
+  const choices = [];
+  if (q === "" || "Discordのアバターに戻す".includes(q)) {
+    choices.push({ name: "Discordのアバターに戻す", value: "discord" });
+  }
+  for (const entry of charaCatalog) {
+    if (choices.length >= 25) break;
+    if (entry.name.replace(/\s+/g, "").includes(q) || entry.key.includes(q)) {
+      choices.push({ name: `${entry.name}（${entry.series}）`.slice(0, 100), value: entry.key });
+    }
+  }
+  return interaction.respond(choices.slice(0, 25));
 }
