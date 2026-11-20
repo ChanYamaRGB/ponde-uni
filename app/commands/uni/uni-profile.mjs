@@ -18,7 +18,8 @@ const CHARA_IMAGE_BASE = "https://chunithm.sega.jp/storage/chara";
 
 import {
   getProfile,
-  updateProfile
+  updateProfile,
+  resetProfile
 } from "../../utils/profile-store.mjs";
 import {
   createProfileCard,
@@ -187,6 +188,16 @@ export const data = new SlashCommandBuilder()
         o.setName("over-power-percent").setDescription("OVER POWER の達成率（%）")
           .setMinValue(0).setMaxValue(100)
       )
+  )
+
+  // ===== reset =====
+  .addSubcommand((sub) =>
+    sub
+      .setName("reset")
+      .setDescription("指定したユーザーのプロフィール設定をリセット（管理者のみ）")
+      .addUserOption((o) =>
+        o.setName("user").setDescription("対象ユーザー").setRequired(true)
+      )
   );
 
 export async function execute(interaction) {
@@ -217,6 +228,35 @@ export async function execute(interaction) {
     const buffer = await createProfileCard(profile, name, avatarImage);
 
     return interaction.editReply({
+      files: [new AttachmentBuilder(buffer, { name: "profile.png" })]
+    });
+  }
+
+  // ===== reset =====
+  if (sub === "reset") {
+    // リセットは管理者権限を持ったユーザーのみ
+    if (!interaction.member?.permissions?.has(PermissionFlagsBits.Administrator)) {
+      return interaction.reply({
+        content: "プロフィールのリセットは、管理者権限を持ったユーザーのみが実行できます",
+        ephemeral: true
+      });
+    }
+
+    await interaction.deferReply({ ephemeral: true });
+
+    const target = interaction.options.getUser("user", true);
+    const profile = await resetProfile(interaction.client, target.id);
+
+    let member = null;
+    if (interaction.guild) {
+      member = await interaction.guild.members.fetch(target.id).catch(() => null);
+    }
+    const name = profile.name ?? member?.displayName ?? target.username;
+    const avatarImage = await resolveAvatarImage(profile, member ?? target);
+    const buffer = await createProfileCard(profile, name, avatarImage);
+
+    return interaction.editReply({
+      content: `${target.username} のプロフィール設定をリセットしました`,
       files: [new AttachmentBuilder(buffer, { name: "profile.png" })]
     });
   }

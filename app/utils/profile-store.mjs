@@ -174,6 +174,19 @@ export async function updateProfile(client, userId, patch) {
   return data;
 }
 
+// プロフィールのカスタマイズ設定を初期状態に戻して即時保存する（管理者によるリセット用）。
+// 投稿数と最終投稿時刻（レベル・最終プレイの元データ）は保持する。
+export async function resetProfile(client, userId) {
+  const data = await getProfile(client, userId);
+  const { msgCount, lastAt } = data;
+  Object.assign(data, createDefaultProfile(userId));
+  data.msgCount = msgCount;
+  data.lastAt = lastAt;
+  const entry = cache.get(userId);
+  await saveEntry(entry);
+  return data;
+}
+
 // メッセージ投稿の記録（レベルと最終プレイ用）。
 // messageCreate ハンドラから全メッセージについて呼ばれる想定で、
 // 失敗しても呼び出し側の処理を止めないよう、例外は内部で握る。
