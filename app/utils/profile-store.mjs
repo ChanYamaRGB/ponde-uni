@@ -65,10 +65,18 @@ export function createDefaultProfile(userId) {
     avatar: null,             // キャラクターアバター（"<page>/<id>"、null は Discord のアバター）
     rating: 0,
     ratingMax: null,          // null の場合は rating と同じ値を表示
-    overPower: 0,
-    overPowerPercent: null,   // null の場合は (%) を表示しない
     msgCount: 0,              // 投稿数 = レベルの元になる値
-    lastAt: 0                 // 最終投稿時刻（epoch ミリ秒）
+    lastAt: 0,                // 最終投稿時刻（epoch ミリ秒）
+    // OVER POWER の集計用カウンタ（overPowerOf で換算する。導入時からの累計）
+    textPosts: 0,             // メッセージ投稿数（画像の添付なし）
+    imagePosts: 0,            // 画像投稿数（本文があっても画像を優先）
+    emojiUses: 0,             // サーバーのカスタム絵文字の使用回数（メッセージ本文のみ）
+    activeDays: 0,            // 活動日数（JST の日付単位）
+    lastActiveDate: null,     // 最後に活動した日（JST、"YYYY-MM-DD"）
+    lastDayPosts: 0,          // lastActiveDate に数えた投稿数（削除時の日数の差し引き用）
+    opSince: null,            // OVER POWER 集計を開始した時刻（これより前の投稿は差し引き対象外）
+    reactionsGiven: 0,        // サーバーのカスタム絵文字で他の人の投稿にリアクションした回数
+    reactionsReceived: 0      // 他のユーザーからサーバーのカスタム絵文字でリアクションされた回数
   };
 }
 
@@ -83,6 +91,70 @@ export function levelOf(msgCount) {
     level,
     star: Math.floor(msgCount / POSTS_PER_STAR)
   };
+}
+
+// OVER POWER の達成項目と段階表（[しきい値, 達成値]。しきい値以上でその達成値になる）。
+// 本家と同じく「項目ごとの達成値の合計」で、上限は全項目の満点の合計とする。
+const OP_TIERS = {
+  textPosts:  { max: 18000, tiers: [[50, 1500], [150, 4000], [300, 7000], [500, 10500], [800, 14000], [1200, 18000]] },
+  imagePosts: { max: 22000, tiers: [[20, 2000], [50, 5000], [100, 9000], [200, 13000], [350, 17000], [500, 22000]] },
+  activeDays: { max: 20000, tiers: [[7, 3000], [30, 8000], [90, 13000], [180, 17000], [365, 20000]] },
+  emojiUses:  { max: 20000, tiers: [[50, 2500], [150, 6000], [300, 10000], [600, 14000], [1000, 20000]] },
+  reactionsGiven:    { max: 15000, tiers: [[25, 1500], [75, 4000], [150, 7000], [300, 10500], [500, 15000]] },
+  reactionsReceived: { max: 18000, tiers: [[25, 2000], [75, 5000], [150, 8500], [300, 13000], [500, 18000]] }
+};
+export const OVER_POWER_MAX = Object.values(OP_TIERS).reduce((sum, t) => sum + t.max, 0);
+
+function tierValue(tiers, count) {
+  let value = 0;
+  for (const [threshold, v] of tiers) {
+    if (count >= threshold) value = v;
+  }
+  return value;
+}
+
+// OVER POWER をカウンタから計算する（保存はせず、描画時に毎回計算する）
+export function overPowerOf(data) {
+  const value =
+    tierValue(OP_TIERS.textPosts.tiers, data.textPosts ?? 0) +
+    tierValue(OP_TIERS.imagePosts.tiers, data.imagePosts ?? 0) +
+    tierValue(OP_TIERS.activeDays.tiers, data.activeDays ?? 0) +
+    tierValue(OP_TIERS.emojiUses.tiers, data.emojiUses ?? 0) +
+    tierValue(OP_TIERS.reactionsGiven.tiers, data.reactionsGiven ?? 0) +
+    tierValue(OP_TIERS.reactionsReceived.tiers, data.reactionsReceived ?? 0);
+  return { value, max: OVER_POWER_MAX, percent: (value / OVER_POWER_MAX) * 100 };
+}
+
+// 投稿のあった日（JST）を "YYYY-MM-DD" で返す
+function jstDateString(timestamp) {
+  return new Date(timestamp + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".avif"];
+
+// 画像の添付があるか（本文が含まれていても画像投稿を優先する）
+function hasImageAttachment(message) {
+  const attachments = message.attachments;
+  if (!attachments) return false;
+  const list = typeof attachments.values === "function" ? [...attachments.values()] : [...attachments];
+  return list.some((a) => {
+    if ((a.contentType ?? "").startsWith("image/")) return true;
+    const name = (a.name ?? "").toLowerCase();
+    return IMAGE_EXTENSIONS.some((ext) => name.endsWith(ext));
+  });
+}
+
+// メッセージ本文で使われた、そのサーバーのカスタム絵文字の回数を数える。
+// リアクションでの使用や、他のサーバーの絵文字・通常の絵文字は対象外。
+function countGuildEmojiUses(message) {
+  const content = message.content ?? "";
+  const emojis = message.guild?.emojis?.cache;
+  if (!content || !emojis) return 0;
+  let count = 0;
+  for (const match of content.matchAll(/<a?:[A-Za-z0-9_]+:(\d+)>/g)) {
+    if (emojis.has(match[1])) count += 1;
+  }
+  return count;
 }
 
 let dbChannel = null;
@@ -175,13 +247,15 @@ export async function updateProfile(client, userId, patch) {
 }
 
 // プロフィールのカスタマイズ設定を初期状態に戻して即時保存する（管理者によるリセット用）。
-// 投稿数と最終投稿時刻（レベル・最終プレイの元データ）は保持する。
+// 活動データ（投稿数・最終投稿時刻・OVER POWER 集計用カウンタ）は保持する。
 export async function resetProfile(client, userId) {
   const data = await getProfile(client, userId);
-  const { msgCount, lastAt } = data;
+  const kept = {};
+  for (const key of ["msgCount", "lastAt", "textPosts", "imagePosts", "emojiUses", "activeDays", "lastActiveDate", "lastDayPosts", "opSince", "reactionsGiven", "reactionsReceived"]) {
+    kept[key] = data[key];
+  }
   Object.assign(data, createDefaultProfile(userId));
-  data.msgCount = msgCount;
-  data.lastAt = lastAt;
+  Object.assign(data, kept);
   const entry = cache.get(userId);
   await saveEntry(entry);
   return data;
@@ -207,6 +281,23 @@ export async function trackMessage(message) {
     const prevStar = levelOf(entry.data.msgCount).star;
     entry.data.msgCount += 1;
     entry.data.lastAt = message.createdTimestamp;
+
+    // OVER POWER 用の集計（カウンタは導入時からの累計。開始時刻を記録しておき、
+    // 削除時の差し引きは集計開始以降の投稿だけを対象にする）
+    const d = entry.data;
+    if (d.opSince == null) d.opSince = message.createdTimestamp;
+    if (hasImageAttachment(message)) d.imagePosts = (d.imagePosts ?? 0) + 1;
+    else d.textPosts = (d.textPosts ?? 0) + 1;
+    d.emojiUses = (d.emojiUses ?? 0) + countGuildEmojiUses(message);
+    const today = jstDateString(message.createdTimestamp);
+    if (d.lastActiveDate !== today || (d.lastDayPosts ?? 0) === 0) {
+      d.activeDays = (d.activeDays ?? 0) + 1;
+      d.lastActiveDate = today;
+      d.lastDayPosts = 1;
+    } else {
+      d.lastDayPosts = (d.lastDayPosts ?? 0) + 1;
+    }
+
     const newStar = levelOf(entry.data.msgCount).star;
 
     if (newStar !== prevStar || Date.now() - entry.lastSavedAt >= SAVE_THROTTLE_MS) {
@@ -214,5 +305,91 @@ export async function trackMessage(message) {
     }
   } catch (err) {
     console.error("[PROFILE] 活動記録に失敗しました:", err);
+  }
+}
+
+// 投稿が削除されたときに、OVER POWER の集計からその投稿分を差し引く。
+// レベル用の投稿数（msgCount）には影響させない。
+// messageDelete ハンドラから呼ばれ、例外は内部で握る。
+export async function untrackMessage(message) {
+  try {
+    // 内容を確認できない（キャッシュにない）投稿は対象外
+    if (!message.guild || message.partial || !message.author || message.author.bot) return;
+
+    const client = message.client;
+    await ensureProfileStore(client);
+
+    const entry = cache.get(message.author.id);
+    if (!entry) return;
+
+    const d = entry.data;
+    // 集計を開始する前の投稿は数えていないため、差し引きの対象外
+    if (d.opSince == null || message.createdTimestamp < d.opSince) return;
+
+    if (hasImageAttachment(message)) d.imagePosts = Math.max(0, (d.imagePosts ?? 0) - 1);
+    else d.textPosts = Math.max(0, (d.textPosts ?? 0) - 1);
+    d.emojiUses = Math.max(0, (d.emojiUses ?? 0) - countGuildEmojiUses(message));
+
+    // 直近の活動日については、その日の投稿が0件になったら活動日数も差し引く
+    const day = jstDateString(message.createdTimestamp);
+    if (d.lastActiveDate === day && (d.lastDayPosts ?? 0) > 0) {
+      d.lastDayPosts -= 1;
+      if (d.lastDayPosts === 0) {
+        d.activeDays = Math.max(0, (d.activeDays ?? 0) - 1);
+      }
+    }
+
+    await saveEntry(entry);
+  } catch (err) {
+    console.error("[PROFILE] 削除時の差し引きに失敗しました:", err);
+  }
+}
+
+// リアクションの付け外しを OVER POWER の集計へ反映する共通処理（delta は +1 / -1）。
+// した側・された側とも、そのサーバーのカスタム絵文字によるリアクションだけを数える。
+// 自分の投稿へのリアクションは、した側・された側のどちらも対象外。
+// Bot の投稿・Bot によるリアクションは対象外。
+async function applyReaction(reaction, user, delta) {
+  const message = reaction?.message;
+  if (!message?.guild || !message.author || message.author.bot) return;
+  if (!user || user.bot || user.partial || reaction.partial || message.partial) return;
+  if (user.id === message.author.id) return;
+
+  const emojiId = reaction.emoji?.id;
+  if (!emojiId || !message.guild.emojis.cache.has(emojiId)) return;
+
+  const client = message.client;
+  await ensureProfileStore(client);
+
+  const bump = async (userId, key) => {
+    await getProfile(client, userId);
+    const entry = cache.get(userId);
+    if (!entry) return;
+    entry.data[key] = Math.max(0, (entry.data[key] ?? 0) + delta);
+    // 取り消し（delta < 0）は即時保存し、追加は間引いて保存する
+    if (delta < 0 || Date.now() - entry.lastSavedAt >= SAVE_THROTTLE_MS) {
+      await saveEntry(entry);
+    }
+  };
+
+  await bump(message.author.id, "reactionsReceived");
+  await bump(user.id, "reactionsGiven");
+}
+
+// リアクションが付けられたときの記録。messageReactionAdd ハンドラから呼ばれ、例外は内部で握る。
+export async function trackReactionAdd(reaction, user) {
+  try {
+    await applyReaction(reaction, user, +1);
+  } catch (err) {
+    console.error("[PROFILE] リアクションの記録に失敗しました:", err);
+  }
+}
+
+// リアクションが外されたときの差し引き。messageReactionRemove ハンドラから呼ばれ、例外は内部で握る。
+export async function trackReactionRemove(reaction, user) {
+  try {
+    await applyReaction(reaction, user, -1);
+  } catch (err) {
+    console.error("[PROFILE] リアクションの差し引きに失敗しました:", err);
   }
 }

@@ -180,14 +180,6 @@ export const data = new SlashCommandBuilder()
         o.setName("rating-max").setDescription("RATING の MAX")
           .setMinValue(0).setMaxValue(18)
       )
-      .addNumberOption((o) =>
-        o.setName("over-power").setDescription("OVER POWER")
-          .setMinValue(0)
-      )
-      .addNumberOption((o) =>
-        o.setName("over-power-percent").setDescription("OVER POWER の達成率（%）")
-          .setMinValue(0).setMaxValue(100)
-      )
   )
 
   // ===== reset =====
@@ -383,18 +375,6 @@ export async function execute(interaction) {
     if (ratingMax !== null) {
       patch.ratingMax = Math.round(ratingMax * 100) / 100;
       summary.push(`RATING (MAX): ${patch.ratingMax.toFixed(2)}`);
-    }
-
-    const overPower = interaction.options.getNumber("over-power");
-    if (overPower !== null) {
-      patch.overPower = Math.round(overPower * 100) / 100;
-      summary.push(`OVER POWER: ${patch.overPower.toFixed(2)}`);
-    }
-
-    const overPowerPercent = interaction.options.getNumber("over-power-percent");
-    if (overPowerPercent !== null) {
-      patch.overPowerPercent = Math.round(overPowerPercent * 100) / 100;
-      summary.push(`OVER POWER 達成率: ${patch.overPowerPercent.toFixed(2)}%`);
     }
 
     if (errors.length > 0) {
