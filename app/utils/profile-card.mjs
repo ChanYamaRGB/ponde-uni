@@ -164,83 +164,27 @@ const RANK_PLATES = {
   S: { stops: [[0, "#d3a6f5"], [1, "#862e9c"]], text: "#ffffff" }, // 紫系
   SS: { stops: [[0, "#ffffff"], [0.5, "#dfe5ea"], [1, "#a8b2ba"]], text: "#2f3b46", border: "#8a97a3" }, // 銀〜プラチナ系
   GOLD: { stops: [[0, "#fff3b0"], [0.5, "#e6c34a"], [1, "#b8860b"]], text: "#4d3800", border: "#8a6508" }, // バージョン固有（金系）
-  ELITE: { elite: true, border: "#cfeeff" }, // エリート（専用エンブレムで描画）
   FALLBACK: { stops: [[0, "#fffef8"], [1, "#fffef8"]], text: "#7f8c8d", border: "#7f8c8d" }
 };
 
-// ランク文字列からプレートを引く（バージョン固有は金系、旧形式はフォールバック）
+// ランク文字列に対応する公式画像（assets/profile からの相対パス）。無いランクは null
+// 通常ランク: battlerank_<帯><数字>.png / 盟: battle_rank_ex<数字>.png / エリート: battlerank_Elite.png
+function rankImageFile(rank) {
+  const r = String(rank || "C3");
+  if (r === "エリート") return "battlerank/battlerank_Elite.png";
+  const ex = /^盟([1-3])$/.exec(r);
+  if (ex) return `battlerank/battle_rank_ex${ex[1]}.png`;
+  const band = /^(SS|[A-DS])([1-3])$/.exec(r.toUpperCase());
+  if (band) return `battlerank/battlerank_${band[1]}${band[2]}.png`;
+  return null;
+}
+
+// ランク文字列からプレートを引く（公式画像のない燦・煌・想は金系、旧形式はフォールバック）
 function rankPlate(rank) {
   const r = String(rank || "C3");
-  if (r === "エリート") return RANK_PLATES.ELITE;
-  if (/^[燦煌想盟][1-3]$/.test(r)) return RANK_PLATES.GOLD;
+  if (/^[燦煌想][1-3]$/.test(r)) return RANK_PLATES.GOLD;
   if (r.startsWith("SS")) return RANK_PLATES.SS;
   return RANK_PLATES[r.charAt(0).toUpperCase()] ?? RANK_PLATES.FALLBACK;
-}
-
-// エリートの翼（baseX, baseY から外向きに羽を3枚広げる。dir=1: 右向き、-1: 左向き）
-function drawWing(ctx, baseX, baseY, dir) {
-  ctx.save();
-  ctx.translate(baseX, baseY);
-  ctx.scale(dir, 1);
-  const grad = ctx.createLinearGradient(0, 0, 28, 0);
-  grad.addColorStop(0, "#0aa06e");
-  grad.addColorStop(0.55, "#2fe08f");
-  grad.addColorStop(1, "#8ffce0");
-  ctx.fillStyle = grad;
-  for (const [angle, len, w] of [[-0.62, 27, 3.4], [-0.18, 31, 3.8], [0.3, 27, 3.4], [0.72, 21, 3]]) {
-    ctx.save();
-    ctx.rotate(angle);
-    ctx.beginPath();
-    ctx.ellipse(len / 2 + 2, 0, len / 2, w, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-  ctx.restore();
-}
-
-// 4方向に尖ったきらめき
-function drawSparkle(ctx, x, y, r, color) {
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(x, y - r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.quadraticCurveTo(x, y, x, y + r);
-  ctx.quadraticCurveTo(x, y, x - r, y);
-  ctx.quadraticCurveTo(x, y, x, y - r);
-  ctx.fill();
-}
-
-// エリートのバトルエンブレム（紺地に翼、上に「魂」、下に少し小さく「ELITE」）
-// バッジ範囲 (21, 204, 82, 42) の内側に描く前提で、呼び出し側でクリップしておくこと
-function drawEliteEmblem(ctx) {
-  const bg = ctx.createLinearGradient(21, 204, 21, 246);
-  bg.addColorStop(0, "#1d2f6e");
-  bg.addColorStop(1, "#0a1132");
-  ctx.fillStyle = bg;
-  ctx.fillRect(21, 204, 82, 42);
-  drawWing(ctx, 47, 226, -1);
-  drawWing(ctx, 77, 226, 1);
-  drawSparkle(ctx, 31, 213, 4, "rgba(255, 255, 255, 0.9)");
-  drawSparkle(ctx, 93, 237, 3.2, "rgba(160, 255, 230, 0.9)");
-  ctx.textAlign = "center";
-  const soulGrad = ctx.createLinearGradient(62, 206, 62, 226);
-  soulGrad.addColorStop(0, "#fff7cc");
-  soulGrad.addColorStop(0.55, "#ffd94d");
-  soulGrad.addColorStop(1, "#e09f00");
-  ctx.font = `bold 20px ${FONT}`;
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "rgba(40, 24, 0, 0.85)";
-  ctx.strokeText("魂", 62, 224);
-  ctx.fillStyle = soulGrad;
-  ctx.fillText("魂", 62, 224);
-  ctx.font = `bold 10px ${FONT}`;
-  ctx.fillStyle = "#aef3ff";
-  ctx.shadowColor = "rgba(80, 200, 255, 0.9)";
-  ctx.shadowBlur = 4;
-  ctx.fillText("ELITE", 62, 239);
-  ctx.shadowColor = "transparent";
-  ctx.shadowBlur = 0;
-  ctx.textAlign = "left";
 }
 
 const imageCache = new Map();
@@ -409,36 +353,36 @@ export async function createProfileCard(data, name, avatarImage) {
   ctx.font = `bold 18px ${FONT}`;
   ctx.fillText(String(level), 147, 177);
 
-  // ===== BATTLE RANK バッジ（公式のプレート色） =====
+  // ===== BATTLE RANK バッジ（公式画像。無いランクはプレート描画で代替） =====
   const rank = data.battleRank || "C3";
-  const plate = rankPlate(rank);
-  ctx.save();
-  roundedRectPath(ctx, 21, 204, 82, 42, 6);
-  ctx.clip();
-  if (plate.elite) {
-    drawEliteEmblem(ctx);
+  const rankFile = rankImageFile(rank);
+  if (rankFile) {
+    const rankImg = await assetImage(rankFile);
+    ctx.drawImage(rankImg, 17, 202, 90, 68);
   } else {
-    const grad = ctx.createLinearGradient(21, 204, 21, 246);
+    const plate = rankPlate(rank);
+    ctx.save();
+    roundedRectPath(ctx, 17, 202, 90, 68, 6);
+    ctx.clip();
+    const grad = ctx.createLinearGradient(17, 202, 17, 270);
     for (const [pos, color] of plate.stops) grad.addColorStop(pos, color);
     ctx.fillStyle = grad;
-    ctx.fillRect(21, 204, 82, 42);
-  }
-  ctx.restore();
-  ctx.strokeStyle = plate.border ?? "rgba(0, 0, 0, 0.25)";
-  ctx.lineWidth = 2;
-  roundedRectPath(ctx, 21, 204, 82, 42, 6);
-  ctx.stroke();
-  if (!plate.elite) {
+    ctx.fillRect(17, 202, 90, 68);
+    ctx.restore();
+    ctx.strokeStyle = plate.border ?? "rgba(0, 0, 0, 0.25)";
+    ctx.lineWidth = 2;
+    roundedRectPath(ctx, 17, 202, 90, 68, 6);
+    ctx.stroke();
     // 文字（長いランク名はバッジ幅に合わせて縮小）
     let rankFontSize = 27;
     ctx.font = `bold ${rankFontSize}px ${FONT}`;
-    while (ctx.measureText(rank).width > 72 && rankFontSize > 10) {
+    while (ctx.measureText(rank).width > 80 && rankFontSize > 10) {
       rankFontSize -= 1;
       ctx.font = `bold ${rankFontSize}px ${FONT}`;
     }
     ctx.fillStyle = plate.text;
     ctx.textAlign = "center";
-    ctx.fillText(rank, 62, 225 + rankFontSize * 0.35);
+    ctx.fillText(rank, 62, 236 + rankFontSize * 0.35);
     ctx.textAlign = "left";
   }
 
