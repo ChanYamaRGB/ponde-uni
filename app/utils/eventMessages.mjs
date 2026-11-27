@@ -1,3 +1,8 @@
+import path from "path";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const EVENT_ASSETS = path.join(__dirname, "..", "assets", "events");
+
 const EVENT_CHANNEL_ID = "1509439643156873226";
 const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
@@ -34,15 +39,25 @@ const EVENTS = [
     id: "pmarusama",
     start: "2026-10-22",
     end: "2026-12-09",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/10/7ae78d3096ae3b3a7d2167885fe1a2a5.png`
+    file: "pmarusama.png"
   },
   {
     id: "stream",
     start: "2026-10-22",
     end: "2026-12-09",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/e3ebaed37634abf790458738f43a1d28.png`
+    file: "stream.png"
+  },
+  {
+    id: "gesen",
+    start: "2026-10-29",
+    end: "2026-12-09",
+    file: "gesen.png"
+  },
+  {
+    id: "musedash",
+    start: "2026-10-29",
+    end: "2026-12-09",
+    file: "musedash.png"
   }
 ];
 
@@ -117,6 +132,56 @@ export async function updateEvents(client) {
 
     // ===== 期間内（開始日〜終了日の当日末まで、JST） =====
     if (today >= event.start && today <= event.end) {
+
+      // 画像ファイル形式（assets/events の画像を添付して投稿）
+      if (event.file) {
+
+        const filePath = path.join(EVENT_ASSETS, event.file);
+
+        if (dbEntry) {
+
+          try {
+
+            const targetMsg =
+              await postChannel.messages.fetch(
+                dbEntry.data.messageId
+              );
+
+            // 旧形式（URL投稿）のままなら、同じ投稿を画像添付に差し替える
+            if (!targetMsg.attachments || targetMsg.attachments.size === 0) {
+              await targetMsg.edit({ content: "", files: [filePath] });
+            }
+
+          } catch {
+
+            // 投稿消えてた
+            const newMsg =
+              await postChannel.send({ files: [filePath] });
+
+            dbEntry.data.messageId = newMsg.id;
+
+            await dbEntry.message.edit(
+              JSON.stringify(dbEntry.data)
+            );
+          }
+
+        } else {
+
+          // 新規投稿
+          const newMsg =
+            await postChannel.send({ files: [filePath] });
+
+          // DB保存
+          await dbChannel.send(
+            JSON.stringify({
+              eventId: event.id,
+              messageId: newMsg.id
+            })
+          );
+        }
+
+        continue;
+      }
 
       // DBあり
       if (dbEntry) {
