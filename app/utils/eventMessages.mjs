@@ -8,34 +8,6 @@ const EVENT_DB_CHANNEL_ID = "1509445014906736750";
 
 const EVENTS = [
   {
-    id: "ClashFever2",
-    start: "2026-09-17",
-    end: "2026-10-21",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/0a4635fedc4f3fc221b1042917b40752.png`
-  },
-  {
-    id: "ClashFever1",
-    start: "2026-09-17",
-    end: "2026-10-21",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/28beca3e5f15349eb7b68176731b5416-1024x576.png`
-  },
-  {
-    id: "iyowa",
-    start: "2026-09-25",
-    end: "2026-11-11",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/6a3fe119bc0fc7165b0cb42ff60eae6f.png`
-  },
-  {
-    id: "dokidoki",
-    start: "2026-09-25",
-    end: "2026-11-11",
-    content:
-`https://info-chunithm.sega.jp/wp-content/uploads/2026/06/642e4a0e5ce1fa6bb3d19f007f7afeaa.png`
-  },
-  {
     id: "pmarusama",
     start: "2026-10-22",
     end: "2026-12-09",
@@ -58,6 +30,12 @@ const EVENTS = [
     start: "2026-10-29",
     end: "2026-12-09",
     file: "musedash.png"
+  },
+  {
+    id: "kop8th",
+    start: "2026-12-04",
+    end: "2026-12-19",
+    file: "kop8th.png"
   }
 ];
 
